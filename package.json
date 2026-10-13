@@ -35,5 +35,25 @@
     "shadcn": "^4.21.4",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "description": "Free, open source React components and app templates with real motion, distributed as a shadcn registry.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PRODHOSH/quarry-ui.git"
+  },
+  "homepage": "https://quarry-ui.com",
+  "bugs": {
+    "url": "https://github.com/PRODHOSH/quarry-ui/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "shadcn",
+    "tailwind",
+    "framer-motion",
+    "nextjs",
+    "ui",
+    "templates"
+  ]
 }

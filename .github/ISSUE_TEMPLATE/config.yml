@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question or share an idea
+    url: https://github.com/PRODHOSH/quarry-ui/discussions
+    about: For usage questions and open ended ideas, start a discussion.
+  - name: Report a security problem
+    url: https://github.com/PRODHOSH/quarry-ui/security/advisories/new
+    about: Please report vulnerabilities privately, not in a public issue.

@@ -1,0 +1,60 @@
+name: Bug report
+description: Something is broken, looks wrong, or will not install
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. A clear report gets fixed faster. If this is a security problem, please do not post it here. See [SECURITY.md](https://github.com/PRODHOSH/quarry-ui/blob/main/SECURITY.md).
+  - type: input
+    id: component
+    attributes:
+      label: Which component or template?
+      placeholder: e.g. mega-footer
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell us what you saw and what you expected to see instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How can we reproduce it?
+      description: Steps, a link to the page on the site, or a small repo or CodeSandbox.
+      placeholder: |
+        1. Go to /components/...
+        2. Click ...
+        3. See ...
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where did it happen?
+      options:
+        - On the Quarry UI website
+        - After installing into my own project
+        - Both
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      placeholder: e.g. Chrome 130 on macOS 15
+  - type: input
+    id: versions
+    attributes:
+      label: Framework versions
+      description: Only if it happened in your own project.
+      placeholder: e.g. Next.js 16, React 19, Tailwind 4, framer-motion 12
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots, recordings or console errors
+      description: Drag and drop files here.

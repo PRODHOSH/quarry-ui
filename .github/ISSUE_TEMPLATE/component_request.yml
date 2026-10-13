@@ -1,0 +1,42 @@
+name: Component request
+description: Ask for a component or template we do not have yet
+title: "[Component]: "
+labels: ["component", "enhancement"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: What is it called?
+      placeholder: e.g. Stepper, Kanban board, Image comparison
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: What kind of thing is it?
+      options:
+        - Section (full width block)
+        - Element (smaller piece)
+        - Background
+        - Loader
+        - Template (whole app)
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What should it do?
+      description: Describe how it should look and how it should move.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Examples that inspired you
+      description: Links or screenshots. Please only link to things, do not paste someone else's code.
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Can you help?
+      options:
+        - label: I would like to build this myself
