@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "ember"
   },
   "docs": "import { ImpactStats } from \"@/components/impact-stats\"\n\n<ImpactStats />",
   "categories": [

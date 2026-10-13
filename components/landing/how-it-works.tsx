@@ -2,26 +2,21 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { Check, Copy } from "lucide-react";
 import AntigravityIcon from "@thesvg/react/google-antigravity";
+import { Mark } from "@/components/site/mark";
 import { AGENT_ICONS } from "@/components/site/agent-icons";
 
 /**
  * The stroke that follows scroll progress is adapted from Skiper UI's "Svg follow scroll"
- * (skiper19, by @gxuri, https://skiper-ui.com). Rebuilt here with Quarry's tokens and type.
+ * (skiper19, by @gxuri, https://skiper-ui.com). Like the original it starts half drawn, sits behind the
+ * headline and keeps drawing down the page. Each card is placed against a measured point on the path
+ * (x, y in the path's own coordinates, f = how far along the line that point is).
  */
-/** Weaves between the cards: calm S-curves, so the length drawn tracks the scroll evenly. */
 const PATH =
-  "M500 0 C500 130 430 110 430 230 C430 470 570 470 570 710 C570 950 430 950 430 1190 C430 1430 570 1430 570 1670 C570 1800 500 1830 500 2000";
-const NODES = [
-  { x: 430, y: 230 },
-  { x: 570, y: 710 },
-  { x: 430, y: 1190 },
-  { x: 570, y: 1670 },
-];
-
-type Step = { n: string; title: string; body: string; top: string; side: "left" | "right"; visual: React.ReactNode };
+  "M876.605 394.131C788.982 335.917 696.198 358.139 691.836 416.303C685.453 501.424 853.722 498.43 941.95 409.714C1016.1 335.156 1008.64 186.907 906.167 142.846C807.014 100.212 712.699 198.494 789.049 245.127C889.053 306.207 986.062 116.979 840.548 43.3233C743.932 -5.58141 678.027 57.1682 672.279 112.188C666.53 167.208 712.538 172.943 736.353 163.088C760.167 153.234 764.14 120.924 746.651 93.3868C717.461 47.4252 638.894 77.8642 601.018 116.979C568.164 150.908 557 201.079 576.467 246.924C593.342 286.664 630.24 310.55 671.68 302.614C756.114 286.446 729.747 206.546 681.86 186.442C630.54 164.898 492 209.318 495.026 287.644C496.837 334.494 518.402 366.466 582.455 367.287C680.013 368.538 771.538 299.456 898.634 292.434C1007.02 286.446 1192.67 309.384 1242.36 382.258C1266.99 418.39 1273.65 443.108 1247.75 474.477C1217.32 511.33 1149.4 511.259 1096.84 466.093C1044.29 420.928 1029.14 380.576 1033.97 324.172C1038.31 273.428 1069.55 228.986 1117.2 216.384C1152.2 207.128 1188.29 213.629 1194.45 245.127C1201.49 281.062 1132.22 280.104 1100.44 272.673C1065.32 264.464 1044.22 234.837 1032.77 201.413C1019.29 162.061 1029.71 131.126 1056.44 100.965C1086.19 67.4032 1143.96 54.5526 1175.78 86.1513C1207.02 117.17 1186.81 143.379 1156.22 166.691C1112.57 199.959 1052.57 186.238 999.784 155.164C957.312 130.164 899.171 63.7054 931.284 26.3214C952.068 2.12513 996.288 3.87363 1007.22 43.58C1018.15 83.2749 1003.56 122.644 975.969 163.376C948.377 204.107 907.272 255.122 913.558 321.045C919.727 385.734 990.968 497.068 1063.84 503.35C1111.46 507.456 1166.79 511.984 1175.68 464.527C1191.52 379.956 1101.26 334.985 1030.29 377.017C971.109 412.064 956.297 483.647 953.797 561.655C947.587 755.413 1197.56 941.828 936.039 1140.66C745.771 1285.32 321.926 950.737 134.536 1202.19C-6.68295 1391.68 -53.4837 1655.38 131.935 1760.5C478.381 1956.91 1124.19 1515 1201.28 1997.83C1273.66 2451.23 100.805 1864.7 303.794 2668.89";
+const VIEW = { x: -60, w: 1400, h: 2700 };
 
 const AGENTS = [
   { label: "Claude Code", icon: AGENT_ICONS["claude-code"]("size-5") },
@@ -30,13 +25,16 @@ const AGENTS = [
   { label: "Codex", icon: AGENT_ICONS["codex"]("size-5") },
 ];
 
-const STEPS: Step[] = [
+const STEPS = [
   {
+    y: 950,
+    x: 1055,
+    f: 0.607,
+    side: "left" as const,
     n: "01",
+    where: "On the component page",
     title: "Copy the prompt",
-    body: "Open any component, pick your AI tool and copy. The prompt carries the install command, usage and the rules about your theme.",
-    top: "3%",
-    side: "left",
+    body: "Open any component, pick your AI tool and copy. The prompt carries the install command, how to use it and the rules about your theme.",
     visual: (
       <div className="flex items-center justify-between rounded-lg border bg-background px-4 py-3 text-sm">
         <span className="flex items-center gap-2.5">
@@ -50,11 +48,14 @@ const STEPS: Step[] = [
     ),
   },
   {
+    y: 1400,
+    x: 30,
+    f: 0.726,
+    side: "right" as const,
     n: "02",
+    where: "In your AI tool",
     title: "Paste it into your agent",
     body: "Claude Code, Cursor, Antigravity, Codex. Anything that can read your project and run a command.",
-    top: "27%",
-    side: "right",
     visual: (
       <ul className="grid grid-cols-2 gap-2">
         {AGENTS.map((a) => (
@@ -67,11 +68,14 @@ const STEPS: Step[] = [
     ),
   },
   {
+    y: 1850,
+    x: 1142,
+    f: 0.859,
+    side: "left" as const,
     n: "03",
+    where: "In your terminal",
     title: "It installs itself",
-    body: "The agent runs the shadcn CLI, adds the file to your repo and wires it into your page. No copy and paste by hand.",
-    top: "51%",
-    side: "left",
+    body: "The agent runs the shadcn CLI, adds the file to your repo and wires it into your page. Nothing to copy by hand.",
     visual: (
       <div className="rounded-lg border bg-background px-4 py-3 font-mono text-xs leading-relaxed text-muted-foreground">
         <span className="text-foreground">$</span> npx shadcn add feature-bento
@@ -81,16 +85,19 @@ const STEPS: Step[] = [
     ),
   },
   {
+    y: 2300,
+    x: 353,
+    f: 0.964,
+    side: "right" as const,
     n: "04",
+    where: "In your app",
     title: "Ship it",
     body: "It reads your own tokens, so it matches your colors and dark mode from the first render. Type checked, nothing left to fix.",
-    top: "75%",
-    side: "right",
     visual: (
       <ul className="space-y-2 text-sm">
         {["Themed from your tokens", "Type checked", "Yours to edit"].map((t) => (
           <li key={t} className="flex items-center gap-2.5 rounded-lg border bg-background px-3 py-2.5">
-            <Check className="size-4" /> {t}
+            <Check className="size-4 text-brand" /> {t}
           </li>
         ))}
       </ul>
@@ -98,38 +105,15 @@ const STEPS: Step[] = [
   },
 ];
 
-const VIEW_H = 2000;
 
-const STEP_SIDES = ["left", "right", "left", "right"] as const;
-const WORDS = ["Copy.", "Paste.", "Install.", "Ship."];
+const pct = (x: number) => ((x - VIEW.x) / VIEW.w) * 100;
 
-/** A big outlined word on the empty side. It fills with colour as the line reaches its step. */
-function Word({ i, progress }: { i: number; progress: MotionValue<number> }) {
-  const start = NODES[i].y - 330;
-  const t = useTransform(progress, (p) => Math.min(1, Math.max(0, (p * VIEW_H - start) / 230)));
-  const fill = useTransform(progress, (p) => (p * VIEW_H >= NODES[i].y ? 1 : 0));
-  const x = useTransform(t, (v) => (1 - v) * (STEP_SIDES[i] === "left" ? 28 : -28));
-  return (
-    <motion.div style={{ opacity: t, x }} className="select-none">
-      <span className="text-sm font-medium tabular-nums text-muted-foreground">0{i + 1} / 04</span>
-      <div className="relative mt-2 text-[clamp(3.5rem,8vw,6.5rem)] font-semibold leading-none tracking-[-0.05em]">
-        <span className="block text-transparent [-webkit-text-stroke:1.5px_var(--border)]">{WORDS[i]}</span>
-        <motion.span aria-hidden style={{ opacity: fill }} className="absolute inset-0 block text-brand transition-opacity duration-500">
-          {WORDS[i]}
-        </motion.span>
-      </div>
-    </motion.div>
-  );
-}
-
-function Node({ x, y, progress }: { x: number; y: number; progress: MotionValue<number> }) {
-  const lit = useTransform(progress, (p) => (p * VIEW_H >= y ? 1 : 0));
-  const stub = x < 500 ? [x - 30, x] : [x, x + 30];
+function Node({ x, y, f, line }: { x: number; y: number; f: number; line: MotionValue<number> }) {
+  const lit = useTransform(line, (v) => (v >= f ? 1 : 0));
   return (
     <g>
-      <line x1={stub[0]} x2={stub[1]} y1={y} y2={y} stroke="var(--border)" strokeWidth={3} />
-      <circle cx={x} cy={y} r={9} fill="var(--background)" stroke="var(--border)" strokeWidth={3} />
-      <motion.circle cx={x} cy={y} r={9} fill="var(--brand)" style={{ opacity: lit }} />
+      <circle cx={x} cy={y} r={16} fill="var(--background)" stroke="var(--border)" strokeWidth={6} />
+      <motion.circle cx={x} cy={y} r={16} fill="var(--brand)" style={{ opacity: lit }} />
     </g>
   );
 }
@@ -137,10 +121,10 @@ function Node({ x, y, progress }: { x: number; y: number; progress: MotionValue<
 export function HowItWorks() {
   const ref = useRef<HTMLDivElement>(null);
   const basePath = useRef<SVGPathElement>(null);
-  // Running maximum of the path's y at evenly spaced lengths: lets us ask "how much of the line
-  // is needed to reach this height?" so the tip stays at the reading line, loops included.
+  // Running maximum of the path's y at evenly spaced lengths: "how much line is needed to reach this height?"
+  // keeps the tip near the reading line while the line draws at an even pace.
   const reach = useRef<number[]>([]);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.62", "end 0.62"] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.6", "end 0.6"] });
 
   useEffect(() => {
     const el = basePath.current;
@@ -152,22 +136,14 @@ export function HowItWorks() {
       max = Math.max(max, el.getPointAtLength((i / n) * total).y);
       return max;
     });
-    // nudge so the table is used immediately
     scrollYProgress.set(scrollYProgress.get());
   }, [scrollYProgress]);
 
-  const tip = useRef<SVGGElement>(null);
-  const total = useRef(0);
-  useEffect(() => {
-    if (basePath.current) total.current = basePath.current.getTotalLength();
-  }, []);
-
-  // No spring: the line is bound directly to scroll.
+  // Starts half drawn, like the original, then follows the scroll with no smoothing.
   const pathLength = useTransform(scrollYProgress, (p) => {
     const table = reach.current;
-    if (!table.length) return Math.min(1, Math.max(0, p));
-    const y = p * VIEW_H;
-    if (y <= table[0]) return 0;
+    if (!table.length) return 0.5 + 0.5 * Math.min(1, Math.max(0, p));
+    const y = p * VIEW.h;
     let lo = 0;
     let hi = table.length - 1;
     while (lo < hi) {
@@ -175,65 +151,65 @@ export function HowItWorks() {
       if (table[mid] >= y) hi = mid;
       else lo = mid + 1;
     }
-    return lo / (table.length - 1);
-  });
-
-  // A bead rides the tip of the line, so the eye can follow it down the page.
-  useMotionValueEvent(pathLength, "change", (v) => {
-    const el = basePath.current;
-    const g = tip.current;
-    if (!el || !g || !total.current) return;
-    const pt = el.getPointAtLength(v * total.current);
-    g.setAttribute("transform", `translate(${pt.x} ${pt.y})`);
-    g.style.opacity = v > 0.002 && v < 0.998 ? "1" : "0";
+    return Math.max(0.5, lo / (table.length - 1));
   });
 
   return (
     <div className="mx-auto max-w-6xl px-6">
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-balance text-4xl font-semibold leading-[1.06] tracking-[-0.03em] sm:text-6xl">
-          From prompt to production in four steps.
-        </h2>
-        <p className="mx-auto mt-5 max-w-md text-base text-muted-foreground">Scroll. The line follows you down.</p>
-      </div>
-
-      <div ref={ref} className="relative mt-16 flex flex-col gap-6 md:mt-24 md:block md:aspect-[1/2] md:gap-0">
-        <svg aria-hidden viewBox="0 0 1000 2000" fill="none" className="pointer-events-none absolute inset-0 hidden h-full w-full overflow-visible md:block">
-          <path ref={basePath} d={PATH} stroke="var(--border)" strokeWidth={3} strokeLinecap="round" />
-          <motion.path d={PATH} stroke="var(--brand)" strokeWidth={3} strokeLinecap="round" style={{ pathLength }} />
-          {NODES.map((n) => (
-            <Node key={n.y} {...n} progress={scrollYProgress} />
+      <div ref={ref} className="relative flex flex-col gap-6 md:block md:aspect-[1400/2700] md:gap-0">
+        <svg
+          aria-hidden
+          viewBox={`${VIEW.x} 0 ${VIEW.w} ${VIEW.h}`}
+          fill="none"
+          className="pointer-events-none absolute inset-0 hidden h-full w-full overflow-visible md:block"
+        >
+          <path ref={basePath} d={PATH} stroke="var(--border)" strokeOpacity={0.7} strokeWidth={12} strokeLinecap="round" />
+          <motion.path d={PATH} stroke="var(--brand)" strokeOpacity={0.4} strokeWidth={12} strokeLinecap="round" style={{ pathLength }} />
+          {STEPS.map((s) => (
+            <Node key={s.n} x={s.x} y={s.y} f={s.f} line={pathLength} />
           ))}
-          <g ref={tip} style={{ opacity: 0 }}>
-            <circle r={22} fill="var(--brand)" opacity={0.18} />
-            <circle r={7} fill="var(--brand)" />
-            <circle r={7} fill="none" stroke="#fff" strokeWidth={2} opacity={0.9} />
-          </g>
         </svg>
 
-        {STEPS.map((s, i) => (
-          <div key={`word-${s.n}`} className={`hidden md:absolute md:flex md:w-[40%] md:items-center md:min-h-[17%] ${s.side === "left" ? "md:right-0" : "md:left-0"}`} style={{ top: s.top }}>
-            <Word i={i} progress={scrollYProgress} />
-          </div>
-        ))}
+        <div className="relative z-10 text-center md:absolute md:inset-x-0 md:top-[2.5%]">
+          <p className="inline-flex items-center rounded-full border bg-background px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            How it works
+          </p>
+          <h2 className="mt-5 text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.06em] sm:text-7xl lg:text-[7rem]">
+            From prompt
+            <br />
+            to production
+            <br />
+            in <Mark>four steps.</Mark>
+          </h2>
+        </div>
 
         {STEPS.map((s) => (
-          <motion.article
+          <div
             key={s.n}
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            className={`relative z-10 rounded-2xl border bg-card p-7 md:absolute md:w-[40%] ${s.side === "left" ? "md:left-0" : "md:right-0"}`}
-            style={{ top: s.top }}
+            className="relative z-10 md:absolute md:w-[36%] md:-translate-y-1/2"
+            style={{
+              top: `${(s.y / VIEW.h) * 100}%`,
+              ...(s.side === "left" ? { right: `calc(${100 - pct(s.x)}% + 2.75rem)` } : { left: `calc(${pct(s.x)}% + 2.75rem)` }),
+            }}
           >
-            <div className="flex items-center gap-3">
-              <span className="grid size-8 place-items-center rounded-full bg-brand/15 text-sm font-medium tabular-nums text-[#8fb0ff]">{s.n}</span>
-              <h3 className="text-xl font-semibold tracking-tight">{s.title}</h3>
-            </div>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-            <div className="mt-5">{s.visual}</div>
-          </motion.article>
+            <motion.article
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
+              className="rounded-2xl border bg-card p-6 md:p-7"
+            >
+              <div className="flex items-center gap-3">
+                <span className="grid size-8 place-items-center rounded-full bg-brand/15 text-sm font-medium tabular-nums text-[#8fb0ff]">{s.n}</span>
+                <div>
+                  <h3 className="text-xl font-semibold tracking-tight">{s.title}</h3>
+                  <p className="text-xs text-muted-foreground">{s.where}</p>
+                </div>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+              <div className="mt-5">{s.visual}</div>
+            </motion.article>
+          </div>
         ))}
       </div>
     </div>

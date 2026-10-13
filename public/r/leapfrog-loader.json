@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "ember"
   },
   "docs": "import { LeapfrogLoader } from \"@/components/leapfrog-loader\"\n\n<LeapfrogLoader />",
   "categories": [

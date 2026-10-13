@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "glacier"
   },
   "docs": "import { GridMatrix } from \"@/components/grid-matrix\"\n\n<GridMatrix />",
   "categories": [

@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "ink"
   },
   "docs": "import { HelixLoader } from \"@/components/helix-loader\"\n\n<HelixLoader />",
   "categories": [

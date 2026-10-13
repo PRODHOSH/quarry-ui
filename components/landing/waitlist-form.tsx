@@ -93,7 +93,7 @@ export function WaitlistForm({ id = "waitlist-email" }: { id?: string }) {
         aria-live="polite"
         className={`mt-3 h-5 text-center text-xs font-normal ${status === "error" ? "text-red-400" : "text-muted-foreground"}`}
       >
-        {status === "error" ? message : status === "success" ? "" : "One email at launch. No spam, ever."}
+        {status === "error" ? message : status === "success" ? "" : "We will email you once, when we open."}
       </p>
     </div>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { DEMOS } from "@/registry/demos";
 import { cn } from "@/lib/utils";
+import { themeStyle, type ThemeId } from "@/lib/themes";
 
 const VIRTUAL_WIDTH = 900;
 
@@ -10,10 +11,12 @@ const VIRTUAL_WIDTH = 900;
 export function ComponentThumb({
   name,
   stage,
+  theme,
   className,
 }: {
   name: string;
   stage: "center" | "fill";
+  theme?: ThemeId;
   className?: string;
 }) {
   const box = useRef<HTMLDivElement>(null);
@@ -49,10 +52,11 @@ export function ComponentThumb({
     <div
       ref={box}
       className={cn(
-        "pointer-events-none relative aspect-[16/10] overflow-hidden bg-background",
+        "pointer-events-none relative aspect-[16/10] overflow-hidden bg-background text-foreground",
         stage === "center" && "bg-dots",
         className
       )}
+      style={themeStyle(theme)}
       aria-hidden
     >
       {visible && Demo && (

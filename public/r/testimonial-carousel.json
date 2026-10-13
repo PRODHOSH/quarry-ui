@@ -18,7 +18,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "porcelain"
   },
   "docs": "import { TestimonialCarousel } from \"@/components/testimonial-carousel\"\n\n<TestimonialCarousel />",
   "categories": [

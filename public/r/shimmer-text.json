@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "obsidian"
   },
   "docs": "import { ShimmerText } from \"@/components/shimmer-text\"\n\n<ShimmerText />",
   "categories": [

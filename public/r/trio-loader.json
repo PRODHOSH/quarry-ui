@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "circuit"
   },
   "docs": "import { TrioLoader } from \"@/components/trio-loader\"\n\n<TrioLoader />",
   "categories": [

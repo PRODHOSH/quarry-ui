@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "animated-tabs",
+  "title": "Animated Tabs",
+  "description": "Tabs with a highlight that glides between labels and content that slides the way you moved.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/animated-tabs.tsx",
+      "content": "\"use client\";\n\nimport { useId, useState, type ReactNode } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport type TabItem = { id: string; label: string; content: ReactNode };\n\nconst DEFAULT_TABS: TabItem[] = [\n  { id: \"design\", label: \"Design\", content: <p>Start from tokens, not pixels. Every colour, radius and shadow comes from one place, so a change lands everywhere at once.</p> },\n  { id: \"build\", label: \"Build\", content: <p>Components are single files you own. Install one with a command, or hand the prompt to your AI tool and it does the same.</p> },\n  { id: \"ship\", label: \"Ship\", content: <p>Everything is type checked and responsive from the first render, so there is nothing left to fix on the day you launch.</p> },\n];\n\n/**\n * Tabs with a highlight that glides between labels and content that slides in the direction you moved.\n * Arrow keys, Home and End all work, and every tab is a real button with the right ARIA roles.\n */\nexport function AnimatedTabs({ tabs = DEFAULT_TABS, className }: { tabs?: TabItem[]; className?: string }) {\n  const [active, setActive] = useState(0);\n  const [dir, setDir] = useState(1);\n  const uid = useId();\n\n  const select = (i: number) => {\n    const n = (i + tabs.length) % tabs.length;\n    setDir(n >= active ? 1 : -1);\n    setActive(n);\n  };\n\n  return (\n    <div className={cn(\"w-full max-w-xl px-6 py-10\", className)}>\n      <div\n        role=\"tablist\"\n        aria-label=\"Sections\"\n        onKeyDown={(e) => {\n          if (e.key === \"ArrowRight\") select(active + 1);\n          else if (e.key === \"ArrowLeft\") select(active - 1);\n          else if (e.key === \"Home\") select(0);\n          else if (e.key === \"End\") select(tabs.length - 1);\n          else return;\n          e.preventDefault();\n        }}\n        className=\"relative inline-flex rounded-full border bg-card p-1\"\n      >\n        {tabs.map((t, i) => {\n          const on = i === active;\n          return (\n            <button\n              key={t.id}\n              role=\"tab\"\n              id={`${uid}-tab-${t.id}`}\n              aria-selected={on}\n              aria-controls={`${uid}-panel-${t.id}`}\n              tabIndex={on ? 0 : -1}\n              onClick={() => select(i)}\n              className={cn(\"relative z-10 rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300\", on ? \"text-primary-foreground\" : \"text-muted-foreground hover:text-foreground\")}\n            >\n              {on && <motion.span layoutId={`${uid}-pill`} transition={{ type: \"spring\", stiffness: 420, damping: 34 }} className=\"absolute inset-0 -z-10 rounded-full bg-primary\" />}\n              {t.label}\n            </button>\n          );\n        })}\n      </div>\n\n      <div className=\"relative mt-6 min-h-28 overflow-hidden rounded-3xl border bg-card p-6 text-[15px] leading-relaxed text-muted-foreground\">\n        <AnimatePresence mode=\"popLayout\" initial={false} custom={dir}>\n          <motion.div\n            key={tabs[active].id}\n            role=\"tabpanel\"\n            id={`${uid}-panel-${tabs[active].id}`}\n            aria-labelledby={`${uid}-tab-${tabs[active].id}`}\n            custom={dir}\n            initial={{ opacity: 0, x: dir * 28, filter: \"blur(4px)\" }}\n            animate={{ opacity: 1, x: 0, filter: \"blur(0px)\" }}\n            exit={{ opacity: 0, x: dir * -28, filter: \"blur(4px)\" }}\n            transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}\n          >\n            {tabs[active].content}\n          </motion.div>\n        </AnimatePresence>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "porcelain"
+  },
+  "docs": "import { AnimatedTabs } from \"@/components/animated-tabs\"\n\n<AnimatedTabs tabs={[{ id: \"a\", label: \"One\", content: <p>Hello</p> }]} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

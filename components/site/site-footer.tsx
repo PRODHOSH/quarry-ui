@@ -11,15 +11,13 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
       { label: "Sections", href: "/components#group-sections" },
       { label: "Elements", href: "/components#group-elements" },
       { label: "Loaders", href: "/components#group-loaders" },
-      { label: "Templates", href: "/#components", soon: true },
+      { label: "Templates", href: "/#waitlist", soon: true },
     ],
   },
   {
     title: "Product",
     links: [
-      { label: "How it works", href: "/#how" },
-      { label: "Pricing", href: "/#pricing" },
-      { label: "MCP server", href: "/#mcp", soon: true },
+      { label: "MCP server", href: "/#waitlist", soon: true },
     ],
   },
   {

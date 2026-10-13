@@ -18,7 +18,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "terminal"
   },
   "docs": "import { WorkflowGrid } from \"@/components/workflow-grid\"\n\n<WorkflowGrid />",
   "categories": [

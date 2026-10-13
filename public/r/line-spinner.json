@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "sage"
   },
   "docs": "import { LineSpinner } from \"@/components/line-spinner\"\n\n<LineSpinner />",
   "categories": [

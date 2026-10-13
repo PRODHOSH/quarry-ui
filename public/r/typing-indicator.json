@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "signal"
   },
   "docs": "import { TypingIndicator } from \"@/components/typing-indicator\"\n\n<TypingIndicator />",
   "categories": [

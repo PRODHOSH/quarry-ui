@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "obsidian"
   },
   "docs": "import { MetronomeLoader } from \"@/components/metronome-loader\"\n\n<MetronomeLoader />",
   "categories": [

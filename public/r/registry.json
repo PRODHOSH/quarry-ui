@@ -26,7 +26,8 @@
       ],
       "docs": "import { FeatureBento } from \"@/components/feature-bento\"\n\n<FeatureBento />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "obsidian"
       }
     },
     {
@@ -51,7 +52,8 @@
       ],
       "docs": "import { ProcessSteps } from \"@/components/process-steps\"\n\n<ProcessSteps />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "porcelain"
       }
     },
     {
@@ -77,7 +79,8 @@
       ],
       "docs": "import { ScrollTimeline } from \"@/components/scroll-timeline\"\n\n<ScrollTimeline />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "glacier"
       }
     },
     {
@@ -102,7 +105,8 @@
       ],
       "docs": "import { RewardsList } from \"@/components/rewards-list\"\n\n<RewardsList />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "noir"
       }
     },
     {
@@ -127,7 +131,8 @@
       ],
       "docs": "import { ImpactStats } from \"@/components/impact-stats\"\n\n<ImpactStats />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "ember"
       }
     },
     {
@@ -153,7 +158,8 @@
       ],
       "docs": "import { TiltedFeatureCards } from \"@/components/tilted-feature-cards\"\n\n<TiltedFeatureCards />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "sage"
       }
     },
     {
@@ -179,7 +185,8 @@
       ],
       "docs": "import { WorkflowGrid } from \"@/components/workflow-grid\"\n\n<WorkflowGrid />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "terminal"
       }
     },
     {
@@ -205,7 +212,8 @@
       ],
       "docs": "import { HorizontalScrollCards } from \"@/components/horizontal-scroll-cards\"\n\n<HorizontalScrollCards />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "studio"
       }
     },
     {
@@ -231,7 +239,8 @@
       ],
       "docs": "import { TestimonialMarquee } from \"@/components/testimonial-marquee\"\n\n<TestimonialMarquee />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "noir"
       }
     },
     {
@@ -257,7 +266,8 @@
       ],
       "docs": "import { TestimonialCarousel } from \"@/components/testimonial-carousel\"\n\n<TestimonialCarousel />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "porcelain"
       }
     },
     {
@@ -283,7 +293,8 @@
       ],
       "docs": "import { FaqAccordion } from \"@/components/faq-accordion\"\n\n<FaqAccordion />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "ink"
       }
     },
     {
@@ -308,7 +319,8 @@
       ],
       "docs": "import { IntegrationSnippet } from \"@/components/integration-snippet\"\n\n<IntegrationSnippet />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "obsidian"
       }
     },
     {
@@ -334,7 +346,8 @@
       ],
       "docs": "import { CallToAction } from \"@/components/call-to-action\"\n\n<CallToAction />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "ember"
       }
     },
     {
@@ -360,7 +373,8 @@
       ],
       "docs": "import { TextMarquee } from \"@/components/text-marquee\"\n\n<TextMarquee />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "signal"
       }
     },
     {
@@ -386,7 +400,8 @@
       ],
       "docs": "import { FloatingSocials } from \"@/components/floating-socials\"\n\n<FloatingSocials />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "glacier"
       }
     },
     {
@@ -412,7 +427,8 @@
       ],
       "docs": "import { ScrollRevealPill } from \"@/components/scroll-reveal-pill\"\n\n<ScrollRevealPill />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "obsidian"
       }
     },
     {
@@ -437,7 +453,8 @@
       ],
       "docs": "import { GithubHeatmap } from \"@/components/github-heatmap\"\n\n<GithubHeatmap username=\"your-handle\" />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "terminal"
       }
     },
     {
@@ -463,7 +480,8 @@
       ],
       "docs": "import { AuthModal } from \"@/components/auth-modal\"\n\n<AuthModal open={open} onOpenChange={setOpen} />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "porcelain"
       }
     },
     {
@@ -488,7 +506,8 @@
       ],
       "docs": "import { LeapfrogLoader } from \"@/components/leapfrog-loader\"\n\n<LeapfrogLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "ember"
       }
     },
     {
@@ -513,7 +532,8 @@
       ],
       "docs": "import { MomentumLoader } from \"@/components/momentum-loader\"\n\n<MomentumLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "obsidian"
       }
     },
     {
@@ -538,7 +558,8 @@
       ],
       "docs": "import { NewtonsCradle } from \"@/components/newtons-cradle\"\n\n<NewtonsCradle />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "signal"
       }
     },
     {
@@ -563,7 +584,8 @@
       ],
       "docs": "import { PulseRing } from \"@/components/pulse-ring\"\n\n<PulseRing />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "porcelain"
       }
     },
     {
@@ -588,7 +610,8 @@
       ],
       "docs": "import { GridMatrix } from \"@/components/grid-matrix\"\n\n<GridMatrix />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "glacier"
       }
     },
     {
@@ -613,7 +636,8 @@
       ],
       "docs": "import { InfinitySpinner } from \"@/components/infinity-spinner\"\n\n<InfinitySpinner />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "noir"
       }
     },
     {
@@ -638,7 +662,8 @@
       ],
       "docs": "import { TailspinLoader } from \"@/components/tailspin-loader\"\n\n<TailspinLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "terminal"
       }
     },
     {
@@ -663,7 +688,8 @@
       ],
       "docs": "import { LineSpinner } from \"@/components/line-spinner\"\n\n<LineSpinner />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "sage"
       }
     },
     {
@@ -688,7 +714,8 @@
       ],
       "docs": "import { SquircleLoader } from \"@/components/squircle-loader\"\n\n<SquircleLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "ink"
       }
     },
     {
@@ -713,7 +740,8 @@
       ],
       "docs": "import { TailChase } from \"@/components/tail-chase\"\n\n<TailChase />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "circuit"
       }
     },
     {
@@ -738,7 +766,8 @@
       ],
       "docs": "import { MorphingShapes } from \"@/components/morphing-shapes\"\n\n<MorphingShapes />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "ember"
       }
     },
     {
@@ -763,7 +792,8 @@
       ],
       "docs": "import { ShimmerText } from \"@/components/shimmer-text\"\n\n<ShimmerText />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "obsidian"
       }
     },
     {
@@ -788,7 +818,8 @@
       ],
       "docs": "import { OrbitLoader } from \"@/components/orbit-loader\"\n\n<OrbitLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "signal"
       }
     },
     {
@@ -813,7 +844,8 @@
       ],
       "docs": "import { RadarPing } from \"@/components/radar-ping\"\n\n<RadarPing />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "porcelain"
       }
     },
     {
@@ -838,7 +870,8 @@
       ],
       "docs": "import { DotSpinner } from \"@/components/dot-spinner\"\n\n<DotSpinner />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "glacier"
       }
     },
     {
@@ -863,7 +896,8 @@
       ],
       "docs": "import { WaveformLoader } from \"@/components/waveform-loader\"\n\n<WaveformLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "noir"
       }
     },
     {
@@ -888,7 +922,8 @@
       ],
       "docs": "import { HourglassLoader } from \"@/components/hourglass-loader\"\n\n<HourglassLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "terminal"
       }
     },
     {
@@ -913,7 +948,8 @@
       ],
       "docs": "import { CardioLoader } from \"@/components/cardio-loader\"\n\n<CardioLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "sage"
       }
     },
     {
@@ -938,7 +974,8 @@
       ],
       "docs": "import { HelixLoader } from \"@/components/helix-loader\"\n\n<HelixLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "ink"
       }
     },
     {
@@ -963,7 +1000,8 @@
       ],
       "docs": "import { TrioLoader } from \"@/components/trio-loader\"\n\n<TrioLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "circuit"
       }
     },
     {
@@ -988,7 +1026,8 @@
       ],
       "docs": "import { DotWave } from \"@/components/dot-wave\"\n\n<DotWave />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "ember"
       }
     },
     {
@@ -1013,7 +1052,8 @@
       ],
       "docs": "import { MetronomeLoader } from \"@/components/metronome-loader\"\n\n<MetronomeLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "obsidian"
       }
     },
     {
@@ -1038,7 +1078,8 @@
       ],
       "docs": "import { TypingIndicator } from \"@/components/typing-indicator\"\n\n<TypingIndicator />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "signal"
       }
     },
     {
@@ -1063,7 +1104,8 @@
       ],
       "docs": "import { SuperballsLoader } from \"@/components/superballs-loader\"\n\n<SuperballsLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "porcelain"
       }
     },
     {
@@ -1088,7 +1130,8 @@
       ],
       "docs": "import { PinwheelLoader } from \"@/components/pinwheel-loader\"\n\n<PinwheelLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "glacier"
       }
     },
     {
@@ -1113,7 +1156,756 @@
       ],
       "docs": "import { ZoomiesLoader } from \"@/components/zoomies-loader\"\n\n<ZoomiesLoader />",
       "meta": {
-        "stage": "center"
+        "stage": "center",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "before-after-slider",
+      "type": "registry:component",
+      "title": "Before and After Slider",
+      "description": "A draggable comparison for any two nodes, with touch and keyboard support.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/before-after-slider.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { BeforeAfterSlider } from \"@/components/before-after-slider\"\n\n<BeforeAfterSlider\n  before={<img src=\"/old.png\" alt=\"\" className=\"size-full object-cover\" />}\n  after={<img src=\"/new.png\" alt=\"\" className=\"size-full object-cover\" />}\n/>",
+      "meta": {
+        "stage": "fill",
+        "theme": "studio"
+      }
+    },
+    {
+      "name": "lights-out-loader",
+      "type": "registry:component",
+      "title": "Lights Out Loader",
+      "description": "Five lights come on one by one, hold, then go out together. Inline or a full screen intro.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/lights-out-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { LightsOutLoader } from \"@/components/lights-out-loader\"\n\n<LightsOutLoader fullscreen onDone={() => setReady(true)} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "circuit"
+      }
+    },
+    {
+      "name": "journey-timeline",
+      "type": "registry:block",
+      "title": "Journey Timeline",
+      "description": "A vertical timeline whose line fills and markers light up as each step reaches the middle of the view.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/journey-timeline.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { JourneyTimeline } from \"@/components/journey-timeline\"\n\n<JourneyTimeline steps={[{ date: \"Day 1\", title: \"Kickoff\", description: \"We align on the goal.\" }]} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "harbor"
+      }
+    },
+    {
+      "name": "compare-table",
+      "type": "registry:block",
+      "title": "Compare Table",
+      "description": "Compare one subject against switchable alternatives, with a plain sentence that sums up where it wins and loses.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/compare-table.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { CompareTable } from \"@/components/compare-table\"\n\n<CompareTable subjectLabel=\"Bagasse\" options={options} rows={rows} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "verdant"
+      }
+    },
+    {
+      "name": "command-menu",
+      "type": "registry:component",
+      "title": "Command Menu",
+      "description": "A keyboard first command palette. Cmd or Ctrl plus K, filter, arrows and Enter.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/command-menu.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CommandMenu } from \"@/components/command-menu\"\n\n<CommandMenu items={items} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "terminal"
+      }
+    },
+    {
+      "name": "cookie-banner",
+      "type": "registry:component",
+      "title": "Cookie Banner",
+      "description": "A consent banner with real switches for analytics and marketing, remembered between visits.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/cookie-banner.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CookieBanner } from \"@/components/cookie-banner\"\n\n<CookieBanner onChange={(c) => console.log(c)} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "rosewater"
+      }
+    },
+    {
+      "name": "countdown-timer",
+      "type": "registry:component",
+      "title": "Countdown Timer",
+      "description": "A live countdown whose digits roll when they change. Safe for server rendering.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/countdown-timer.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CountdownTimer } from \"@/components/countdown-timer\"\n\n<CountdownTimer target=\"2026-12-31T18:00:00+05:30\" />",
+      "meta": {
+        "stage": "center",
+        "theme": "signal"
+      }
+    },
+    {
+      "name": "availability-badge",
+      "type": "registry:component",
+      "title": "Availability Badge",
+      "description": "A round badge with text running around its edge and an arrow in the middle.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/availability-badge.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AvailabilityBadge } from \"@/components/availability-badge\"\n\n<AvailabilityBadge href=\"mailto:hello@example.com\" position=\"fixed\" />",
+      "meta": {
+        "stage": "center",
+        "theme": "sunset"
+      }
+    },
+    {
+      "name": "drop-zone",
+      "type": "registry:component",
+      "title": "Drop Zone",
+      "description": "A drag and drop file area with type and size checks and a progress bar for each file.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/drop-zone.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { DropZone } from \"@/components/drop-zone\"\n\n<DropZone accept=\"image/*,.pdf\" maxSizeMB={10} />",
+      "meta": {
+        "stage": "center",
+        "theme": "blueprint"
+      }
+    },
+    {
+      "name": "morphing-navbar",
+      "type": "registry:component",
+      "title": "Morphing Navbar",
+      "description": "A navbar that floats as a pill, then settles into a full width bar as you scroll.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/morphing-navbar.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MorphingNavbar } from \"@/components/morphing-navbar\"\n\n<MorphingNavbar brand=\"Acme\" cta=\"Register\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "ink"
+      }
+    },
+    {
+      "name": "expand-gallery",
+      "type": "registry:component",
+      "title": "Expand Gallery",
+      "description": "A row of tall photos. The one you hover grows and its caption slides up.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/expand-gallery.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ExpandGallery } from \"@/components/expand-gallery\"\n\n<ExpandGallery images={[{ src: \"/a.jpg\", title: \"Fjord light\" }]} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "perspective-carousel",
+      "type": "registry:component",
+      "title": "Perspective Carousel",
+      "description": "A 3D coverflow with drag, arrows, keyboard and autoplay.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/perspective-carousel.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { PerspectiveCarousel } from \"@/components/perspective-carousel\"\n\n<PerspectiveCarousel slides={slides} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "obsidian"
+      }
+    },
+    {
+      "name": "image-trail",
+      "type": "registry:component",
+      "title": "Image Trail",
+      "description": "Move the pointer and photos land along its path, tilt, then fade away.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/image-trail.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ImageTrail } from \"@/components/image-trail\"\n\n<ImageTrail images={urls}><h2>Your headline</h2></ImageTrail>",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "card-stack",
+      "type": "registry:component",
+      "title": "Card Stack",
+      "description": "A swipeable stack of photo cards. Drag left to skip, right to save.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/card-stack.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CardStack } from \"@/components/card-stack\"\n\n<CardStack cards={cards} />",
+      "meta": {
+        "stage": "center",
+        "theme": "ember"
+      }
+    },
+    {
+      "name": "dock",
+      "type": "registry:component",
+      "title": "Dock",
+      "description": "A floating dock whose icons swell as the pointer approaches, like the macOS dock.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/dock.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { Dock } from \"@/components/dock\"\n\n<Dock items={[{ label: \"Home\", icon: <Home /> }]} />",
+      "meta": {
+        "stage": "center",
+        "theme": "ink"
+      }
+    },
+    {
+      "name": "toast-stack",
+      "type": "registry:component",
+      "title": "Toast Stack",
+      "description": "Toasts that stack like a deck and fan out on hover so every message can be read.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/toast-stack.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ToastStack, useToastStack } from \"@/components/toast-stack\"\n\nconst { toasts, push, dismiss } = useToastStack()\n\n<ToastStack toasts={toasts} onDismiss={dismiss} />\n<button onClick={() => push({ title: \"Saved\", tone: \"success\" })}>Save</button>",
+      "meta": {
+        "stage": "fill",
+        "theme": "obsidian"
+      }
+    },
+    {
+      "name": "animated-tabs",
+      "type": "registry:component",
+      "title": "Animated Tabs",
+      "description": "Tabs with a highlight that glides between labels and content that slides the way you moved.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/animated-tabs.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AnimatedTabs } from \"@/components/animated-tabs\"\n\n<AnimatedTabs tabs={[{ id: \"a\", label: \"One\", content: <p>Hello</p> }]} />",
+      "meta": {
+        "stage": "center",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "tilt-card",
+      "type": "registry:component",
+      "title": "Tilt Card",
+      "description": "A card that leans toward the pointer in 3D with a glare that follows it.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/tilt-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TiltCard } from \"@/components/tilt-card\"\n\n<TiltCard title=\"Layered depth\" />",
+      "meta": {
+        "stage": "center",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "scroll-text-reveal",
+      "type": "registry:component",
+      "title": "Scroll Text Reveal",
+      "description": "A paragraph whose words brighten one by one as you scroll.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/scroll-text-reveal.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ScrollTextReveal } from \"@/components/scroll-text-reveal\"\n\n<ScrollTextReveal text=\"Good material is quiet.\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "glacier"
+      }
+    },
+    {
+      "name": "orbiting-icons",
+      "type": "registry:component",
+      "title": "Orbiting Icons",
+      "description": "Icons circling a centre mark on concentric rings, a clean way to show integrations.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/orbiting-icons.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { OrbitingIcons } from \"@/components/orbiting-icons\"\n\n<OrbitingIcons rings={[[<Git />, <Db />], [<Cloud />, <Mail />]]} />",
+      "meta": {
+        "stage": "center",
+        "theme": "ember"
+      }
+    },
+    {
+      "name": "magnetic-button",
+      "type": "registry:component",
+      "title": "Magnetic Button",
+      "description": "A button pulled toward the pointer as it gets close, with its label moving a little further.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/magnetic-button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MagneticButton } from \"@/components/magnetic-button\"\n\n<MagneticButton href=\"/contact\">Start a project</MagneticButton>",
+      "meta": {
+        "stage": "center",
+        "theme": "sage"
+      }
+    },
+    {
+      "name": "text-scramble",
+      "type": "registry:component",
+      "title": "Text Scramble",
+      "description": "Text that decodes itself through random glyphs when it enters view and on hover.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/text-scramble.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TextScramble } from \"@/components/text-scramble\"\n\n<TextScramble text=\"Decoded on arrival\" as=\"h2\" />",
+      "meta": {
+        "stage": "center",
+        "theme": "terminal"
+      }
+    },
+    {
+      "name": "flow-field",
+      "type": "registry:component",
+      "title": "Flow Field",
+      "description": "Thousands of particles drifting along an invisible flow with soft trails. The cursor can swirl, repel or attract them.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/flow-field.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { FlowField } from \"@/components/flow-field\"\n\n<div className=\"h-screen\">\n  <FlowField color=\"#3ddc97\" interaction=\"swirl\">\n    <h1>Your headline</h1>\n  </FlowField>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "obsidian"
+      }
+    },
+    {
+      "name": "dot-ripple",
+      "type": "registry:component",
+      "title": "Dot Ripple",
+      "description": "A grid of dots that swell and shift around the pointer. Click to send a ripple through the grid.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/dot-ripple.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { DotRipple } from \"@/components/dot-ripple\"\n\n<div className=\"h-screen\">\n  <DotRipple color=\"#3ddc97\" interaction=\"swirl\">\n    <h1>Your headline</h1>\n  </DotRipple>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "ink"
+      }
+    },
+    {
+      "name": "aurora-mesh",
+      "type": "registry:component",
+      "title": "Aurora Mesh",
+      "description": "Soft drifting colour like an aurora. One glow follows your pointer, the others wander.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/aurora-mesh.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AuroraMesh } from \"@/components/aurora-mesh\"\n\n<div className=\"h-screen\">\n  <AuroraMesh color=\"#3ddc97\" interaction=\"swirl\">\n    <h1>Your headline</h1>\n  </AuroraMesh>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "constellation",
+      "type": "registry:component",
+      "title": "Constellation",
+      "description": "Drifting points joined by thin lines. Near the pointer the lines reach for it, or the points flee.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/constellation.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { Constellation } from \"@/components/constellation\"\n\n<div className=\"h-screen\">\n  <Constellation color=\"#3ddc97\" interaction=\"swirl\">\n    <h1>Your headline</h1>\n  </Constellation>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "ember"
+      }
+    },
+    {
+      "name": "wave-lines",
+      "type": "registry:component",
+      "title": "Wave Lines",
+      "description": "Rows of lines that ripple like water. The pointer lifts or pinches the lines near it.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/wave-lines.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { WaveLines } from \"@/components/wave-lines\"\n\n<div className=\"h-screen\">\n  <WaveLines color=\"#3ddc97\" interaction=\"swirl\">\n    <h1>Your headline</h1>\n  </WaveLines>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "glacier"
+      }
+    },
+    {
+      "name": "compass-field",
+      "type": "registry:component",
+      "title": "Compass Field",
+      "description": "A field of tiny needles that all turn to face the pointer, or away from it.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/compass-field.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CompassField } from \"@/components/compass-field\"\n\n<div className=\"h-screen\">\n  <CompassField color=\"#3ddc97\" interaction=\"swirl\">\n    <h1>Your headline</h1>\n  </CompassField>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "terminal"
+      }
+    },
+    {
+      "name": "glow-trail",
+      "type": "registry:component",
+      "title": "Glow Trail",
+      "description": "The pointer leaves a trail of soft light that drifts and fades. A slow glow wanders when idle.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/glow-trail.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { GlowTrail } from \"@/components/glow-trail\"\n\n<div className=\"h-screen\">\n  <GlowTrail color=\"#3ddc97\" interaction=\"swirl\">\n    <h1>Your headline</h1>\n  </GlowTrail>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "circuit"
       }
     }
   ]

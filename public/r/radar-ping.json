@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "porcelain"
   },
   "docs": "import { RadarPing } from \"@/components/radar-ping\"\n\n<RadarPing />",
   "categories": [

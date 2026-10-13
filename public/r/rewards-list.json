@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "noir"
   },
   "docs": "import { RewardsList } from \"@/components/rewards-list\"\n\n<RewardsList />",
   "categories": [

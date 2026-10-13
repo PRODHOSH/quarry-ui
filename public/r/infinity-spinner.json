@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "noir"
   },
   "docs": "import { InfinitySpinner } from \"@/components/infinity-spinner\"\n\n<InfinitySpinner />",
   "categories": [

@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "signal"
   },
   "docs": "import { OrbitLoader } from \"@/components/orbit-loader\"\n\n<OrbitLoader />",
   "categories": [

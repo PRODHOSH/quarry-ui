@@ -18,7 +18,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "noir"
   },
   "docs": "import { TestimonialMarquee } from \"@/components/testimonial-marquee\"\n\n<TestimonialMarquee />",
   "categories": [

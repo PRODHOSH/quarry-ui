@@ -41,7 +41,7 @@ function Price({ value, symbol, className }: { value: string; symbol: string; cl
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -14 }}
           transition={{ duration: 0.3, ease: EASE }}
-          className="text-6xl font-semibold tracking-[-0.04em]"
+          className="text-6xl font-normal tracking-[-0.04em]"
         >
           {value}
         </motion.span>
@@ -70,35 +70,30 @@ function Plan({
   highlight?: boolean;
 }) {
   return (
-    <div
-      className={cn(
-        "flex flex-col rounded-2xl border bg-card/50 p-8",
-        highlight && "border-brand/60 bg-brand/[0.06] shadow-[0_0_0_1px_color-mix(in_oklab,var(--brand)_35%,transparent)]"
-      )}
-    >
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="text-lg font-semibold">{name}</h3>
-        {badge && <span className="rounded-full bg-brand/15 px-3 py-1 text-xs font-medium text-[#8fb0ff]">{badge}</span>}
+    <div className={cn("flex flex-col rounded-3xl border bg-card/40 p-2", highlight && "border-brand bg-brand text-white")}>
+      <div className={cn("rounded-2xl p-6 sm:p-7", highlight ? "bg-white/15" : "bg-muted/40")}>
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="text-xl font-medium">{name}</h3>
+          {badge && <span className="font-label rounded-md bg-white/20 px-2.5 py-1 text-[11px] uppercase text-white">{badge}</span>}
+        </div>
+        <p className={cn("mt-1 text-sm", highlight ? "text-white/75" : "text-muted-foreground")}>{blurb}</p>
+        <div className="mt-7 min-h-24">
+          {price}
+          <p className={cn("mt-2 text-sm", highlight ? "text-white/75" : "text-muted-foreground")}>{note}</p>
+        </div>
+        <div className="mt-5">{cta}</div>
       </div>
-      <p className="mt-1 text-sm text-muted-foreground">{blurb}</p>
-
-      <div className="mt-8 min-h-28">
-        {price}
-        <p className="mt-2 text-sm text-muted-foreground">{note}</p>
+      <div className="px-6 pb-6 pt-6 sm:px-7">
+        <p className="text-sm font-medium">Features</p>
+        <ul className="mt-4 space-y-3.5">
+          {features.map((f) => (
+            <li key={f} className="flex gap-3 text-sm">
+              <Check className="mt-0.5 size-4 shrink-0" strokeWidth={2.5} />
+              <span className={highlight ? "text-white/90" : "text-foreground/80"}>{f}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <div className="mt-6">{cta}</div>
-
-      <ul className="mt-8 space-y-3.5 border-t pt-8">
-        {features.map((f) => (
-          <li key={f} className="flex gap-3 text-sm text-muted-foreground">
-            <span className={cn("mt-0.5 grid size-5 shrink-0 place-items-center rounded-full", highlight ? "bg-brand text-white" : "bg-muted text-foreground")}>
-              <Check className="size-3" strokeWidth={3} />
-            </span>
-            <span className="text-foreground/80">{f}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
@@ -136,7 +131,7 @@ export function Pricing() {
           price={<Price value={p.free} symbol={p.symbol} />}
           note="Free forever"
           cta={
-            <Link href="/components" className="inline-flex h-11 w-full items-center justify-center rounded-full border text-sm font-medium transition-colors hover:bg-accent">
+            <Link href="/components" className="font-label inline-flex h-11 w-full items-center justify-center rounded-lg border bg-background text-[13px] uppercase transition-colors hover:bg-accent">
               Browse components
             </Link>
           }
@@ -150,7 +145,7 @@ export function Pricing() {
           price={<Price value={p.pro} symbol={p.symbol} />}
           note={`One-time payment. ${p.note}`}
           cta={
-            <Link href="#waitlist" className="inline-flex h-11 w-full items-center justify-center rounded-full bg-brand text-sm font-medium text-white transition-opacity hover:opacity-90">
+            <Link href="#waitlist" className="font-label inline-flex h-11 w-full items-center justify-center rounded-lg bg-white text-[13px] uppercase text-black transition-opacity hover:opacity-90">
               Get early access
             </Link>
           }

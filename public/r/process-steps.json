@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "porcelain"
   },
   "docs": "import { ProcessSteps } from \"@/components/process-steps\"\n\n<ProcessSteps />",
   "categories": [

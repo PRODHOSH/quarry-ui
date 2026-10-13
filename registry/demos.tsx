@@ -10,7 +10,21 @@ import dynamic from "next/dynamic";
 import { AuthModal } from "./quarry/auth-modal";
 import { FloatingSocials } from "./quarry/floating-socials";
 import { GithubHeatmap } from "./quarry/github-heatmap";
+import { FlowField } from "./quarry/flow-field";
+import { DotRipple } from "./quarry/dot-ripple";
+import { AuroraMesh } from "./quarry/aurora-mesh";
+import { Constellation } from "./quarry/constellation";
+import { WaveLines } from "./quarry/wave-lines";
+import { CompassField } from "./quarry/compass-field";
+import { GlowTrail } from "./quarry/glow-trail";
+import { ToastStack, useToastStack } from "./quarry/toast-stack";
+import { ScrollTextReveal } from "./quarry/scroll-text-reveal";
 import { ScrollRevealPill } from "./quarry/scroll-reveal-pill";
+import { BeforeAfterSlider } from "./quarry/before-after-slider";
+import { CommandMenu } from "./quarry/command-menu";
+import { CookieBanner } from "./quarry/cookie-banner";
+import { LightsOutLoader } from "./quarry/lights-out-loader";
+import { MorphingNavbar } from "./quarry/morphing-navbar";
 
 function FloatingSocialsDemo() {
   return (
@@ -89,6 +103,136 @@ function AuthModalDemo() {
   );
 }
 
+
+function BeforeAfterDemo() {
+  const before = (
+    <div className="flex size-full flex-col gap-3 bg-muted p-8">
+      <div className="h-4 w-1/3 rounded bg-border" />
+      <div className="h-24 rounded bg-border/70" />
+      <div className="grid grid-cols-3 gap-3">
+        <div className="h-16 rounded bg-border/70" />
+        <div className="h-16 rounded bg-border/70" />
+        <div className="h-16 rounded bg-border/70" />
+      </div>
+      <div className="h-3 w-2/3 rounded bg-border/70" />
+    </div>
+  );
+  const after = (
+    <div className="flex size-full flex-col justify-between bg-card p-8">
+      <div>
+        <p className="text-xs font-medium uppercase tracking-widest text-primary">Now live</p>
+        <h3 className="mt-2 text-4xl leading-tight tracking-tight text-card-foreground">A page people stay on</h3>
+        <p className="mt-2 max-w-sm text-sm text-muted-foreground">Clear hierarchy, honest copy and one obvious next step.</p>
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        {["Faster", "Clearer", "Calmer"].map((t) => (
+          <div key={t} className="rounded-xl border bg-background p-3 text-sm">{t}</div>
+        ))}
+      </div>
+    </div>
+  );
+  return (
+    <div className="w-full max-w-2xl px-6">
+      <BeforeAfterSlider before={before} after={after} />
+    </div>
+  );
+}
+
+function LightsOutDemo() {
+  const [run, setRun] = useState(0);
+  return (
+    <div className="flex h-[34rem] w-full flex-col items-center justify-center gap-10">
+      <LightsOutLoader runKey={run} />
+      <button type="button" onClick={() => setRun((n) => n + 1)} className="rounded-full border px-5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+        Replay
+      </button>
+    </div>
+  );
+}
+
+function CommandMenuDemo() {
+  const [open, setOpen] = useState(true);
+  return (
+    <div className="relative grid h-[34rem] w-full place-items-center">
+      <button type="button" onClick={() => setOpen(true)} className="inline-flex items-center gap-3 rounded-lg border bg-card px-4 py-2.5 text-sm text-muted-foreground">
+        Search or run a command
+        <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px]">Ctrl K</kbd>
+      </button>
+      <CommandMenu open={open} onOpenChange={setOpen} position="absolute" />
+    </div>
+  );
+}
+
+function CookieBannerDemo() {
+  return (
+    <div className="relative h-[34rem] w-full overflow-hidden">
+      <div className="space-y-3 p-10">
+        <div className="h-5 w-40 rounded bg-muted" />
+        <div className="h-3 w-3/4 rounded bg-muted/70" />
+        <div className="h-3 w-2/3 rounded bg-muted/70" />
+        <div className="h-3 w-1/2 rounded bg-muted/70" />
+      </div>
+      <CookieBanner storageKey={null} position="absolute" />
+    </div>
+  );
+}
+
+function MorphingNavbarDemo() {
+  const scroller = useRef<HTMLDivElement>(null);
+  return (
+    <div className="relative h-[34rem] w-full">
+      <div ref={scroller} className="h-full overflow-y-auto scrollbar-none">
+        <div className="h-[60rem] px-8 pt-28 text-center">
+          <h3 className="text-4xl font-semibold tracking-tight">Scroll to see it settle</h3>
+          <p className="mt-3 text-sm text-muted-foreground">It starts as a floating pill and becomes a full width bar.</p>
+        </div>
+      </div>
+      <MorphingNavbar scrollContainer={scroller} position="absolute" />
+    </div>
+  );
+}
+
+function ToastStackDemo() {
+  const { toasts, push, dismiss } = useToastStack();
+  const samples = [
+    { title: "Deployment finished", description: "quarry-ui.com is live", tone: "success" as const },
+    { title: "New comment on Hero", description: "Priya left a note", tone: "info" as const },
+    { title: "Build is slower than usual", description: "2m 14s, usually 40s", tone: "warning" as const },
+  ];
+  const n = useRef(0);
+  return (
+    <div className="relative grid h-[34rem] w-full place-items-center">
+      <button type="button" onClick={() => push(samples[n.current++ % samples.length])} className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-transform active:scale-[0.97]">
+        Show a toast
+      </button>
+      <ToastStack toasts={toasts} onDismiss={dismiss} position="absolute" />
+    </div>
+  );
+}
+
+function ScrollTextRevealDemo() {
+  const scroller = useRef<HTMLDivElement>(null);
+  return (
+    <div ref={scroller} className="h-[34rem] w-full overflow-y-auto scrollbar-none">
+      <div className="grid h-40 place-items-center text-xs uppercase tracking-[0.3em] text-muted-foreground">Scroll</div>
+      <div className="py-24"><ScrollTextReveal scrollContainer={scroller} /></div>
+      <div className="h-[28rem]" />
+    </div>
+  );
+}
+
+/** Wraps a background so the preview shows a headline over it and passes the live controls through. */
+const over = (title: string, hint: string) => (
+  <div className="text-center">
+    <p className="font-label text-xs uppercase tracking-[0.3em] text-muted-foreground">{hint}</p>
+    <h3 className="mt-3 text-balance px-6 text-4xl font-medium tracking-tight sm:text-6xl">{title}</h3>
+  </div>
+);
+const bg = (C: ComponentType<Record<string, unknown>>, title: string, hint: string) =>
+  function BackgroundDemo(props: Record<string, unknown>) {
+    return <C {...props} className="h-[34rem]">{over(title, hint)}</C>;
+  };
+
 export const DEMOS: Record<string, ComponentType> = {
   "feature-bento": dynamic(() => import("./quarry/feature-bento").then((m) => m.FeatureBento)),
   "process-steps": dynamic(() => import("./quarry/process-steps").then((m) => m.ProcessSteps)),
@@ -130,6 +274,35 @@ export const DEMOS: Record<string, ComponentType> = {
   "superballs-loader": dynamic(() => import("./quarry/superballs-loader").then((m) => m.SuperballsLoader)),
   "pinwheel-loader": dynamic(() => import("./quarry/pinwheel-loader").then((m) => m.PinwheelLoader)),
   "zoomies-loader": dynamic(() => import("./quarry/zoomies-loader").then((m) => m.ZoomiesLoader)),
+  "before-after-slider": BeforeAfterDemo,
+  "lights-out-loader": LightsOutDemo,
+  "journey-timeline": dynamic(() => import("./quarry/journey-timeline").then((m) => m.JourneyTimeline)),
+  "compare-table": dynamic(() => import("./quarry/compare-table").then((m) => m.CompareTable)),
+  "command-menu": CommandMenuDemo,
+  "cookie-banner": CookieBannerDemo,
+  "countdown-timer": dynamic(() => import("./quarry/countdown-timer").then((m) => m.CountdownTimer)),
+  "availability-badge": dynamic(() => import("./quarry/availability-badge").then((m) => m.AvailabilityBadge)),
+  "drop-zone": dynamic(() => import("./quarry/drop-zone").then((m) => m.DropZone)),
+  "morphing-navbar": MorphingNavbarDemo,
+  "expand-gallery": dynamic(() => import("./quarry/expand-gallery").then((m) => m.ExpandGallery)),
+  "perspective-carousel": dynamic(() => import("./quarry/perspective-carousel").then((m) => m.PerspectiveCarousel)),
+  "image-trail": dynamic(() => import("./quarry/image-trail").then((m) => m.ImageTrail)),
+  "card-stack": dynamic(() => import("./quarry/card-stack").then((m) => m.CardStack)),
+  "dock": dynamic(() => import("./quarry/dock").then((m) => m.Dock)),
+  "toast-stack": ToastStackDemo,
+  "animated-tabs": dynamic(() => import("./quarry/animated-tabs").then((m) => m.AnimatedTabs)),
+  "tilt-card": dynamic(() => import("./quarry/tilt-card").then((m) => m.TiltCard)),
+  "scroll-text-reveal": ScrollTextRevealDemo,
+  "orbiting-icons": dynamic(() => import("./quarry/orbiting-icons").then((m) => m.OrbitingIcons)),
+  "magnetic-button": dynamic(() => import("./quarry/magnetic-button").then((m) => m.MagneticButton)),
+  "text-scramble": dynamic(() => import("./quarry/text-scramble").then((m) => m.TextScramble)),
+  "flow-field": bg(FlowField as ComponentType<Record<string, unknown>>, "Move through the current", "Move your cursor"),
+  "dot-ripple": bg(DotRipple as ComponentType<Record<string, unknown>>, "Click anywhere", "Push, pull, ripple"),
+  "aurora-mesh": bg(AuroraMesh as ComponentType<Record<string, unknown>>, "A quiet kind of light", "Follow the glow"),
+  "constellation": bg(Constellation as ComponentType<Record<string, unknown>>, "Everything is connected", "Reach for a point"),
+  "wave-lines": bg(WaveLines as ComponentType<Record<string, unknown>>, "Pull a ridge through", "Lift the lines"),
+  "compass-field": bg(CompassField as ComponentType<Record<string, unknown>>, "Everything points to you", "Move slowly"),
+  "glow-trail": bg(GlowTrail as ComponentType<Record<string, unknown>>, "Leave a light behind", "Draw with your cursor"),
   "floating-socials": FloatingSocialsDemo,
   "scroll-reveal-pill": ScrollRevealPillDemo,
   "auth-modal": AuthModalDemo,

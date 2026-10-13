@@ -5,14 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/site/logo";
-import { SOCIAL } from "@/lib/site";
+import { CONTACT_EMAIL, SOCIAL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
   { href: "/components", label: "Components" },
-  { href: "/#how", label: "How it works" },
-  { href: "/#pricing", label: "Pricing" },
-  { href: "/#mcp", label: "MCP" },
 ];
 
 const GithubMark = () => (
@@ -23,7 +20,8 @@ const GithubMark = () => (
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const wide = usePathname().startsWith("/components");
+  const pathname = usePathname();
+  const wide = pathname.startsWith("/components");
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -31,6 +29,19 @@ export function SiteHeader() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  // The home page is a quiet waiting-list screen: no logo, no menu, just a way to get in touch.
+  if (pathname === "/") {
+    return (
+      <header className="absolute inset-x-0 top-0 z-50">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-end px-6">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Contact
+          </a>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md">
@@ -65,10 +76,10 @@ export function SiteHeader() {
             <GithubMark />
           </a>
           <Link
-            href="/components"
+            href="/#waitlist"
             className="hidden h-9 items-center rounded-full bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-85 sm:inline-flex"
           >
-            Get started
+            Join waitlist
           </Link>
           <button
             type="button"
@@ -101,11 +112,11 @@ export function SiteHeader() {
             ))}
           </ul>
           <Link
-            href="/components"
+            href="/#waitlist"
             onClick={() => setOpen(false)}
             className="mt-8 flex h-12 items-center justify-center rounded-full bg-foreground text-sm font-medium text-background"
           >
-            Get started
+            Join waitlist
           </Link>
         </nav>
       )}

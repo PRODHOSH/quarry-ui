@@ -87,8 +87,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-space-mono), ui-monospace, monospace;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -270,23 +271,49 @@
   }
 }
 
-/* Hero: two columns of live components drifting in opposite directions */
-.vcol {
-  animation: vcol var(--vcol-speed, 70s) linear infinite;
+/* Hero on small screens: the page drifts by itself */
+.page-scroll {
+  animation: page-scroll 36s ease-in-out infinite alternate;
 }
-.vcol-reverse {
-  animation-direction: reverse;
-}
-.vcols:hover .vcol {
-  animation-play-state: paused;
-}
-@keyframes vcol {
-  to {
-    transform: translateY(-50%);
-  }
+@keyframes page-scroll {
+  0%, 6% { transform: translateY(0); }
+  94%, 100% { transform: translateY(var(--travel, 0px)); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .vcol {
-    animation: none;
-  }
+  .page-scroll { animation: none; }
+}
+
+/* Hero prompt tabs: the underline fills while a tool is showing */
+.tab-progress {
+  width: 100%;
+  transform-origin: left;
+  animation: tab-progress 5.2s linear forwards;
+}
+@keyframes tab-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-progress { animation: none; }
+}
+
+/* Hero: columns of live components drifting vertically in alternating directions */
+.vcol { animation: vcol var(--vcol-speed, 80s) linear infinite; }
+.vcol-reverse { animation-direction: reverse; }
+.vcols:hover .vcol { animation-play-state: paused; }
+@keyframes vcol { to { transform: translateY(-50%); } }
+@media (prefers-reduced-motion: reduce) { .vcol { animation: none; } }
+
+/* Hero glass artwork: inverted to sit on black, screen-blended so only the glass shows */
+.glass-art {
+  filter: invert(1) hue-rotate(180deg) saturate(1.3) brightness(1.9) contrast(1.05);
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(90deg, #000 55%, transparent 97%);
+  mask-image: linear-gradient(90deg, #000 55%, transparent 97%);
+}
+
+/* Corner artwork: the cropped edges of the source sit off-screen, so no fade is needed */
+.glass-art-corner {
+  filter: invert(1) hue-rotate(180deg) saturate(1.3) brightness(1.9) contrast(1.05);
+  mix-blend-mode: screen;
 }

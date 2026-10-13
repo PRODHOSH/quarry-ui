@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Mark } from "@/components/site/mark";
 import { ComponentCard } from "@/components/site/component-card";
 
 type Item = { name: string; title: string; stage: "center" | "fill" };
@@ -34,7 +35,7 @@ export function ComponentMarquee({ items, total }: { items: Item[]; total: numbe
         <h2 className="text-balance text-4xl font-semibold leading-[1.06] tracking-[-0.03em] sm:text-5xl">
           {total} components,
           <br />
-          always moving.
+          always <Mark>moving.</Mark>
         </h2>
         <Link href="/components" className="group hidden items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline-flex">
           Browse them all

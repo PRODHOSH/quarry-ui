@@ -18,7 +18,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "porcelain"
   },
   "docs": "import { AuthModal } from \"@/components/auth-modal\"\n\n<AuthModal open={open} onOpenChange={setOpen} />",
   "categories": [

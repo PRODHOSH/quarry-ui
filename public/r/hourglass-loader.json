@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "terminal"
   },
   "docs": "import { HourglassLoader } from \"@/components/hourglass-loader\"\n\n<HourglassLoader />",
   "categories": [

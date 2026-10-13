@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "ember"
   },
   "docs": "import { MorphingShapes } from \"@/components/morphing-shapes\"\n\n<MorphingShapes />",
   "categories": [

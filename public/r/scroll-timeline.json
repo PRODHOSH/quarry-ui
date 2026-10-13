@@ -18,7 +18,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "glacier"
   },
   "docs": "import { ScrollTimeline } from \"@/components/scroll-timeline\"\n\n<ScrollTimeline />",
   "categories": [

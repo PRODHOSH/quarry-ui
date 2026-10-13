@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-scramble",
+  "title": "Text Scramble",
+  "description": "Text that decodes itself through random glyphs when it enters view and on hover.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/text-scramble.tsx",
+      "content": "\"use client\";\n\nimport { useCallback, useEffect, useRef, useState } from \"react\";\nimport { useInView } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst GLYPHS = \"!<>-_\\\\/[]{}=+*^?#abcdefghijklmnopqrstuvwxyz0123456789\";\n\n/**\n * Text that decodes itself: every letter flickers through random glyphs and settles from left to\n * right. It plays once when scrolled into view and again on hover. Reduced motion shows the text at once.\n */\nexport function TextScramble({\n  text = \"Decoded on arrival\",\n  duration = 1100,\n  as: Tag = \"span\",\n  className,\n}: {\n  text?: string;\n  /** Milliseconds for the whole word to settle. */\n  duration?: number;\n  as?: \"span\" | \"h1\" | \"h2\" | \"h3\" | \"p\";\n  className?: string;\n}) {\n  const ref = useRef<HTMLElement>(null);\n  const inView = useInView(ref, { once: true });\n  const [out, setOut] = useState(text);\n  const raf = useRef(0);\n\n  const play = useCallback(() => {\n    if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) {\n      setOut(text);\n      return;\n    }\n    cancelAnimationFrame(raf.current);\n    const start = performance.now();\n    const tick = (now: number) => {\n      const t = Math.min(1, (now - start) / duration);\n      const settled = Math.floor(t * text.length);\n      setOut(\n        text\n          .split(\"\")\n          .map((ch, i) => (ch === \" \" || i < settled ? ch : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]))\n          .join(\"\")\n      );\n      if (t < 1) raf.current = requestAnimationFrame(tick);\n      else setOut(text);\n    };\n    raf.current = requestAnimationFrame(tick);\n  }, [text, duration]);\n\n  useEffect(() => {\n    // Start on the next frame, so the first state update is not made inside the effect itself.\n    const id = inView ? requestAnimationFrame(() => play()) : 0;\n    return () => {\n      cancelAnimationFrame(id);\n      cancelAnimationFrame(raf.current);\n    };\n  }, [inView, play]);\n\n  return (\n    <Tag ref={ref as never} onMouseEnter={play} aria-label={text} className={cn(\"inline-block font-mono text-3xl tabular-nums sm:text-5xl\", className)}>\n      <span aria-hidden>{out}</span>\n    </Tag>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "terminal"
+  },
+  "docs": "import { TextScramble } from \"@/components/text-scramble\"\n\n<TextScramble text=\"Decoded on arrival\" as=\"h2\" />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

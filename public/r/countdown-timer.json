@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "countdown-timer",
+  "title": "Countdown Timer",
+  "description": "A live countdown whose digits roll when they change. Safe for server rendering.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/countdown-timer.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst parts = (ms: number) => {\n  const s = Math.max(0, Math.floor(ms / 1000));\n  return { days: Math.floor(s / 86400), hours: Math.floor((s % 86400) / 3600), minutes: Math.floor((s % 3600) / 60), seconds: s % 60 };\n};\n\nfunction Digit({ value }: { value: string }) {\n  return (\n    <span className=\"relative inline-block h-[1.1em] w-[0.62em] overflow-hidden text-center tabular-nums\">\n      <AnimatePresence initial={false} mode=\"popLayout\">\n        <motion.span\n          key={value}\n          initial={{ y: \"-70%\", opacity: 0, filter: \"blur(4px)\" }}\n          animate={{ y: 0, opacity: 1, filter: \"blur(0px)\" }}\n          exit={{ y: \"70%\", opacity: 0, filter: \"blur(4px)\" }}\n          transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}\n          className=\"absolute inset-0\"\n        >\n          {value}\n        </motion.span>\n      </AnimatePresence>\n    </span>\n  );\n}\n\n/**\n * A live countdown. Each digit rolls when it changes. The target is any date string or timestamp.\n * It renders blank on the server and fills in on the client, so there is no hydration mismatch.\n */\nexport function CountdownTimer({\n  target,\n  label = \"Doors open in\",\n  doneLabel = \"It has started\",\n  onComplete,\n  className,\n}: {\n  target?: string | number | Date;\n  label?: string;\n  doneLabel?: string;\n  onComplete?: () => void;\n  className?: string;\n}) {\n  const [left, setLeft] = useState<number | null>(null);\n\n  useEffect(() => {\n    // Without a target, count down from three days so the preview always has something to show.\n    const end = target ? new Date(target).getTime() : Date.now() + 3 * 86400_000 + 4 * 3600_000;\n    let fired = false;\n    const tick = () => {\n      const ms = end - Date.now();\n      setLeft(ms);\n      if (ms <= 0 && !fired) {\n        fired = true;\n        onComplete?.();\n      }\n    };\n    tick();\n    const id = window.setInterval(tick, 1000);\n    return () => window.clearInterval(id);\n  }, [target, onComplete]);\n\n  const t = parts(left ?? 0);\n  const units: [string, number][] = [[\"Days\", t.days], [\"Hours\", t.hours], [\"Minutes\", t.minutes], [\"Seconds\", t.seconds]];\n\n  return (\n    <div className={cn(\"flex flex-col items-center gap-5\", className)} role=\"timer\" aria-live=\"off\">\n      <p className=\"text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground\">{left !== null && left <= 0 ? doneLabel : label}</p>\n      <div className=\"flex items-start gap-2 sm:gap-4\">\n        {units.map(([name, value], i) => (\n          <div key={name} className=\"flex items-start gap-2 sm:gap-4\">\n            <div className=\"flex flex-col items-center gap-2\">\n              <div className=\"rounded-2xl border bg-card px-3 py-3 text-4xl font-semibold leading-none sm:px-5 sm:py-4 sm:text-6xl\">\n                {left === null ? (\n                  <span className=\"invisible\">00</span>\n                ) : (\n                  String(value).padStart(2, \"0\").split(\"\").map((d, k) => <Digit key={k} value={d} />)\n                )}\n              </div>\n              <span className=\"text-[10px] uppercase tracking-widest text-muted-foreground\">{name}</span>\n            </div>\n            {i < units.length - 1 && <span aria-hidden className=\"pt-3 text-3xl text-primary/60 sm:pt-4 sm:text-5xl\">:</span>}\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "signal"
+  },
+  "docs": "import { CountdownTimer } from \"@/components/countdown-timer\"\n\n<CountdownTimer target=\"2026-12-31T18:00:00+05:30\" />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

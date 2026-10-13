@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "obsidian"
   },
   "docs": "import { MomentumLoader } from \"@/components/momentum-loader\"\n\n<MomentumLoader />",
   "categories": [

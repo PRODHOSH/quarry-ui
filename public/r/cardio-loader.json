@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "sage"
   },
   "docs": "import { CardioLoader } from \"@/components/cardio-loader\"\n\n<CardioLoader />",
   "categories": [

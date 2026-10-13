@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "circuit"
   },
   "docs": "import { TailChase } from \"@/components/tail-chase\"\n\n<TailChase />",
   "categories": [

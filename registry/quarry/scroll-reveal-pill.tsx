@@ -2,9 +2,13 @@
 
 import { useEffect, useState, type RefObject } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/**
+ * A slim pill that rises from the bottom edge once you have scrolled a little. It carries a status,
+ * a short message and one action, and can be dismissed. Nothing in it ever wraps.
+ */
 export function ScrollRevealPill({
   threshold = 120,
   scrollContainer,
@@ -31,8 +35,7 @@ export function ScrollRevealPill({
 
   useEffect(() => {
     const target: HTMLElement | Window = scrollContainer?.current ?? window;
-    const read = () =>
-      target instanceof Window ? target.scrollY : (target as HTMLElement).scrollTop;
+    const read = () => (target instanceof Window ? target.scrollY : (target as HTMLElement).scrollTop);
     const onScroll = () => setScrolled(read() > threshold);
     onScroll();
     target.addEventListener("scroll", onScroll, { passive: true });
@@ -43,39 +46,33 @@ export function ScrollRevealPill({
     <AnimatePresence>
       {scrolled && !dismissed && (
         <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 40, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 320, damping: 30 }}
-          className={cn(
-            "bottom-6 left-1/2 z-50 -translate-x-1/2",
-            position === "fixed" ? "fixed" : "absolute",
-            className
-          )}
+          initial={{ y: 48, opacity: 0, scale: 0.96 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: 48, opacity: 0, scale: 0.96 }}
+          transition={{ type: "spring", stiffness: 300, damping: 28 }}
+          className={cn("bottom-6 left-1/2 z-50 w-max max-w-[calc(100%-2rem)] -translate-x-1/2", position === "fixed" ? "fixed" : "absolute", className)}
         >
-          <div className="flex items-center gap-3 rounded-full border bg-card/95 p-1.5 pr-2 shadow-xl backdrop-blur">
-            <span className="flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+          <div className="flex items-center gap-1 whitespace-nowrap rounded-full border bg-card/90 p-1.5 shadow-[0_18px_50px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+            <span className="flex items-center gap-2 rounded-full bg-primary/10 py-2 pl-3 pr-3.5 text-[13px] font-medium text-primary">
               <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-primary" />
               </span>
               {label}
             </span>
-            <span className="hidden whitespace-nowrap text-sm text-muted-foreground sm:block">
-              {message}
-            </span>
+            <span className="hidden px-3 text-[13px] text-muted-foreground md:block">{message}</span>
             <a
               href={href}
-              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              className="group ml-1 inline-flex items-center gap-1.5 rounded-full bg-foreground py-2 pl-4 pr-3 text-[13px] font-medium text-background transition-transform duration-300 active:scale-[0.97]"
             >
               {cta}
-              <ArrowRight className="size-3.5" />
+              <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-px group-hover:translate-x-px" />
             </a>
             <button
               type="button"
               aria-label="Dismiss"
               onClick={() => setDismissed(true)}
-              className="grid size-7 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="grid size-8 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               <X className="size-3.5" />
             </button>

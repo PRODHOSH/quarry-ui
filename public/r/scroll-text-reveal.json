@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-text-reveal",
+  "title": "Scroll Text Reveal",
+  "description": "A paragraph whose words brighten one by one as you scroll.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/scroll-text-reveal.tsx",
+      "content": "\"use client\";\n\nimport { useRef, type RefObject } from \"react\";\nimport { motion, useScroll, useTransform, type MotionValue } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nfunction Word({ word, range, progress }: { word: string; range: [number, number]; progress: MotionValue<number> }) {\n  const opacity = useTransform(progress, range, [0.14, 1]);\n  const y = useTransform(progress, range, [6, 0]);\n  return (\n    <span className=\"relative mr-[0.28em] inline-block\">\n      <motion.span style={{ opacity, y }} className=\"inline-block\">\n        {word}\n      </motion.span>\n    </span>\n  );\n}\n\n/**\n * A paragraph that reads itself in as you scroll. Each word brightens in turn, so the eye is led\n * through the sentence at the pace of your scroll. Pass scrollContainer to track a scrollable element.\n */\nexport function ScrollTextReveal({\n  text = \"Good material is quiet. It does not shout for attention, it earns it, one clear word after another, until the whole idea is simply there.\",\n  scrollContainer,\n  className,\n}: {\n  text?: string;\n  scrollContainer?: RefObject<HTMLElement | null>;\n  className?: string;\n}) {\n  const ref = useRef<HTMLParagraphElement>(null);\n  const { scrollYProgress } = useScroll({ target: ref, container: scrollContainer, offset: [\"start 0.85\", \"end 0.45\"] });\n  const words = text.split(\" \");\n\n  return (\n    <p ref={ref} className={cn(\"mx-auto max-w-3xl text-balance px-6 text-3xl font-medium leading-[1.25] tracking-tight sm:text-5xl\", className)}>\n      {words.map((w, i) => (\n        <Word key={`${w}-${i}`} word={w} range={[i / words.length, (i + 1) / words.length]} progress={scrollYProgress} />\n      ))}\n    </p>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "glacier"
+  },
+  "docs": "import { ScrollTextReveal } from \"@/components/scroll-text-reveal\"\n\n<ScrollTextReveal text=\"Good material is quiet.\" />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

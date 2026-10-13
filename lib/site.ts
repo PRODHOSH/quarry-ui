@@ -17,3 +17,5 @@ export const SOCIAL = {
   github: process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com",
   x: process.env.NEXT_PUBLIC_X_URL ?? "https://x.com",
 };
+
+export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@quarry-ui.com";

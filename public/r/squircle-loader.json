@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "ink"
   },
   "docs": "import { SquircleLoader } from \"@/components/squircle-loader\"\n\n<SquircleLoader />",
   "categories": [

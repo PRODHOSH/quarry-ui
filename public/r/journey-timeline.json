@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "journey-timeline",
+  "title": "Journey Timeline",
+  "description": "A vertical timeline whose line fills and markers light up as each step reaches the middle of the view.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/journey-timeline.tsx",
+      "content": "\"use client\";\r\n\r\nimport { useCallback, useEffect, useRef, type ReactNode } from \"react\";\r\nimport { motion, useInView } from \"framer-motion\";\r\nimport { AlertTriangle, CheckCircle2, Cpu, Radio, ShieldAlert } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\nexport type JourneyStep = { icon?: ReactNode; date: string; title: string; description: string };\r\n\r\nconst DEFAULT_STEPS: JourneyStep[] = [\r\n  { icon: <AlertTriangle />, date: \"Minute 0\", title: \"A report comes in\", description: \"A citizen flags a problem from their phone. It lands in the queue with a location and a photo.\" },\r\n  { icon: <Cpu />, date: \"Minute 1\", title: \"It is triaged\", description: \"The system reads the report, scores how urgent it is and routes it to the right team.\" },\r\n  { icon: <ShieldAlert />, date: \"Minute 5\", title: \"A responder accepts\", description: \"The nearest available responder confirms. The reporter sees who is on the way.\" },\r\n  { icon: <Radio />, date: \"Minute 20\", title: \"Live updates\", description: \"Progress streams back as the work happens, so nobody has to ask for a status.\" },\r\n  { icon: <CheckCircle2 />, date: \"Same day\", title: \"Closed and verified\", description: \"The reporter confirms the fix. The case closes and feeds the next triage score.\" },\r\n];\r\n\r\nfunction Step({ step, index, onSee }: { step: JourneyStep; index: number; onSee: (i: number) => void }) {\r\n  const ref = useRef<HTMLLIElement>(null);\r\n  const seen = useInView(ref, { margin: \"-35% 0px -35% 0px\" });\r\n  useEffect(() => {\r\n    if (seen) onSee(index);\r\n  }, [seen, index, onSee]);\r\n  const right = index % 2 === 1;\r\n\r\n  return (\r\n    <li ref={ref} className=\"relative grid grid-cols-[3.5rem_1fr] items-start gap-x-4 md:grid-cols-[1fr_5rem_1fr] md:gap-x-0\">\r\n      <span\r\n        className={cn(\r\n          \"z-10 col-start-1 grid size-12 place-items-center rounded-2xl border bg-card transition-colors duration-500 md:col-start-2 md:size-16 md:justify-self-center\",\r\n          seen && \"border-primary/50\"\r\n        )}\r\n      >\r\n        <span\r\n          className={cn(\r\n            \"grid size-8 place-items-center rounded-xl bg-muted text-muted-foreground transition-all duration-500 md:size-10 [&_svg]:size-4 md:[&_svg]:size-5\",\r\n            seen && \"scale-105 bg-primary text-primary-foreground\"\r\n          )}\r\n        >\r\n          {step.icon}\r\n        </span>\r\n      </span>\r\n\r\n      <motion.div\r\n        initial={{ opacity: 0, y: 24 }}\r\n        whileInView={{ opacity: 1, y: 0 }}\r\n        viewport={{ once: true, margin: \"-60px\" }}\r\n        transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}\r\n        className={cn(\"col-start-2 md:max-w-sm\", right ? \"md:col-start-3 md:pl-10\" : \"md:col-start-1 md:row-start-1 md:justify-self-end md:pr-10 md:text-right\")}\r\n      >\r\n        <p className=\"text-xs font-medium uppercase tracking-widest text-primary\">{step.date}</p>\r\n        <h3 className=\"mt-1.5 text-xl font-semibold tracking-tight\">{step.title}</h3>\r\n        <p className=\"mt-2 rounded-2xl border bg-card p-5 text-left text-sm leading-relaxed text-muted-foreground\">{step.description}</p>\r\n      </motion.div>\r\n    </li>\r\n  );\r\n}\r\n\r\n/** A vertical timeline. The line fills and the markers light up as each step scrolls into the middle of the view. */\r\nexport function JourneyTimeline({\r\n  eyebrow = \"From report to response\",\r\n  title = \"Every report, followed all the way through\",\r\n  steps = DEFAULT_STEPS,\r\n  className,\r\n}: {\r\n  eyebrow?: string;\r\n  title?: string;\r\n  steps?: JourneyStep[];\r\n  className?: string;\r\n}) {\r\n  const reached = useRef(-1);\r\n  const line = useRef<HTMLSpanElement>(null);\r\n  const onSee = useCallback((i: number) => {\r\n    if (i <= reached.current) return;\r\n    reached.current = i;\r\n    if (line.current) line.current.style.height = `${((i + 0.5) / steps.length) * 100}%`;\r\n  }, [steps.length]);\r\n\r\n  return (\r\n    <section className={cn(\"w-full px-6 py-16\", className)}>\r\n      <div className=\"mx-auto max-w-3xl text-center\">\r\n        <p className=\"text-xs font-medium uppercase tracking-widest text-primary\">{eyebrow}</p>\r\n        <h2 className=\"mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl\">{title}</h2>\r\n      </div>\r\n      <div className=\"relative mx-auto mt-14 max-w-4xl\">\r\n        <span aria-hidden className=\"absolute bottom-4 left-6 top-4 w-px bg-border md:left-1/2\" />\r\n        <span ref={line} aria-hidden className=\"absolute left-6 top-4 w-px bg-primary transition-[height] duration-700 ease-out md:left-1/2\" style={{ height: 0 }} />\r\n        <ol className=\"relative flex flex-col gap-12 md:gap-16\">\r\n          {steps.map((s, i) => (\r\n            <Step key={s.title} step={s} index={i} onSee={onSee} />\r\n          ))}\r\n        </ol>\r\n      </div>\r\n    </section>\r\n  );\r\n}\r\n",
+      "type": "registry:block"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "harbor"
+  },
+  "docs": "import { JourneyTimeline } from \"@/components/journey-timeline\"\n\n<JourneyTimeline steps={[{ date: \"Day 1\", title: \"Kickoff\", description: \"We align on the goal.\" }]} />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:block"
+}

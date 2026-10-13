@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast-stack",
+  "title": "Toast Stack",
+  "description": "Toasts that stack like a deck and fan out on hover so every message can be read.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/toast-stack.tsx",
+      "content": "\"use client\";\n\nimport { useCallback, useRef, useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { CheckCircle2, Info, TriangleAlert, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport type Toast = { id: number; title: string; description?: string; tone?: \"success\" | \"info\" | \"warning\" };\n\nconst ICON = { success: CheckCircle2, info: Info, warning: TriangleAlert };\n\n/** A tiny store for the stack. Call push to add a toast; it removes itself after duration milliseconds. */\nexport function useToastStack(duration = 4200) {\n  const [toasts, setToasts] = useState<Toast[]>([]);\n  const next = useRef(1);\n  const dismiss = useCallback((id: number) => setToasts((t) => t.filter((x) => x.id !== id)), []);\n  const push = useCallback(\n    (t: Omit<Toast, \"id\">) => {\n      const id = next.current++;\n      setToasts((cur) => [...cur.slice(-4), { ...t, id }]);\n      window.setTimeout(() => dismiss(id), duration);\n    },\n    [duration, dismiss]\n  );\n  return { toasts, push, dismiss };\n}\n\n/**\n * Toasts that stack like a deck. Older ones sit behind and shrink. Hover the stack and it fans out so\n * every message can be read. Pair it with useToastStack.\n */\nexport function ToastStack({\n  toasts,\n  onDismiss,\n  position = \"absolute\",\n  className,\n}: {\n  toasts: Toast[];\n  onDismiss: (id: number) => void;\n  position?: \"fixed\" | \"absolute\";\n  className?: string;\n}) {\n  const [open, setOpen] = useState(false);\n  const list = [...toasts].reverse();\n\n  return (\n    <div\n      onMouseEnter={() => setOpen(true)}\n      onMouseLeave={() => setOpen(false)}\n      className={cn(\"bottom-5 right-5 z-50 w-[22rem] max-w-[calc(100%-2rem)]\", position, className)}\n      style={{ height: open ? Math.min(list.length, 5) * 84 : 76 }}\n    >\n      <AnimatePresence>\n        {list.map((t, i) => {\n          const Icon = ICON[t.tone ?? \"info\"];\n          return (\n            <motion.div\n              key={t.id}\n              layout\n              initial={{ opacity: 0, y: 40, scale: 0.9 }}\n              animate={{\n                opacity: i > 3 ? 0 : 1,\n                y: open ? -i * 84 : -i * 10,\n                scale: open ? 1 : 1 - i * 0.05,\n              }}\n              exit={{ opacity: 0, x: 80, transition: { duration: 0.25 } }}\n              transition={{ type: \"spring\", stiffness: 340, damping: 30 }}\n              style={{ zIndex: 10 - i, transformOrigin: \"bottom center\" }}\n              className=\"absolute inset-x-0 bottom-0 flex items-start gap-3 rounded-2xl border bg-card p-4 shadow-xl\"\n            >\n              <Icon className={cn(\"mt-0.5 size-5 shrink-0\", t.tone === \"warning\" ? \"text-foreground\" : \"text-primary\")} />\n              <div className=\"min-w-0 flex-1\">\n                <p className=\"truncate text-sm font-medium\">{t.title}</p>\n                {t.description && <p className=\"mt-0.5 truncate text-xs text-muted-foreground\">{t.description}</p>}\n              </div>\n              <button type=\"button\" aria-label=\"Dismiss\" onClick={() => onDismiss(t.id)} className=\"grid size-6 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground\">\n                <X className=\"size-3.5\" />\n              </button>\n            </motion.div>\n          );\n        })}\n      </AnimatePresence>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "obsidian"
+  },
+  "docs": "import { ToastStack, useToastStack } from \"@/components/toast-stack\"\n\nconst { toasts, push, dismiss } = useToastStack()\n\n<ToastStack toasts={toasts} onDismiss={dismiss} />\n<button onClick={() => push({ title: \"Saved\", tone: \"success\" })}>Save</button>",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

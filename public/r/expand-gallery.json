@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "expand-gallery",
+  "title": "Expand Gallery",
+  "description": "A row of tall photos. The one you hover grows and its caption slides up.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/expand-gallery.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport type GalleryImage = { src: string; title: string; label?: string };\n\nconst photo = (id: number) => `https://picsum.photos/id/${id}/900/1200`;\nconst DEFAULT_IMAGES: GalleryImage[] = [\n  { src: photo(1015), title: \"Fjord light\", label: \"01\" },\n  { src: photo(1018), title: \"High pasture\", label: \"02\" },\n  { src: photo(1036), title: \"First snow\", label: \"03\" },\n  { src: photo(1039), title: \"Hidden falls\", label: \"04\" },\n  { src: photo(1043), title: \"Granite wall\", label: \"05\" },\n  { src: photo(1062), title: \"Open water\", label: \"06\" },\n];\n\n/**\n * A row of tall image panels. The one you hover or focus grows, the rest give way, and its caption\n * slides up. On touch screens tap a panel to open it. Arrow keys move between panels.\n */\nexport function ExpandGallery({\n  images = DEFAULT_IMAGES,\n  height = 420,\n  className,\n}: {\n  images?: GalleryImage[];\n  height?: number;\n  className?: string;\n}) {\n  const middle = Math.floor(images.length / 2);\n  const [active, setActive] = useState(middle);\n\n  return (\n    <div className={cn(\"w-full px-6 py-10\", className)}>\n      <div className=\"mx-auto flex max-w-4xl gap-2 sm:gap-3\" style={{ height }} onMouseLeave={() => setActive(middle)}>\n        {images.map((img, i) => {\n          const on = i === active;\n          return (\n            <motion.button\n              key={img.src}\n              type=\"button\"\n              onMouseEnter={() => setActive(i)}\n              onFocus={() => setActive(i)}\n              onClick={() => setActive(i)}\n              onKeyDown={(e) => {\n                if (e.key === \"ArrowRight\") setActive((a) => Math.min(images.length - 1, a + 1));\n                if (e.key === \"ArrowLeft\") setActive((a) => Math.max(0, a - 1));\n              }}\n              animate={{ flexGrow: on ? 6 : 1 }}\n              transition={{ type: \"spring\", stiffness: 220, damping: 28 }}\n              aria-label={img.title}\n              aria-pressed={on}\n              className=\"relative min-w-0 flex-1 basis-0 overflow-hidden rounded-3xl border bg-muted text-left outline-none focus-visible:ring-4 focus-visible:ring-ring/30\"\n            >\n              {/* eslint-disable-next-line @next/next/no-img-element */}\n              <img\n                src={img.src}\n                alt=\"\"\n                loading=\"lazy\"\n                draggable={false}\n                className={cn(\"absolute inset-0 size-full object-cover transition-all duration-700\", on ? \"scale-100 saturate-100\" : \"scale-110 brightness-75 saturate-50\")}\n              />\n              <div className=\"absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent\" />\n              {img.label && <span className=\"absolute left-4 top-4 rounded-full bg-background/80 px-2.5 py-1 text-[11px] font-medium tabular-nums text-foreground backdrop-blur\">{img.label}</span>}\n              <motion.div animate={{ opacity: on ? 1 : 0, y: on ? 0 : 16 }} transition={{ duration: 0.4, delay: on ? 0.12 : 0 }} className=\"absolute inset-x-5 bottom-5\">\n                <p className=\"truncate text-xl font-medium tracking-tight text-white\">{img.title}</p>\n              </motion.div>\n            </motion.button>\n          );\n        })}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "noir"
+  },
+  "docs": "import { ExpandGallery } from \"@/components/expand-gallery\"\n\n<ExpandGallery images={[{ src: \"/a.jpg\", title: \"Fjord light\" }]} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

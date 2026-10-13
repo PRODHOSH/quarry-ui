@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "perspective-carousel",
+  "title": "Perspective Carousel",
+  "description": "A 3D coverflow with drag, arrows, keyboard and autoplay.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/perspective-carousel.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { ChevronLeft, ChevronRight } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport type CarouselSlide = { src: string; title: string; caption?: string };\n\nconst photo = (id: number) => `https://picsum.photos/id/${id}/800/1000`;\nconst DEFAULT_SLIDES: CarouselSlide[] = [\n  { src: photo(1018), title: \"High pasture\", caption: \"Valley road at dawn\" },\n  { src: photo(1039), title: \"Hidden falls\", caption: \"Cold water, warm moss\" },\n  { src: photo(1015), title: \"Fjord light\", caption: \"Where the water turns blue\" },\n  { src: photo(1043), title: \"Granite wall\", caption: \"Two hours from the trail head\" },\n  { src: photo(1036), title: \"First snow\", caption: \"A quiet camp\" },\n];\n\n/**\n * A 3D coverflow. The centre slide faces you, its neighbours turn away and recede. Click a side slide,\n * use the arrows, drag, or press the arrow keys. It advances on its own until you touch it.\n */\nexport function PerspectiveCarousel({\n  slides = DEFAULT_SLIDES,\n  autoplay = true,\n  interval = 3800,\n  className,\n}: {\n  slides?: CarouselSlide[];\n  autoplay?: boolean;\n  interval?: number;\n  className?: string;\n}) {\n  const n = slides.length;\n  const [index, setIndex] = useState(Math.floor(n / 2));\n  const [auto, setAuto] = useState(autoplay);\n\n  useEffect(() => {\n    if (!auto) return;\n    const id = window.setInterval(() => setIndex((i) => (i + 1) % n), interval);\n    return () => window.clearInterval(id);\n  }, [auto, interval, n]);\n\n  const go = (to: number) => {\n    setAuto(false);\n    setIndex(((to % n) + n) % n);\n  };\n\n  return (\n    <div\n      className={cn(\"w-full px-4 py-10 outline-none\", className)}\n      tabIndex={0}\n      onKeyDown={(e) => {\n        if (e.key === \"ArrowRight\") go(index + 1);\n        if (e.key === \"ArrowLeft\") go(index - 1);\n      }}\n    >\n      <motion.div\n        className=\"relative mx-auto h-[26rem] w-full max-w-4xl [perspective:1400px]\"\n        drag=\"x\"\n        dragConstraints={{ left: 0, right: 0 }}\n        dragElastic={0.2}\n        onDragEnd={(_, info) => {\n          if (info.offset.x < -60) go(index + 1);\n          else if (info.offset.x > 60) go(index - 1);\n        }}\n      >\n        {slides.map((s, i) => {\n          let d = i - index;\n          if (d > n / 2) d -= n;\n          if (d < -n / 2) d += n;\n          const abs = Math.abs(d);\n          return (\n            <motion.figure\n              key={s.src}\n              onClick={() => d !== 0 && go(i)}\n              animate={{\n                x: `${d * 62}%`,\n                z: -abs * 140,\n                rotateY: d === 0 ? 0 : d > 0 ? -38 : 38,\n                scale: d === 0 ? 1 : 0.86,\n                opacity: abs > 2 ? 0 : 1 - abs * 0.22,\n              }}\n              transition={{ type: \"spring\", stiffness: 160, damping: 24 }}\n              style={{ zIndex: 10 - abs, pointerEvents: abs > 2 ? \"none\" : \"auto\" }}\n              className={cn(\"absolute inset-y-0 left-1/2 -ml-[9.5rem] w-[19rem] overflow-hidden rounded-3xl border bg-card shadow-2xl\", d !== 0 && \"cursor-pointer\")}\n            >\n              {/* eslint-disable-next-line @next/next/no-img-element */}\n              <img src={s.src} alt={s.title} draggable={false} loading=\"lazy\" className=\"size-full object-cover\" />\n              <div className=\"absolute inset-0 bg-gradient-to-t from-black/75 via-black/0 to-transparent\" />\n              <figcaption className=\"absolute inset-x-5 bottom-5 text-white\">\n                <p className=\"text-lg font-medium tracking-tight\">{s.title}</p>\n                {s.caption && <p className=\"mt-0.5 text-xs text-white/70\">{s.caption}</p>}\n              </figcaption>\n            </motion.figure>\n          );\n        })}\n      </motion.div>\n\n      <div className=\"mt-6 flex items-center justify-center gap-4\">\n        <button type=\"button\" aria-label=\"Previous\" onClick={() => go(index - 1)} className=\"grid size-10 place-items-center rounded-full border bg-card transition-colors hover:bg-accent\">\n          <ChevronLeft className=\"size-4\" />\n        </button>\n        <div className=\"flex items-center gap-1.5\">\n          {slides.map((s, i) => (\n            <button key={s.src} type=\"button\" aria-label={`Go to ${s.title}`} onClick={() => go(i)} className={cn(\"h-1.5 rounded-full transition-all duration-500\", i === index ? \"w-6 bg-primary\" : \"w-1.5 bg-border hover:bg-muted-foreground\")} />\n          ))}\n        </div>\n        <button type=\"button\" aria-label=\"Next\" onClick={() => go(index + 1)} className=\"grid size-10 place-items-center rounded-full border bg-card transition-colors hover:bg-accent\">\n          <ChevronRight className=\"size-4\" />\n        </button>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "obsidian"
+  },
+  "docs": "import { PerspectiveCarousel } from \"@/components/perspective-carousel\"\n\n<PerspectiveCarousel slides={slides} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

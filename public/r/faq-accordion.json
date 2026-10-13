@@ -18,7 +18,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "ink"
   },
   "docs": "import { FaqAccordion } from \"@/components/faq-accordion\"\n\n<FaqAccordion />",
   "categories": [

@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "glacier"
   },
   "docs": "import { PinwheelLoader } from \"@/components/pinwheel-loader\"\n\n<PinwheelLoader />",
   "categories": [

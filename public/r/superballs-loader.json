@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "porcelain"
   },
   "docs": "import { SuperballsLoader } from \"@/components/superballs-loader\"\n\n<SuperballsLoader />",
   "categories": [

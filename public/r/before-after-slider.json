@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "before-after-slider",
+  "title": "Before and After Slider",
+  "description": "A draggable comparison for any two nodes, with touch and keyboard support.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/before-after-slider.tsx",
+      "content": "\"use client\";\n\nimport { useCallback, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from \"react\";\nimport { MoveHorizontal } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * A draggable before and after comparison. Pass any two nodes: images, screenshots, or live UI.\n * Works with a mouse, touch and the arrow keys.\n */\nexport function BeforeAfterSlider({\n  before,\n  after,\n  beforeLabel = \"Before\",\n  afterLabel = \"After\",\n  initial = 50,\n  className,\n}: {\n  before: ReactNode;\n  after: ReactNode;\n  beforeLabel?: string;\n  afterLabel?: string;\n  /** Starting position, as a percentage from the left. */\n  initial?: number;\n  className?: string;\n}) {\n  const box = useRef<HTMLDivElement>(null);\n  const [pos, setPos] = useState(initial);\n  const [dragging, setDragging] = useState(false);\n\n  const move = useCallback((clientX: number) => {\n    const el = box.current;\n    if (!el) return;\n    const r = el.getBoundingClientRect();\n    setPos(Math.min(100, Math.max(0, ((clientX - r.left) / r.width) * 100)));\n  }, []);\n\n  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {\n    e.currentTarget.setPointerCapture(e.pointerId);\n    setDragging(true);\n    move(e.clientX);\n  };\n\n  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {\n    const step = e.shiftKey ? 10 : 2;\n    if (e.key === \"ArrowLeft\") setPos((p) => Math.max(0, p - step));\n    else if (e.key === \"ArrowRight\") setPos((p) => Math.min(100, p + step));\n    else return;\n    e.preventDefault();\n  };\n\n  return (\n    <div\n      ref={box}\n      onPointerDown={onPointerDown}\n      onPointerMove={(e) => dragging && move(e.clientX)}\n      onPointerUp={() => setDragging(false)}\n      onPointerCancel={() => setDragging(false)}\n      className={cn(\"relative aspect-[16/10] w-full touch-pan-y select-none overflow-hidden rounded-3xl border bg-card\", className)}\n    >\n      <div className=\"absolute inset-0\">{after}</div>\n      <span className=\"absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[11px] font-medium uppercase tracking-widest text-primary-foreground\">\n        {afterLabel}\n      </span>\n\n      <div className=\"absolute inset-0\" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>\n        {before}\n        <span className=\"absolute left-4 top-4 rounded-full bg-foreground/80 px-3 py-1 text-[11px] font-medium uppercase tracking-widest text-background\">\n          {beforeLabel}\n        </span>\n      </div>\n\n      <div\n        role=\"slider\"\n        tabIndex={0}\n        aria-label=\"Comparison position\"\n        aria-valuemin={0}\n        aria-valuemax={100}\n        aria-valuenow={Math.round(pos)}\n        onKeyDown={onKeyDown}\n        className=\"group absolute inset-y-0 z-10 w-px cursor-ew-resize bg-background outline-none\"\n        style={{ left: `${pos}%` }}\n      >\n        <span\n          className={cn(\n            \"absolute left-1/2 top-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border bg-background text-foreground shadow-lg transition-transform duration-300 group-focus-visible:ring-4 group-focus-visible:ring-ring/30\",\n            dragging ? \"scale-110\" : \"group-hover:scale-105\"\n          )}\n        >\n          <MoveHorizontal className=\"size-4\" />\n        </span>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "studio"
+  },
+  "docs": "import { BeforeAfterSlider } from \"@/components/before-after-slider\"\n\n<BeforeAfterSlider\n  before={<img src=\"/old.png\" alt=\"\" className=\"size-full object-cover\" />}\n  after={<img src=\"/new.png\" alt=\"\" className=\"size-full object-cover\" />}\n/>",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "ember"
   },
   "docs": "import { DotWave } from \"@/components/dot-wave\"\n\n<DotWave />",
   "categories": [

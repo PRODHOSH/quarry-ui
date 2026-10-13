@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dock",
+  "title": "Dock",
+  "description": "A floating dock whose icons swell as the pointer approaches, like the macOS dock.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/dock.tsx",
+      "content": "\"use client\";\n\nimport { useRef, type ReactNode } from \"react\";\nimport { motion, useMotionValue, useSpring, useTransform, type MotionValue } from \"framer-motion\";\nimport { Home, Mail, MessageCircle, Music2, Search, Settings } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport type DockItem = { label: string; icon: ReactNode; href?: string; onClick?: () => void };\n\nconst DEFAULT_ITEMS: DockItem[] = [\n  { label: \"Home\", icon: <Home /> },\n  { label: \"Search\", icon: <Search /> },\n  { label: \"Messages\", icon: <MessageCircle /> },\n  { label: \"Mail\", icon: <Mail /> },\n  { label: \"Music\", icon: <Music2 /> },\n  { label: \"Settings\", icon: <Settings /> },\n];\n\nfunction Icon({ item, mouseX, base, grow, reach }: { item: DockItem; mouseX: MotionValue<number>; base: number; grow: number; reach: number }) {\n  const ref = useRef<HTMLDivElement>(null);\n  const distance = useTransform(mouseX, (x) => {\n    const r = ref.current?.getBoundingClientRect();\n    return r ? x - (r.left + r.width / 2) : reach * 2;\n  });\n  const size = useSpring(useTransform(distance, [-reach, 0, reach], [base, base * grow, base]), { stiffness: 320, damping: 24, mass: 0.4 });\n  const Tag = item.href ? \"a\" : \"button\";\n\n  return (\n    <motion.div ref={ref} style={{ width: size, height: size }} className=\"group relative\">\n      <span className=\"pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border bg-card px-2 py-1 text-xs opacity-0 shadow-lg transition-all duration-200 group-hover:-translate-y-0.5 group-hover:opacity-100\">\n        {item.label}\n      </span>\n      <Tag\n        {...(item.href ? { href: item.href } : { type: \"button\" as const })}\n        onClick={item.onClick}\n        aria-label={item.label}\n        className=\"grid size-full place-items-center rounded-2xl border bg-card text-foreground/80 shadow-sm transition-colors hover:bg-accent hover:text-foreground [&_svg]:size-[42%]\"\n      >\n        {item.icon}\n      </Tag>\n    </motion.div>\n  );\n}\n\n/**\n * A floating dock whose icons swell as the pointer approaches, like the macOS dock. The effect is\n * driven by distance, so neighbours grow a little too. Labels appear above the icon you hover.\n */\nexport function Dock({\n  items = DEFAULT_ITEMS,\n  size = 48,\n  magnification = 1.7,\n  className,\n}: {\n  items?: DockItem[];\n  size?: number;\n  magnification?: number;\n  className?: string;\n}) {\n  const mouseX = useMotionValue(Infinity);\n  return (\n    <div\n      onPointerMove={(e) => mouseX.set(e.clientX)}\n      onPointerLeave={() => mouseX.set(Infinity)}\n      className={cn(\"mx-auto flex w-max items-end gap-2 rounded-[1.6rem] border bg-card/70 p-2 shadow-2xl backdrop-blur-xl\", className)}\n      style={{ height: size + 20 }}\n    >\n      {items.map((it) => (\n        <Icon key={it.label} item={it} mouseX={mouseX} base={size} grow={magnification} reach={size * 2.4} />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "ink"
+  },
+  "docs": "import { Dock } from \"@/components/dock\"\n\n<Dock items={[{ label: \"Home\", icon: <Home /> }]} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

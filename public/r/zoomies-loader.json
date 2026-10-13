@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "noir"
   },
   "docs": "import { ZoomiesLoader } from \"@/components/zoomies-loader\"\n\n<ZoomiesLoader />",
   "categories": [

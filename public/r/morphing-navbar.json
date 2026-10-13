@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "morphing-navbar",
+  "title": "Morphing Navbar",
+  "description": "A navbar that floats as a pill, then settles into a full width bar as you scroll.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/morphing-navbar.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState, type RefObject } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport type NavLink = { label: string; href: string };\n\nconst DEFAULT_LINKS: NavLink[] = [\n  { label: \"Events\", href: \"#events\" },\n  { label: \"Team\", href: \"#team\" },\n  { label: \"Sponsors\", href: \"#sponsors\" },\n  { label: \"Gallery\", href: \"#gallery\" },\n  { label: \"About\", href: \"#about\" },\n];\n\n/**\n * A navbar that floats as a rounded pill at the top, then settles into a full width bar once you scroll.\n * Below the md breakpoint it collapses to a button that morphs into a close icon and opens a stacked menu.\n */\nexport function MorphingNavbar({\n  brand = \"Technovit\",\n  links = DEFAULT_LINKS,\n  cta = \"Register\",\n  ctaHref = \"#register\",\n  threshold = 60,\n  scrollContainer,\n  position = \"fixed\",\n  className,\n}: {\n  brand?: string;\n  links?: NavLink[];\n  cta?: string;\n  ctaHref?: string;\n  threshold?: number;\n  /** Track a scrollable element instead of the window. */\n  scrollContainer?: RefObject<HTMLElement | null>;\n  position?: \"fixed\" | \"absolute\";\n  className?: string;\n}) {\n  const [stuck, setStuck] = useState(false);\n  const [open, setOpen] = useState(false);\n\n  useEffect(() => {\n    const target: HTMLElement | Window = scrollContainer?.current ?? window;\n    const read = () => (target instanceof Window ? target.scrollY : (target as HTMLElement).scrollTop);\n    const onScroll = () => setStuck(read() > threshold);\n    onScroll();\n    target.addEventListener(\"scroll\", onScroll, { passive: true });\n    return () => target.removeEventListener(\"scroll\", onScroll);\n  }, [scrollContainer, threshold]);\n\n  return (\n    <motion.header\n      initial={false}\n      animate={{\n        top: stuck ? 0 : 16,\n        width: stuck ? \"100%\" : \"min(92%, 60rem)\",\n        borderRadius: stuck ? 0 : 20,\n      }}\n      transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}\n      className={cn(\"inset-x-0 z-50 mx-auto border bg-card/85 backdrop-blur-md\", stuck ? \"border-x-0 border-t-0\" : \"shadow-lg\", position, className)}\n    >\n      <div className=\"mx-auto flex h-14 max-w-6xl items-center justify-between px-5\">\n        <a href=\"#\" className=\"text-base font-semibold tracking-tight\">{brand}</a>\n\n        <nav className=\"hidden items-center gap-1 md:flex\" aria-label=\"Main\">\n          {links.map((l) => (\n            <a key={l.href} href={l.href} className=\"rounded-full px-3.5 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground\">\n              {l.label}\n            </a>\n          ))}\n        </nav>\n\n        <div className=\"flex items-center gap-2\">\n          <a href={ctaHref} className=\"hidden h-9 items-center rounded-full bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex\">\n            {cta}\n          </a>\n          <button type=\"button\" aria-label={open ? \"Close menu\" : \"Open menu\"} aria-expanded={open} onClick={() => setOpen((o) => !o)} className=\"relative grid size-9 place-items-center rounded-full border md:hidden\">\n            <span className={cn(\"absolute h-px w-4 bg-foreground transition-transform duration-300\", open ? \"rotate-45\" : \"-translate-y-1\")} />\n            <span className={cn(\"absolute h-px w-4 bg-foreground transition-opacity duration-200\", open && \"opacity-0\")} />\n            <span className={cn(\"absolute h-px w-4 bg-foreground transition-transform duration-300\", open ? \"-rotate-45\" : \"translate-y-1\")} />\n          </button>\n        </div>\n      </div>\n\n      <AnimatePresence initial={false}>\n        {open && (\n          <motion.nav\n            initial={{ height: 0, opacity: 0 }}\n            animate={{ height: \"auto\", opacity: 1 }}\n            exit={{ height: 0, opacity: 0 }}\n            transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}\n            className=\"overflow-hidden md:hidden\"\n            aria-label=\"Mobile\"\n          >\n            <ul className=\"border-t px-5 py-3\">\n              {links.map((l, i) => (\n                <motion.li key={l.href} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * i }}>\n                  <a href={l.href} onClick={() => setOpen(false)} className=\"block py-3 text-lg\">{l.label}</a>\n                </motion.li>\n              ))}\n            </ul>\n          </motion.nav>\n        )}\n      </AnimatePresence>\n    </motion.header>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "ink"
+  },
+  "docs": "import { MorphingNavbar } from \"@/components/morphing-navbar\"\n\n<MorphingNavbar brand=\"Acme\" cta=\"Register\" />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

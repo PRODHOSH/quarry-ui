@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lights-out-loader",
+  "title": "Lights Out Loader",
+  "description": "Five lights come on one by one, hold, then go out together. Inline or a full screen intro.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/lights-out-loader.tsx",
+      "content": "\"use client\";\r\n\r\nimport { useEffect, useRef, useState } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * Five lights come on one by one, hold, then go out together. Use it as a first-load intro,\r\n * or keep it inline. Sound is off by default and uses two short synthesized tones, no audio files.\r\n */\r\nexport function LightsOutLoader({\r\n  lights = 5,\r\n  stepMs = 220,\r\n  holdMs = 260,\r\n  sound = false,\r\n  fullscreen = false,\r\n  runKey = 0,\r\n  onDone,\r\n  className,\r\n}: {\r\n  lights?: number;\r\n  stepMs?: number;\r\n  holdMs?: number;\r\n  sound?: boolean;\r\n  /** Cover the whole viewport, then fade away when the sequence ends. */\r\n  fullscreen?: boolean;\r\n  /** Change this value to play the sequence again. */\r\n  runKey?: number;\r\n  onDone?: () => void;\r\n  className?: string;\r\n}) {\r\n  const [lit, setLit] = useState(0);\r\n  const [out, setOut] = useState(false);\r\n  const [gone, setGone] = useState(false);\r\n  const done = useRef(onDone);\r\n\r\n  useEffect(() => {\r\n    done.current = onDone;\r\n  });\r\n\r\n  useEffect(() => {\r\n    const reduced = window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches;\r\n    const ctx = sound && typeof AudioContext !== \"undefined\" ? new AudioContext() : null;\r\n    const tone = (hz: number, ms: number) => {\r\n      if (!ctx) return;\r\n      try {\r\n        void ctx.resume();\r\n        const osc = ctx.createOscillator();\r\n        const gain = ctx.createGain();\r\n        osc.frequency.value = hz;\r\n        gain.gain.setValueAtTime(0.18, ctx.currentTime);\r\n        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + ms / 1000);\r\n        osc.connect(gain).connect(ctx.destination);\r\n        osc.start();\r\n        osc.stop(ctx.currentTime + ms / 1000);\r\n      } catch {}\r\n    };\r\n\r\n    // Restarting the sequence when runKey changes is exactly what this effect is for.\r\n    /* eslint-disable react-hooks/set-state-in-effect */\r\n    setLit(0);\r\n    setOut(false);\r\n    setGone(false);\r\n    /* eslint-enable react-hooks/set-state-in-effect */\r\n    const timers: number[] = [];\r\n    const step = reduced ? 0 : stepMs;\r\n    for (let i = 1; i <= lights; i++) {\r\n      timers.push(window.setTimeout(() => { setLit(i); tone(700, 90); }, i * step));\r\n    }\r\n    const dark = lights * step + (reduced ? 0 : holdMs);\r\n    timers.push(window.setTimeout(() => { setOut(true); tone(320, 240); }, dark));\r\n    timers.push(window.setTimeout(() => { setGone(true); done.current?.(); }, dark + 450));\r\n    return () => {\r\n      timers.forEach(clearTimeout);\r\n      void ctx?.close().catch(() => {});\r\n    };\r\n  }, [lights, stepMs, holdMs, sound, runKey]);\r\n\r\n  if (fullscreen && gone) return null;\r\n\r\n  return (\r\n    <div\r\n      role=\"status\"\r\n      aria-label=\"Loading\"\r\n      className={cn(\r\n        \"flex items-center justify-center gap-3 sm:gap-4\",\r\n        fullscreen && \"fixed inset-0 z-[100] bg-background transition-opacity duration-500\",\r\n        fullscreen && out && \"opacity-0\",\r\n        className\r\n      )}\r\n    >\r\n      {Array.from({ length: lights }).map((_, i) => {\r\n        const on = !out && i < lit;\r\n        return (\r\n          <span\r\n            key={i}\r\n            className={cn(\r\n              \"size-9 rounded-full border-2 transition-all duration-150 sm:size-12\",\r\n              on ? \"border-primary bg-primary shadow-[0_0_28px_var(--primary)]\" : \"border-border bg-transparent\"\r\n            )}\r\n          />\r\n        );\r\n      })}\r\n      <span className=\"sr-only\">Lights out and away we go</span>\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "circuit"
+  },
+  "docs": "import { LightsOutLoader } from \"@/components/lights-out-loader\"\n\n<LightsOutLoader fullscreen onDone={() => setReady(true)} />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

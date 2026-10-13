@@ -1,5 +1,6 @@
 import { Palette, PackageCheck, Search } from "lucide-react";
 import { WaitlistForm } from "@/components/landing/waitlist-form";
+import { Mark } from "@/components/site/mark";
 import { CodeBlock } from "@/components/site/code-block";
 import { AGENT_ICONS } from "@/components/site/agent-icons";
 import AntigravityIcon from "@thesvg/react/google-antigravity";
@@ -30,12 +31,12 @@ export function McpSection() {
   return (
     <div className="mx-auto max-w-6xl px-6">
       <div className="mx-auto max-w-2xl text-center">
-        <p className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-sm text-muted-foreground">
+        <p className="font-label inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs uppercase tracking-wide text-muted-foreground">
           <span className="size-1.5 rounded-full bg-brand" />
           MCP server · Coming soon
         </p>
         <h2 className="mt-6 text-balance text-4xl font-semibold leading-[1.06] tracking-[-0.03em] sm:text-5xl">
-          Connect your AI agents.
+          Connect your <Mark>AI agents.</Mark>
         </h2>
         <p className="mx-auto mt-5 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground">
           One server, and your agent can search Quarry, pick the right component and install it without leaving your editor.

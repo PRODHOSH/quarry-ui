@@ -8,6 +8,7 @@ import { PreviewStage } from "@/components/site/preview-stage";
 import { PromptMenu } from "@/components/site/prompt-menu";
 import { getItem, getItems, getNeighbours, getSource } from "@/lib/registry";
 import { GROUPS } from "@/lib/registry-types";
+import { THEMES, themeCss } from "@/lib/themes";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -38,6 +39,7 @@ export default async function ComponentPage({ params }: Props) {
   const source = getSource(item);
   const { previous, next } = getNeighbours(item.name);
   const group = GROUPS.find((g) => g.id === item.categories[0]);
+  const theme = item.meta.theme ? THEMES[item.meta.theme] : undefined;
   const packages = [...item.dependencies, "clsx", "tailwind-merge"];
 
   return (
@@ -59,7 +61,26 @@ export default async function ComponentPage({ params }: Props) {
         </div>
       </header>
 
-      <PreviewStage name={item.name} stage={item.meta.stage} />
+      <PreviewStage name={item.name} stage={item.meta.stage} theme={item.meta.theme} />
+
+      {theme && (
+        <Section title="Theme">
+          <p className="text-sm text-muted-foreground">
+            This one was designed with the <strong className="font-medium text-foreground">{theme.name}</strong> preset in{" "}
+            <strong className="font-medium text-foreground">{theme.font.label}</strong>. The component only reads your shadcn tokens, so
+            it also works in your own theme. Paste this if you want the exact look.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {["background", "card", "muted", "primary"].map((k) => (
+              <span key={k} className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs text-muted-foreground">
+                <span className="size-3.5 rounded-full border" style={{ background: theme.vars[`--${k}`] }} />
+                {k}
+              </span>
+            ))}
+          </div>
+          <CodeBlock code={themeCss(theme.id)} lang="css" title="globals.css" />
+        </Section>
+      )}
 
       <Section title="Installation">
         <InstallCommand name={item.name} />

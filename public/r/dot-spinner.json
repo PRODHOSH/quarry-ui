@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "glacier"
   },
   "docs": "import { DotSpinner } from \"@/components/dot-spinner\"\n\n<DotSpinner />",
   "categories": [

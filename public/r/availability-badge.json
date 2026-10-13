@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "availability-badge",
+  "title": "Availability Badge",
+  "description": "A round badge with text running around its edge and an arrow in the middle.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/availability-badge.tsx",
+      "content": "\"use client\";\n\nimport { ArrowRight } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * A round badge with text running around its edge and an arrow in the middle. The ring turns slowly\n * and speeds up on hover. Good for \"available for work\" and \"book a call\" prompts.\n */\nexport function AvailabilityBadge({\n  text = \"Available for work • Let's talk • \",\n  href = \"mailto:hello@example.com\",\n  size = 128,\n  position = \"static\",\n  className,\n}: {\n  /** Repeats around the circle. End it with a separator so the loop reads cleanly. */\n  text?: string;\n  href?: string;\n  size?: number;\n  position?: \"static\" | \"fixed\" | \"absolute\";\n  className?: string;\n}) {\n  const id = `ring-${text.length}-${size}`;\n  return (\n    <a\n      href={href}\n      aria-label={text.replace(/•/g, \",\")}\n      className={cn(\"group grid place-items-center rounded-full bg-card shadow-lg ring-1 ring-border transition-transform duration-500 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:scale-105\", position === \"static\" ? \"relative\" : position, position !== \"static\" && \"bottom-6 right-6 z-50\", className)}\n      style={{ width: size, height: size }}\n    >\n      <svg viewBox=\"0 0 100 100\" className=\"absolute inset-0 size-full animate-[spin_14s_linear_infinite] overflow-visible group-hover:animate-[spin_6s_linear_infinite]\" aria-hidden>\n        <defs>\n          <path id={id} d=\"M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0\" />\n        </defs>\n        <text className=\"fill-foreground text-[8.6px] font-semibold uppercase tracking-[0.12em]\">\n          <textPath href={`#${id}`} textLength=\"236\" lengthAdjust=\"spacing\">\n            {text.repeat(Math.max(1, Math.ceil(60 / text.length))).slice(0, 60)}\n          </textPath>\n        </text>\n      </svg>\n      <span className=\"relative grid size-[38%] place-items-center rounded-full bg-primary text-primary-foreground transition-transform duration-500 group-hover:rotate-45\">\n        <ArrowRight className=\"size-1/2 -rotate-45\" />\n      </span>\n    </a>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "sunset"
+  },
+  "docs": "import { AvailabilityBadge } from \"@/components/availability-badge\"\n\n<AvailabilityBadge href=\"mailto:hello@example.com\" position=\"fixed\" />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

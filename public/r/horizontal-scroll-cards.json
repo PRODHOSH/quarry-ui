@@ -18,7 +18,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "studio"
   },
   "docs": "import { HorizontalScrollCards } from \"@/components/horizontal-scroll-cards\"\n\n<HorizontalScrollCards />",
   "categories": [

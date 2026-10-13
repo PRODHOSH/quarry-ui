@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image-trail",
+  "title": "Image Trail",
+  "description": "Move the pointer and photos land along its path, tilt, then fade away.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/image-trail.tsx",
+      "content": "\"use client\";\n\nimport { useRef, useState, type PointerEvent, type ReactNode } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst photo = (id: number) => `https://picsum.photos/id/${id}/400/500`;\nconst DEFAULT_IMAGES = [1015, 1018, 1036, 1039, 1043, 1062, 29, 15].map(photo);\n\ntype Drop = { id: number; x: number; y: number; src: string; rot: number };\n\n/**\n * Move the pointer across the area and photos are dropped along its path, tilt a little, then fade away.\n * Put your own headline in children.\n */\nexport function ImageTrail({\n  images = DEFAULT_IMAGES,\n  distance = 90,\n  size = 150,\n  children,\n  className,\n}: {\n  images?: string[];\n  /** Pixels the pointer must travel before the next photo lands. */\n  distance?: number;\n  size?: number;\n  children?: ReactNode;\n  className?: string;\n}) {\n  const [drops, setDrops] = useState<Drop[]>([]);\n  const last = useRef<{ x: number; y: number } | null>(null);\n  const count = useRef(0);\n\n  const onMove = (e: PointerEvent<HTMLDivElement>) => {\n    const r = e.currentTarget.getBoundingClientRect();\n    const x = e.clientX - r.left;\n    const y = e.clientY - r.top;\n    if (last.current && Math.hypot(x - last.current.x, y - last.current.y) < distance) return;\n    last.current = { x, y };\n    const id = count.current++;\n    const drop: Drop = { id, x, y, src: images[id % images.length], rot: (Math.random() - 0.5) * 18 };\n    setDrops((d) => [...d.slice(-9), drop]);\n    window.setTimeout(() => setDrops((d) => d.filter((item) => item.id !== id)), 1400);\n  };\n\n  return (\n    <div onPointerMove={onMove} onPointerLeave={() => (last.current = null)} className={cn(\"relative grid min-h-[26rem] w-full place-items-center overflow-hidden\", className)}>\n      <div className=\"pointer-events-none relative z-10 px-6 text-center\">\n        {children ?? (\n          <>\n            <p className=\"text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground\">Move your cursor</p>\n            <h2 className=\"mt-4 text-balance text-5xl font-medium leading-[1.02] tracking-tight sm:text-7xl\">Leave a trail of places</h2>\n          </>\n        )}\n      </div>\n      <AnimatePresence>\n        {drops.map((d) => (\n          <motion.div\n            key={d.id}\n            initial={{ opacity: 0, scale: 0.6, rotate: d.rot * 2 }}\n            animate={{ opacity: 1, scale: 1, rotate: d.rot }}\n            exit={{ opacity: 0, scale: 0.85, y: 24 }}\n            transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}\n            className=\"pointer-events-none absolute z-0 overflow-hidden rounded-2xl border shadow-2xl\"\n            style={{ left: d.x - size / 2, top: d.y - (size * 1.25) / 2, width: size, height: size * 1.25 }}\n          >\n            {/* eslint-disable-next-line @next/next/no-img-element */}\n            <img src={d.src} alt=\"\" draggable={false} className=\"size-full object-cover\" />\n          </motion.div>\n        ))}\n      </AnimatePresence>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "porcelain"
+  },
+  "docs": "import { ImageTrail } from \"@/components/image-trail\"\n\n<ImageTrail images={urls}><h2>Your headline</h2></ImageTrail>",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

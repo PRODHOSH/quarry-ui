@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "obsidian"
   },
   "docs": "import { IntegrationSnippet } from \"@/components/integration-snippet\"\n\n<IntegrationSnippet />",
   "categories": [

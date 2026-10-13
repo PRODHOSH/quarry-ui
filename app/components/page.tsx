@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Mark } from "@/components/site/mark";
 import { ComponentCard } from "@/components/site/component-card";
 import { getGroups } from "@/lib/registry";
 import { cn } from "@/lib/utils";
@@ -12,7 +13,9 @@ export default function ComponentsPage() {
   return (
     <div className="mx-auto max-w-6xl">
       <header className="mb-10">
-        <h1 className="text-5xl font-medium tracking-[-0.03em]">Components</h1>
+        <h1 className="text-5xl font-medium tracking-[-0.03em]">
+          All <Mark>components</Mark>
+        </h1>
         <p className="mt-4 max-w-xl font-normal leading-relaxed text-muted-foreground">
           {total} free components. Each one is a single file that reads your theme tokens, so it
           looks at home in your project from the first render.
@@ -42,7 +45,7 @@ export default function ComponentsPage() {
             >
               {group.items.map((item) => (
                 <li key={item.name}>
-                  <ComponentCard name={item.name} title={item.title} stage={item.meta.stage} />
+                  <ComponentCard name={item.name} title={item.title} stage={item.meta.stage} theme={item.meta.theme} />
                 </li>
               ))}
             </ul>

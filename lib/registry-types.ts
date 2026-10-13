@@ -1,4 +1,4 @@
-export type GroupId = "sections" | "elements" | "loaders";
+export type GroupId = "sections" | "elements" | "backgrounds" | "loaders";
 
 export type RegistryItem = {
   name: string;
@@ -10,7 +10,7 @@ export type RegistryItem = {
   registryDependencies: string[];
   files: { path: string; type: string }[];
   docs: string;
-  meta: { stage: "center" | "fill" };
+  meta: { stage: "center" | "fill"; theme?: import("@/lib/themes").ThemeId };
 };
 
 export const GROUPS: { id: GroupId; title: string; description: string }[] = [
@@ -23,6 +23,11 @@ export const GROUPS: { id: GroupId; title: string; description: string }[] = [
     id: "elements",
     title: "Elements",
     description: "Focused interface pieces such as modals, pills and graphs.",
+  },
+  {
+    id: "backgrounds",
+    title: "Backgrounds",
+    description: "Interactive canvas backdrops. Tune the colour and the cursor behaviour live.",
   },
   {
     id: "loaders",

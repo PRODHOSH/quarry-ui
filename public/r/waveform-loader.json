@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "center"
+    "stage": "center",
+    "theme": "noir"
   },
   "docs": "import { WaveformLoader } from \"@/components/waveform-loader\"\n\n<WaveformLoader />",
   "categories": [

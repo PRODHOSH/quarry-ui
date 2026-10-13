@@ -17,7 +17,8 @@
     }
   ],
   "meta": {
-    "stage": "fill"
+    "stage": "fill",
+    "theme": "terminal"
   },
   "docs": "import { GithubHeatmap } from \"@/components/github-heatmap\"\n\n<GithubHeatmap username=\"your-handle\" />",
   "categories": [
