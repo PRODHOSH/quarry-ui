@@ -3,7 +3,7 @@
  * and the font it was designed with. The site applies it around the live preview, and the component
  * page shows it so you can copy it into your own app.
  */
-export type ThemeId = "studio" | "circuit" | "harbor" | "verdant" | "terminal" | "rosewater" | "signal" | "sunset" | "blueprint" | "ink" | "obsidian" | "porcelain" | "ember" | "glacier" | "noir" | "sage";
+export type ThemeId = "studio" | "circuit" | "harbor" | "verdant" | "terminal" | "rosewater" | "signal" | "sunset" | "blueprint" | "ink" | "obsidian" | "porcelain" | "ember" | "glacier" | "noir" | "sage" | "vault" | "converse";
 
 export type Theme = {
   id: ThemeId;
@@ -335,6 +335,58 @@ export const THEMES: Record<ThemeId, Theme> = {
       "--accent": "#e6ebdc",
       "--accent-foreground": "#1b2417",
       "--ring": "#4d6b2f",
+    }),
+  },
+  vault: {
+    id: "vault",
+    name: "Vault",
+    font: { label: "DM Sans", variable: "--font-dm-sans", fallback: "sans-serif" },
+    mode: "dark",
+    vars: base({
+      "--background": "#030712",
+      "--foreground": "#f3f4f6",
+      "--card": "#0b1220",
+      "--card-foreground": "#f3f4f6",
+      "--muted": "#111827",
+      "--muted-foreground": "#9ca3af",
+      "--border": "#1a2233",
+      "--primary": "#3758f9",
+      "--primary-foreground": "#ffffff",
+      "--accent": "#161f33",
+      "--accent-foreground": "#f3f4f6",
+      "--ring": "#3758f9",
+      "--destructive": "#f87171",
+      "--chart-1": "#8fa8ff",
+      "--chart-2": "#ffc78a",
+      "--chart-3": "#d6b4ff",
+      "--chart-4": "#5ee0a0",
+      "--chart-5": "#ff9ccb",
+    }),
+  },
+  converse: {
+    id: "converse",
+    name: "Converse",
+    font: { label: "DM Sans", variable: "--font-dm-sans", fallback: "sans-serif" },
+    mode: "light",
+    vars: base({
+      "--background": "#ffffff",
+      "--foreground": "#1d2433",
+      "--card": "#ffffff",
+      "--card-foreground": "#1d2433",
+      "--muted": "#f3f5f9",
+      "--muted-foreground": "#6b7385",
+      "--border": "#e6e9f0",
+      "--primary": "#4b6bfb",
+      "--primary-foreground": "#ffffff",
+      "--accent": "#eef1fb",
+      "--accent-foreground": "#1d2433",
+      "--ring": "#4b6bfb",
+      "--destructive": "#e5484d",
+      "--chart-1": "#4b6bfb",
+      "--chart-2": "#f59e0b",
+      "--chart-3": "#a78bfa",
+      "--chart-4": "#22c55e",
+      "--chart-5": "#ec4899",
     }),
   },
 };

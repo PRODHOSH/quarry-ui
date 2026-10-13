@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-group",
+  "title": "Avatar Group",
+  "description": "Overlapping avatars that lift with a following tooltip and a +N chip.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/avatar-group.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\ntype Person = { name: string; role?: string; src?: string };\n\nconst PEOPLE: Person[] = [\n  { name: \"Ava Lindqvist\", role: \"Design\" },\n  { name: \"Marcus Bell\", role: \"Engineering\" },\n  { name: \"Noor Haddad\", role: \"Product\" },\n  { name: \"Hiro Tanaka\", role: \"Research\" },\n  { name: \"Isla Moreau\", role: \"Marketing\" },\n  { name: \"Theo Grant\", role: \"Support\" },\n  { name: \"Zara Khan\", role: \"Finance\" },\n];\n\nconst TINTS = [\"bg-primary text-primary-foreground\", \"bg-foreground text-background\", \"bg-foreground/70 text-background\", \"bg-primary/65 text-primary-foreground\"];\n\n/**\n * Overlapping avatars for \"who is here\". Hovering lifts one with a spring and shows a tooltip that\n * follows between people, and anything beyond `max` collapses into a +N chip.\n */\nexport function AvatarGroup({ people = PEOPLE, max = 5, size = 44, className }: { people?: Person[]; max?: number; size?: number; className?: string }) {\n  const [hover, setHover] = useState<number | null>(null);\n  const shown = people.slice(0, max);\n  const rest = people.length - shown.length;\n\n  return (\n    <div className={cn(\"flex items-center\", className)}>\n      {shown.map((p, i) => (\n        <div key={p.name} className=\"relative -ml-3 first:ml-0\" style={{ zIndex: hover === i ? 50 : shown.length - i }} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}>\n          <AnimatePresence>\n            {hover === i && (\n              <motion.div\n                initial={{ opacity: 0, y: 6, scale: 0.9 }}\n                animate={{ opacity: 1, y: 0, scale: 1 }}\n                exit={{ opacity: 0, y: 4, scale: 0.9 }}\n                transition={{ duration: 0.16 }}\n                className=\"pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-foreground px-2.5 py-1.5 text-center text-background shadow-lg\"\n              >\n                <span className=\"block text-xs font-medium leading-none\">{p.name}</span>\n                {p.role && <span className=\"mt-1 block text-[10px] leading-none opacity-65\">{p.role}</span>}\n              </motion.div>\n            )}\n          </AnimatePresence>\n          <motion.button\n            animate={{ y: hover === i ? -6 : 0, scale: hover === i ? 1.12 : 1 }}\n            transition={{ type: \"spring\", stiffness: 420, damping: 24 }}\n            style={{ width: size, height: size }}\n            aria-label={p.name}\n            className={cn(\"grid place-items-center overflow-hidden rounded-full border-2 border-background text-xs font-semibold\", TINTS[i % TINTS.length])}\n          >\n            {p.src ? (\n              // eslint-disable-next-line @next/next/no-img-element\n              <img src={p.src} alt={p.name} className=\"size-full object-cover\" />\n            ) : (\n              p.name.split(\" \").map((w) => w[0]).join(\"\")\n            )}\n          </motion.button>\n        </div>\n      ))}\n      {rest > 0 && (\n        <div style={{ width: size, height: size }} className=\"-ml-3 grid place-items-center rounded-full border-2 border-background bg-muted text-xs font-medium text-muted-foreground\">\n          +{rest}\n        </div>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "sunset"
+  },
+  "docs": "import { AvatarGroup } from \"@/components/avatar-group\"\n\n<AvatarGroup people={people} max={5} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

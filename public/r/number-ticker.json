@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "number-ticker",
+  "title": "Number Ticker",
+  "description": "A rolling odometer whose digits spin to their place.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/number-ticker.tsx",
+      "content": "\"use client\";\r\n\r\nimport { useEffect, useRef, useState } from \"react\";\r\nimport { motion, useInView, useSpring, useTransform, type MotionValue } from \"framer-motion\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\nconst DIGIT = 56; // px height of one digit cell, matches the h-14 class below\r\n\r\nfunction Digit({ place, value }: { place: number; value: MotionValue<number> }) {\r\n  const y = useTransform(value, (v) => {\r\n    // a digit holds still and only rolls during the final unit before it carries, like an odometer\r\n    const base = Math.floor(v / place);\r\n    const roll = Math.max(0, (v % place) - (place - 1));\r\n    return -((base % 10) + roll) * DIGIT;\r\n  });\r\n  return (\r\n    <span className=\"relative h-14 w-[0.62em] overflow-hidden\">\r\n      <motion.span style={{ y }} className=\"absolute inset-x-0 top-0 flex flex-col items-center\">\r\n        {Array.from({ length: 11 }).map((_, n) => (\r\n          <span key={n} className=\"grid h-14 place-items-center\">{n % 10}</span>\r\n        ))}\r\n      </motion.span>\r\n    </span>\r\n  );\r\n}\r\n\r\n/**\r\n * A rolling odometer. Each digit is its own reel that spins to its place, so the number rolls up\r\n * when it enters view and re-rolls whenever the value changes. Use the buttons or set `value`.\r\n */\r\nexport function NumberTicker({\r\n  value = 12840,\r\n  prefix = \"\",\r\n  suffix = \"\",\r\n  interactive = true,\r\n  className,\r\n}: {\r\n  value?: number;\r\n  prefix?: string;\r\n  suffix?: string;\r\n  interactive?: boolean;\r\n  className?: string;\r\n}) {\r\n  const ref = useRef<HTMLDivElement>(null);\r\n  const inView = useInView(ref, { once: true });\r\n  const [delta, setDelta] = useState(0);\r\n  const target = Math.max(0, value + delta);\r\n  const spring = useSpring(0, { stiffness: 55, damping: 18 });\r\n\r\n  useEffect(() => { if (inView) spring.set(target); }, [inView, target, spring]);\r\n\r\n  const digits = String(Math.max(0, Math.round(target))).length;\r\n  const places = Array.from({ length: digits }, (_, i) => 10 ** (digits - 1 - i));\r\n\r\n  return (\r\n    <div ref={ref} className={cn(\"flex flex-col items-center gap-6\", className)}>\r\n      <div aria-label={`${prefix}${target.toLocaleString()}${suffix}`} className=\"flex items-center text-5xl font-semibold tabular-nums tracking-tight\">\r\n        {prefix && <span className=\"mr-1 text-muted-foreground\">{prefix}</span>}\r\n        {places.map((p, i) => {\r\n          const fromRight = digits - 1 - i;\r\n          return (\r\n            <span key={p} className=\"flex items-center\">\r\n              <Digit place={p} value={spring} />\r\n              {fromRight > 0 && fromRight % 3 === 0 && <span className=\"px-0.5 text-muted-foreground\">,</span>}\r\n            </span>\r\n          );\r\n        })}\r\n        {suffix && <span className=\"ml-1 text-muted-foreground\">{suffix}</span>}\r\n      </div>\r\n      {interactive && (\r\n        <div className=\"flex gap-2\">\r\n          {[[\"−1,000\", -1000], [\"+2,500\", 2500], [\"+10,000\", 10000]].map(([label, d]) => (\r\n            <button key={label as string} onClick={() => setDelta((x) => x + (d as number))} className=\"rounded-lg border bg-card px-3 py-1.5 text-xs font-medium transition-colors hover:bg-muted active:scale-95\">\r\n              {label}\r\n            </button>\r\n          ))}\r\n        </div>\r\n      )}\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "terminal"
+  },
+  "docs": "import { NumberTicker } from \"@/components/number-ticker\"\n\n<NumberTicker value={12840} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

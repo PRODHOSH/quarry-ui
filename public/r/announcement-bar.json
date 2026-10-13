@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "announcement-bar",
+  "title": "Announcement Bar",
+  "description": "A dismissible top banner that rotates messages and pauses on hover.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/announcement-bar.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { ArrowRight, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Message = { badge: string; text: string; href?: string };\n\nconst MESSAGES: Message[] = [\n  { badge: \"New\", text: \"Version 2.0 is here, rebuilt around a faster editor.\" },\n  { badge: \"Event\", text: \"Join our live product tour on Thursday at 4pm.\" },\n  { badge: \"Offer\", text: \"Get 20% off annual plans until the end of the month.\" },\n];\n\n/**\n * A dismissible top announcement bar. Messages rotate with a soft vertical slide, pause while the\n * pointer is over them, and the bar collapses smoothly when closed.\n */\nexport function AnnouncementBar({\n  messages = MESSAGES,\n  interval = 4000,\n  className,\n}: {\n  messages?: Message[];\n  interval?: number;\n  className?: string;\n}) {\n  const [i, setI] = useState(0);\n  const [paused, setPaused] = useState(false);\n  const [open, setOpen] = useState(true);\n\n  useEffect(() => {\n    if (paused || messages.length < 2) return;\n    const t = setInterval(() => setI((v) => (v + 1) % messages.length), interval);\n    return () => clearInterval(t);\n  }, [paused, messages.length, interval]);\n\n  const m = messages[i];\n\n  return (\n    <AnimatePresence initial={false}>\n      {open ? (\n        <motion.div\n          initial={{ height: 0, opacity: 0 }}\n          animate={{ height: \"auto\", opacity: 1 }}\n          exit={{ height: 0, opacity: 0 }}\n          transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}\n          className={cn(\"w-full overflow-hidden\", className)}\n        >\n          <div\n            onMouseEnter={() => setPaused(true)}\n            onMouseLeave={() => setPaused(false)}\n            className=\"relative flex items-center justify-center gap-3 bg-primary px-10 py-2.5 text-primary-foreground\"\n          >\n            <div className=\"relative h-5 w-full max-w-xl overflow-hidden\">\n              <AnimatePresence mode=\"popLayout\" initial={false}>\n                <motion.a\n                  key={i}\n                  href={m.href ?? \"#\"}\n                  initial={{ y: 20, opacity: 0 }}\n                  animate={{ y: 0, opacity: 1 }}\n                  exit={{ y: -20, opacity: 0 }}\n                  transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}\n                  className=\"group absolute inset-0 flex items-center justify-center gap-2.5 text-sm\"\n                >\n                  <span className=\"rounded-full bg-primary-foreground/15 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide\">{m.badge}</span>\n                  <span className=\"truncate\">{m.text}</span>\n                  <ArrowRight className=\"size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5\" />\n                </motion.a>\n              </AnimatePresence>\n            </div>\n            <div className=\"absolute inset-y-0 right-10 hidden items-center gap-1 sm:flex\">\n              {messages.map((_, n) => (\n                <span key={n} className={cn(\"h-1 rounded-full bg-primary-foreground transition-all\", n === i ? \"w-4 opacity-100\" : \"w-1 opacity-40\")} />\n              ))}\n            </div>\n            <button\n              onClick={() => setOpen(false)}\n              aria-label=\"Dismiss announcement\"\n              className=\"absolute right-3 top-1/2 grid size-6 -translate-y-1/2 place-items-center rounded-md transition-colors hover:bg-primary-foreground/15\"\n            >\n              <X className=\"size-3.5\" />\n            </button>\n          </div>\n        </motion.div>\n      ) : (\n        <motion.button\n          key=\"reopen\"\n          initial={{ opacity: 0 }}\n          animate={{ opacity: 1 }}\n          onClick={() => setOpen(true)}\n          className=\"rounded-full border bg-card px-3 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground\"\n        >\n          Show announcement\n        </motion.button>\n      )}\n    </AnimatePresence>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "ember"
+  },
+  "docs": "import { AnnouncementBar } from \"@/components/announcement-bar\"\n\n<AnnouncementBar messages={[{ badge: \"New\", text: \"v2 is here\" }]} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

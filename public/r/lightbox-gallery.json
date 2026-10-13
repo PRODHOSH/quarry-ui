@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lightbox-gallery",
+  "title": "Lightbox Gallery",
+  "description": "A masonry gallery whose photos grow into a full lightbox.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/lightbox-gallery.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { ChevronLeft, ChevronRight, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Photo = { id: string; src: string; alt: string; ratio: number };\n\nconst PHOTOS: Photo[] = [\n  { id: \"a\", src: \"https://picsum.photos/seed/quarry-a/800/1000\", alt: \"Quiet street at dawn\", ratio: 1.25 },\n  { id: \"b\", src: \"https://picsum.photos/seed/quarry-b/800/600\", alt: \"Coastline in soft light\", ratio: 0.75 },\n  { id: \"c\", src: \"https://picsum.photos/seed/quarry-c/800/800\", alt: \"Mountain ridge\", ratio: 1 },\n  { id: \"d\", src: \"https://picsum.photos/seed/quarry-d/800/1100\", alt: \"Forest path\", ratio: 1.375 },\n  { id: \"e\", src: \"https://picsum.photos/seed/quarry-e/800/600\", alt: \"City from above\", ratio: 0.75 },\n  { id: \"f\", src: \"https://picsum.photos/seed/quarry-f/800/900\", alt: \"Still water\", ratio: 1.125 },\n];\n\n/**\n * A masonry gallery with a shared-element lightbox. Clicking a photo grows it out of its slot into\n * a full view, with arrow keys, swipe free navigation and Escape to close.\n */\nexport function LightboxGallery({ photos = PHOTOS, className }: { photos?: Photo[]; className?: string }) {\n  const [open, setOpen] = useState<number | null>(null);\n\n  useEffect(() => {\n    if (open === null) return;\n    const onKey = (e: KeyboardEvent) => {\n      if (e.key === \"Escape\") setOpen(null);\n      if (e.key === \"ArrowRight\") setOpen((i) => (i === null ? i : (i + 1) % photos.length));\n      if (e.key === \"ArrowLeft\") setOpen((i) => (i === null ? i : (i - 1 + photos.length) % photos.length));\n    };\n    window.addEventListener(\"keydown\", onKey);\n    return () => window.removeEventListener(\"keydown\", onKey);\n  }, [open, photos.length]);\n\n  const current = open === null ? null : photos[open];\n\n  return (\n    <div className={cn(\"mx-auto w-full max-w-3xl\", className)}>\n      <div className=\"columns-2 gap-3 sm:columns-3 [&>*]:mb-3\">\n        {photos.map((p, i) => (\n          <motion.button\n            key={p.id}\n            layoutId={`photo-${p.id}`}\n            onClick={() => setOpen(i)}\n            style={{ aspectRatio: `1 / ${p.ratio}` }}\n            className=\"group relative block w-full cursor-zoom-in overflow-hidden rounded-xl bg-muted\"\n            transition={{ type: \"spring\", stiffness: 300, damping: 32 }}\n          >\n            {/* eslint-disable-next-line @next/next/no-img-element */}\n            <img src={p.src} alt={p.alt} loading=\"lazy\" className=\"size-full object-cover transition-transform duration-500 group-hover:scale-105\" />\n            <span className=\"absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3 text-left text-xs text-white opacity-0 transition-opacity group-hover:opacity-100\">{p.alt}</span>\n          </motion.button>\n        ))}\n      </div>\n\n      <AnimatePresence>\n        {current && (\n          <motion.div\n            key=\"lb\"\n            initial={{ opacity: 0 }}\n            animate={{ opacity: 1 }}\n            exit={{ opacity: 0 }}\n            className=\"fixed inset-0 z-50 grid place-items-center bg-background/85 p-6 backdrop-blur-md\"\n            onClick={() => setOpen(null)}\n          >\n            <motion.div\n              layoutId={`photo-${current.id}`}\n              transition={{ type: \"spring\", stiffness: 300, damping: 32 }}\n              onClick={(e) => e.stopPropagation()}\n              className=\"relative max-h-[82vh] w-full max-w-xl overflow-hidden rounded-2xl bg-muted shadow-2xl\"\n              style={{ aspectRatio: `1 / ${Math.min(current.ratio, 1.15)}` }}\n            >\n              {/* eslint-disable-next-line @next/next/no-img-element */}\n              <img src={current.src} alt={current.alt} className=\"size-full object-cover\" />\n              <p className=\"absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-sm text-white\">{current.alt}</p>\n            </motion.div>\n\n            {[{ d: -1, Icon: ChevronLeft, pos: \"left-4\" }, { d: 1, Icon: ChevronRight, pos: \"right-4\" }].map(({ d, Icon, pos }) => (\n              <button\n                key={d}\n                aria-label={d < 0 ? \"Previous photo\" : \"Next photo\"}\n                onClick={(e) => { e.stopPropagation(); setOpen((i) => ((i ?? 0) + d + photos.length) % photos.length); }}\n                className={cn(\"absolute top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full border bg-card/80 transition-colors hover:bg-card\", pos)}\n              >\n                <Icon className=\"size-5\" />\n              </button>\n            ))}\n            <button onClick={() => setOpen(null)} aria-label=\"Close\" className=\"absolute right-4 top-4 grid size-10 place-items-center rounded-full border bg-card/80 transition-colors hover:bg-card\">\n              <X className=\"size-5\" />\n            </button>\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "noir"
+  },
+  "docs": "import { LightboxGallery } from \"@/components/lightbox-gallery\"\n\n<LightboxGallery photos={photos} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

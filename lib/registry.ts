@@ -25,8 +25,8 @@ export function getOrderedItems(): RegistryItem[] {
   return getGroups().flatMap((group) => group.items);
 }
 
-export function getNeighbours(name: string) {
-  const ordered = getOrderedItems();
+export function getNeighbours(name: string, owner: "components" | "templates" = "components") {
+  const ordered = getOrderedItems().filter((i) => (i.categories[0] === "templates") === (owner === "templates"));
   const index = ordered.findIndex((item) => item.name === name);
   return {
     previous: index > 0 ? ordered[index - 1] : undefined,
@@ -36,7 +36,17 @@ export function getNeighbours(name: string) {
 
 /** Reads the real source file, so the page, the CLI and the prompts can never drift apart. */
 export function getSource(item: RegistryItem): string {
+  if (item.categories.includes("templates")) return "";
   return fs.readFileSync(path.join(process.cwd(), "registry", "quarry", `${item.name}.tsx`), "utf8");
+}
+
+/** Every file of a multi file item, with the path it is stored at and the path it installs to. */
+export function getFiles(item: RegistryItem) {
+  return item.files.map((f) => ({
+    path: f.path,
+    target: f.target ?? f.path,
+    code: fs.readFileSync(path.join(process.cwd(), f.path), "utf8"),
+  }));
 }
 
 export type { GroupId, RegistryItem };

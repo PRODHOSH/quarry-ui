@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-highlighter",
+  "title": "Text Highlighter",
+  "description": "Hand drawn emphasis: markers, underlines and circles that draw in on scroll.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/text-highlighter.tsx",
+      "content": "\"use client\";\r\n\r\nimport { motion } from \"framer-motion\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\ntype Style = \"marker\" | \"underline\" | \"circle\";\r\n\r\nfunction Mark({ children, style, delay }: { children: string; style: Style; delay: number }) {\r\n  return (\r\n    <span className=\"relative isolate inline-block whitespace-nowrap\">\r\n      {style === \"marker\" && (\r\n        <motion.span\r\n          aria-hidden\r\n          initial={{ scaleX: 0 }}\r\n          whileInView={{ scaleX: 1 }}\r\n          viewport={{ once: true, amount: 0.6 }}\r\n          transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}\r\n          className=\"absolute inset-x-[-0.15em] bottom-[0.05em] top-[0.2em] -z-10 origin-left -skew-x-6 rounded-sm bg-primary/30\"\r\n        />\r\n      )}\r\n      {style === \"underline\" && (\r\n        <svg aria-hidden viewBox=\"0 0 100 8\" preserveAspectRatio=\"none\" className=\"absolute -bottom-1.5 left-0 h-2 w-full overflow-visible text-primary\">\r\n          <motion.path d=\"M1 5 C 20 1, 40 8, 60 4 S 90 3, 99 5\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"3\" strokeLinecap=\"round\" vectorEffect=\"non-scaling-stroke\" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, amount: 0.6 }} transition={{ delay, duration: 0.7, ease: \"easeOut\" }} />\r\n        </svg>\r\n      )}\r\n      {style === \"circle\" && (\r\n        <svg aria-hidden viewBox=\"0 0 100 40\" preserveAspectRatio=\"none\" className=\"absolute -inset-x-3 -inset-y-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+1.5rem)] overflow-visible text-primary\">\r\n          <motion.path d=\"M92 8 C 70 -2, 12 0, 6 20 C 2 38, 60 42, 90 30 C 100 24, 98 12, 82 6\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2.5\" strokeLinecap=\"round\" vectorEffect=\"non-scaling-stroke\" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, amount: 0.6 }} transition={{ delay, duration: 0.9, ease: \"easeInOut\" }} />\r\n        </svg>\r\n      )}\r\n      <span className=\"relative\">{children}</span>\r\n    </span>\r\n  );\r\n}\r\n\r\n/**\r\n * Paragraph copy with hand drawn emphasis. Marker highlights sweep in, underlines draw\r\n * themselves, and circles loop around a word, each starting when it scrolls into view.\r\n */\r\nexport function TextHighlighter({ className }: { className?: string }) {\r\n  return (\r\n    <p className={cn(\"mx-auto max-w-xl text-balance text-center text-2xl font-medium leading-[1.7] tracking-tight sm:text-3xl\", className)}>\r\n      Design is not decoration. It is the{\" \"}\r\n      <Mark style=\"marker\" delay={0.1}>quiet logic</Mark>{\" \"}\r\n      that makes software feel{\" \"}\r\n      <Mark style=\"underline\" delay={0.5}>effortless</Mark>{\" \"}\r\n      and the small details people{\" \"}\r\n      <Mark style=\"circle\" delay={0.9}>remember</Mark>{\" \"}\r\n      long after they close the tab.\r\n    </p>\r\n  );\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "porcelain"
+  },
+  "docs": "import { TextHighlighter } from \"@/components/text-highlighter\"\n\n<TextHighlighter />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

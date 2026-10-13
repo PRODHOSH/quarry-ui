@@ -12,7 +12,7 @@ import { useSiteTheme, type Scheme } from "@/components/site/use-site-theme";
  * The one preview surface used by every component page.
  * Same height and same framing for every item, so nothing jumps around between pages.
  */
-export function PreviewStage({ name, stage, theme }: { name: string; stage: "center" | "fill"; theme?: ThemeId }) {
+export function PreviewStage({ name, stage, theme, tall = false }: { name: string; stage: "center" | "fill"; theme?: ThemeId; tall?: boolean }) {
   const siteTheme = useSiteTheme();
   const [override, setOverride] = useState<Scheme | null>(null);
   const [run, setRun] = useState(0);
@@ -61,7 +61,7 @@ export function PreviewStage({ name, stage, theme }: { name: string; stage: "cen
       <div
         className={cn(
           !theme && scheme,
-          "relative h-[34rem] overflow-y-auto bg-background text-foreground scrollbar-none",
+          tall ? "relative h-[44rem] overflow-hidden bg-background text-foreground" : "relative h-[34rem] overflow-y-auto bg-background text-foreground scrollbar-none",
           stage === "center" && "bg-dots"
         )}
         style={themeStyle(theme)}
@@ -69,7 +69,8 @@ export function PreviewStage({ name, stage, theme }: { name: string; stage: "cen
         <div
           key={run}
           className={cn(
-            "flex min-h-full w-full",
+            "flex w-full",
+            tall ? "h-full" : "min-h-full",
             stage === "center" ? "items-center justify-center p-6" : "items-center"
           )}
         >

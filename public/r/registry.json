@@ -4,6 +4,184 @@
   "homepage": "https://quarry-ui.com",
   "items": [
     {
+      "name": "ai-chat",
+      "type": "registry:block",
+      "title": "AI Chat",
+      "description": "A complete chat app for Next.js: a new chat screen, conversations that stream replies, projects, search, rename and delete, a tools and model menu, share, copy, regenerate and edit.",
+      "categories": [
+        "templates"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "lib/ai-chat/data.ts",
+          "type": "registry:lib",
+          "target": "lib/ai-chat/data.ts"
+        },
+        {
+          "path": "lib/ai-chat/store.tsx",
+          "type": "registry:lib",
+          "target": "lib/ai-chat/store.tsx"
+        },
+        {
+          "path": "components/ai-chat/shell.tsx",
+          "type": "registry:component",
+          "target": "components/ai-chat/shell.tsx"
+        },
+        {
+          "path": "components/ai-chat/chat.tsx",
+          "type": "registry:component",
+          "target": "components/ai-chat/chat.tsx"
+        },
+        {
+          "path": "registry/templates/ai-chat/layout.tsx",
+          "type": "registry:page",
+          "target": "app/ai-chat/layout.tsx"
+        },
+        {
+          "path": "app/preview/ai-chat/page.tsx",
+          "type": "registry:page",
+          "target": "app/ai-chat/page.tsx"
+        },
+        {
+          "path": "app/preview/ai-chat/c/[id]/page.tsx",
+          "type": "registry:page",
+          "target": "app/ai-chat/c/[id]/page.tsx"
+        },
+        {
+          "path": "app/preview/ai-chat/projects/[slug]/page.tsx",
+          "type": "registry:page",
+          "target": "app/ai-chat/projects/[slug]/page.tsx"
+        }
+      ],
+      "docs": "Installs a full app under app/ai-chat. Run your dev server and open /ai-chat. Replace replyFor and the stream in lib/ai-chat/store.tsx with your model API.\n\nIt uses these theme tokens: background, card, muted, accent, border, primary and chart-2, chart-3.",
+      "meta": {
+        "stage": "fill",
+        "theme": "converse",
+        "preview": "/preview/ai-chat",
+        "route": "/ai-chat",
+        "routes": [
+          "/",
+          "/c/[id]",
+          "/projects/[slug]"
+        ],
+        "tags": [
+          "AI",
+          "Chat",
+          "Application"
+        ]
+      }
+    },
+    {
+      "name": "file-manager",
+      "type": "registry:block",
+      "title": "File Manager",
+      "description": "A complete storage app for Next.js: overview with storage and member status, my files, shared, favorites, recent, trash and folder pages. Search, upload, rename, sort, list and grid all work.",
+      "categories": [
+        "templates"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "lib/file-manager/data.ts",
+          "type": "registry:lib",
+          "target": "lib/file-manager/data.ts"
+        },
+        {
+          "path": "lib/file-manager/store.tsx",
+          "type": "registry:lib",
+          "target": "lib/file-manager/store.tsx"
+        },
+        {
+          "path": "components/file-manager/ui.tsx",
+          "type": "registry:component",
+          "target": "components/file-manager/ui.tsx"
+        },
+        {
+          "path": "components/file-manager/shell.tsx",
+          "type": "registry:component",
+          "target": "components/file-manager/shell.tsx"
+        },
+        {
+          "path": "components/file-manager/pages.tsx",
+          "type": "registry:component",
+          "target": "components/file-manager/pages.tsx"
+        },
+        {
+          "path": "registry/templates/file-manager/layout.tsx",
+          "type": "registry:page",
+          "target": "app/file-manager/layout.tsx"
+        },
+        {
+          "path": "app/preview/file-manager/page.tsx",
+          "type": "registry:page",
+          "target": "app/file-manager/page.tsx"
+        },
+        {
+          "path": "app/preview/file-manager/my-files/page.tsx",
+          "type": "registry:page",
+          "target": "app/file-manager/my-files/page.tsx"
+        },
+        {
+          "path": "app/preview/file-manager/shared/page.tsx",
+          "type": "registry:page",
+          "target": "app/file-manager/shared/page.tsx"
+        },
+        {
+          "path": "app/preview/file-manager/favorite/page.tsx",
+          "type": "registry:page",
+          "target": "app/file-manager/favorite/page.tsx"
+        },
+        {
+          "path": "app/preview/file-manager/recent/page.tsx",
+          "type": "registry:page",
+          "target": "app/file-manager/recent/page.tsx"
+        },
+        {
+          "path": "app/preview/file-manager/trash/page.tsx",
+          "type": "registry:page",
+          "target": "app/file-manager/trash/page.tsx"
+        },
+        {
+          "path": "app/preview/file-manager/folder/[slug]/page.tsx",
+          "type": "registry:page",
+          "target": "app/file-manager/folder/[slug]/page.tsx"
+        }
+      ],
+      "docs": "Installs a full app under app/file-manager. Run your dev server and open /file-manager.\n\nIt uses these theme tokens: background, card, muted, accent, border, primary, destructive and chart-1 to chart-5.",
+      "meta": {
+        "stage": "fill",
+        "theme": "vault",
+        "preview": "/preview/file-manager",
+        "route": "/file-manager",
+        "routes": [
+          "/",
+          "/my-files",
+          "/shared",
+          "/favorite",
+          "/recent",
+          "/trash",
+          "/folder/[slug]"
+        ],
+        "tags": [
+          "Dashboard",
+          "Application"
+        ]
+      }
+    },
+    {
       "name": "feature-bento",
       "type": "registry:block",
       "title": "Feature Bento Grid",
@@ -615,136 +793,6 @@
       }
     },
     {
-      "name": "infinity-spinner",
-      "type": "registry:component",
-      "title": "Infinity",
-      "description": "A highlight tracing an infinity loop.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/infinity-spinner.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { InfinitySpinner } from \"@/components/infinity-spinner\"\n\n<InfinitySpinner />",
-      "meta": {
-        "stage": "center",
-        "theme": "noir"
-      }
-    },
-    {
-      "name": "tailspin-loader",
-      "type": "registry:component",
-      "title": "Tailspin",
-      "description": "A rotating arc with a fading tail.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/tailspin-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { TailspinLoader } from \"@/components/tailspin-loader\"\n\n<TailspinLoader />",
-      "meta": {
-        "stage": "center",
-        "theme": "terminal"
-      }
-    },
-    {
-      "name": "line-spinner",
-      "type": "registry:component",
-      "title": "Line Spinner",
-      "description": "Twelve ticks that fade around a circle.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/line-spinner.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { LineSpinner } from \"@/components/line-spinner\"\n\n<LineSpinner />",
-      "meta": {
-        "stage": "center",
-        "theme": "sage"
-      }
-    },
-    {
-      "name": "squircle-loader",
-      "type": "registry:component",
-      "title": "Squircle",
-      "description": "A highlight racing around a rounded square.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/squircle-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { SquircleLoader } from \"@/components/squircle-loader\"\n\n<SquircleLoader />",
-      "meta": {
-        "stage": "center",
-        "theme": "ink"
-      }
-    },
-    {
-      "name": "tail-chase",
-      "type": "registry:component",
-      "title": "Tail Chase",
-      "description": "Dots chasing each other with a trailing fade.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/tail-chase.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { TailChase } from \"@/components/tail-chase\"\n\n<TailChase />",
-      "meta": {
-        "stage": "center",
-        "theme": "circuit"
-      }
-    },
-    {
       "name": "morphing-shapes",
       "type": "registry:component",
       "title": "Morphing Shapes",
@@ -849,32 +897,6 @@
       }
     },
     {
-      "name": "dot-spinner",
-      "type": "registry:component",
-      "title": "Dot Spinner",
-      "description": "Eight dots fading around a circle.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/dot-spinner.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { DotSpinner } from \"@/components/dot-spinner\"\n\n<DotSpinner />",
-      "meta": {
-        "stage": "center",
-        "theme": "glacier"
-      }
-    },
-    {
       "name": "waveform-loader",
       "type": "registry:component",
       "title": "Waveform",
@@ -898,32 +920,6 @@
       "meta": {
         "stage": "center",
         "theme": "noir"
-      }
-    },
-    {
-      "name": "hourglass-loader",
-      "type": "registry:component",
-      "title": "Hourglass",
-      "description": "An hourglass that flips over and over.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/hourglass-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { HourglassLoader } from \"@/components/hourglass-loader\"\n\n<HourglassLoader />",
-      "meta": {
-        "stage": "center",
-        "theme": "terminal"
       }
     },
     {
@@ -979,58 +975,6 @@
       }
     },
     {
-      "name": "trio-loader",
-      "type": "registry:component",
-      "title": "Trio",
-      "description": "Three dots bouncing in a triangle.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/trio-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { TrioLoader } from \"@/components/trio-loader\"\n\n<TrioLoader />",
-      "meta": {
-        "stage": "center",
-        "theme": "circuit"
-      }
-    },
-    {
-      "name": "dot-wave",
-      "type": "registry:component",
-      "title": "Dot Wave",
-      "description": "Four dots rippling in a wave.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/dot-wave.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { DotWave } from \"@/components/dot-wave\"\n\n<DotWave />",
-      "meta": {
-        "stage": "center",
-        "theme": "ember"
-      }
-    },
-    {
       "name": "metronome-loader",
       "type": "registry:component",
       "title": "Metronome",
@@ -1080,84 +1024,6 @@
       "meta": {
         "stage": "center",
         "theme": "signal"
-      }
-    },
-    {
-      "name": "superballs-loader",
-      "type": "registry:component",
-      "title": "Superballs",
-      "description": "Two squishy balls swapping places.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/superballs-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { SuperballsLoader } from \"@/components/superballs-loader\"\n\n<SuperballsLoader />",
-      "meta": {
-        "stage": "center",
-        "theme": "porcelain"
-      }
-    },
-    {
-      "name": "pinwheel-loader",
-      "type": "registry:component",
-      "title": "Pinwheel",
-      "description": "A four piece pinwheel in graded tones.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/pinwheel-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { PinwheelLoader } from \"@/components/pinwheel-loader\"\n\n<PinwheelLoader />",
-      "meta": {
-        "stage": "center",
-        "theme": "glacier"
-      }
-    },
-    {
-      "name": "zoomies-loader",
-      "type": "registry:component",
-      "title": "Zoomies",
-      "description": "A fast indeterminate progress bar.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/zoomies-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { ZoomiesLoader } from \"@/components/zoomies-loader\"\n\n<ZoomiesLoader />",
-      "meta": {
-        "stage": "center",
-        "theme": "noir"
       }
     },
     {
@@ -1906,6 +1772,671 @@
       "meta": {
         "stage": "fill",
         "theme": "circuit"
+      }
+    },
+    {
+      "name": "mega-footer",
+      "type": "registry:component",
+      "title": "Mega Footer",
+      "description": "A full site footer with a newsletter field, link columns and a live status line.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/mega-footer.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MegaFooter } from \"@/components/mega-footer\"\n\n<MegaFooter brand=\"Northwind\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "wordmark-footer",
+      "type": "registry:component",
+      "title": "Wordmark Footer",
+      "description": "A calm footer that ends on an oversized wordmark lit by the pointer.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/wordmark-footer.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { WordmarkFooter } from \"@/components/wordmark-footer\"\n\n<WordmarkFooter word=\"northwind\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "studio"
+      }
+    },
+    {
+      "name": "mega-menu-navbar",
+      "type": "registry:component",
+      "title": "Mega Menu Navbar",
+      "description": "A navbar whose dropdown is one shared panel that glides between menus.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/mega-menu-navbar.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MegaMenuNavbar } from \"@/components/mega-menu-navbar\"\n\n<MegaMenuNavbar brand=\"Northwind\" />",
+      "meta": {
+        "stage": "center",
+        "theme": "obsidian"
+      }
+    },
+    {
+      "name": "announcement-bar",
+      "type": "registry:component",
+      "title": "Announcement Bar",
+      "description": "A dismissible top banner that rotates messages and pauses on hover.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/announcement-bar.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AnnouncementBar } from \"@/components/announcement-bar\"\n\n<AnnouncementBar messages={[{ badge: \"New\", text: \"v2 is here\" }]} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "ember"
+      }
+    },
+    {
+      "name": "testimonial-columns",
+      "type": "registry:component",
+      "title": "Testimonial Columns",
+      "description": "A wall of reviews in drifting vertical columns, faded at the edges.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/testimonial-columns.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TestimonialColumns } from \"@/components/testimonial-columns\"\n\n<TestimonialColumns reviews={reviews} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "harbor"
+      }
+    },
+    {
+      "name": "testimonial-spotlight",
+      "type": "registry:component",
+      "title": "Testimonial Spotlight",
+      "description": "One large quote at a time, switched from an avatar row with a gliding ring.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/testimonial-spotlight.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TestimonialSpotlight } from \"@/components/testimonial-spotlight\"\n\n<TestimonialSpotlight people={people} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "studio"
+      }
+    },
+    {
+      "name": "faq-search",
+      "type": "registry:component",
+      "title": "FAQ with Search",
+      "description": "An FAQ with live search, topic filters and highlighted matches.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/faq-search.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { FaqSearch } from \"@/components/faq-search\"\n\n<FaqSearch items={items} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "blueprint"
+      }
+    },
+    {
+      "name": "spotlight-card",
+      "type": "registry:component",
+      "title": "Spotlight Cards",
+      "description": "A card grid that shares one pointer spotlight across surfaces and borders.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/spotlight-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { SpotlightCard } from \"@/components/spotlight-card\"\n\n<SpotlightCard items={items} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "pricing-cards",
+      "type": "registry:component",
+      "title": "Pricing Cards",
+      "description": "Three plans with a billing toggle that rolls the prices.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/pricing-cards.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { PricingCards } from \"@/components/pricing-cards\"\n\n<PricingCards plans={plans} discount={0.2} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "verdant"
+      }
+    },
+    {
+      "name": "metric-cards",
+      "type": "registry:component",
+      "title": "Metric Cards",
+      "description": "Dashboard stat cards with counting numbers and self drawing sparklines.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/metric-cards.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MetricCards } from \"@/components/metric-cards\"\n\n<MetricCards metrics={metrics} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "glacier"
+      }
+    },
+    {
+      "name": "team-cards",
+      "type": "registry:component",
+      "title": "Team Cards",
+      "description": "Team portraits that lift a bio panel and social links on hover.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/team-cards.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TeamCards } from \"@/components/team-cards\"\n\n<TeamCards team={team} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "sunset"
+      }
+    },
+    {
+      "name": "lightbox-gallery",
+      "type": "registry:component",
+      "title": "Lightbox Gallery",
+      "description": "A masonry gallery whose photos grow into a full lightbox.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/lightbox-gallery.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { LightboxGallery } from \"@/components/lightbox-gallery\"\n\n<LightboxGallery photos={photos} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "logo-cloud",
+      "type": "registry:component",
+      "title": "Logo Cloud",
+      "description": "A trusted-by strip: a slow edge-faded row that pauses on hover.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/logo-cloud.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { LogoCloud } from \"@/components/logo-cloud\"\n\n<LogoCloud logos={logos} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "signal"
+      }
+    },
+    {
+      "name": "image-reveal",
+      "type": "registry:component",
+      "title": "Image Reveal",
+      "description": "Editorial images that wipe in with a clip-path as they enter view.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/image-reveal.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ImageReveal } from \"@/components/image-reveal\"\n\n<ImageReveal shots={shots} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "rosewater"
+      }
+    },
+    {
+      "name": "text-rotator",
+      "type": "registry:component",
+      "title": "Text Rotator",
+      "description": "A headline with one word that rotates letter by letter.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/text-rotator.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TextRotator } from \"@/components/text-rotator\"\n\n<TextRotator words={[\"fast\", \"useful\"]} />",
+      "meta": {
+        "stage": "center",
+        "theme": "ink"
+      }
+    },
+    {
+      "name": "number-ticker",
+      "type": "registry:component",
+      "title": "Number Ticker",
+      "description": "A rolling odometer whose digits spin to their place.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/number-ticker.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { NumberTicker } from \"@/components/number-ticker\"\n\n<NumberTicker value={12840} />",
+      "meta": {
+        "stage": "center",
+        "theme": "terminal"
+      }
+    },
+    {
+      "name": "text-highlighter",
+      "type": "registry:component",
+      "title": "Text Highlighter",
+      "description": "Hand drawn emphasis: markers, underlines and circles that draw in on scroll.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/text-highlighter.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TextHighlighter } from \"@/components/text-highlighter\"\n\n<TextHighlighter />",
+      "meta": {
+        "stage": "center",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "video-player",
+      "type": "registry:component",
+      "title": "Video Player",
+      "description": "A custom video player with scrubber, volume, fullscreen and shortcuts.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/video-player.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { VideoPlayer } from \"@/components/video-player\"\n\n<VideoPlayer src=\"/demo.mp4\" poster=\"/poster.jpg\" />",
+      "meta": {
+        "stage": "center",
+        "theme": "obsidian"
+      }
+    },
+    {
+      "name": "video-dialog",
+      "type": "registry:component",
+      "title": "Video Dialog",
+      "description": "A hero video thumbnail that expands into an autoplaying dialog.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/video-dialog.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { VideoDialog } from \"@/components/video-dialog\"\n\n<VideoDialog src=\"/tour.mp4\" thumbnail=\"/thumb.jpg\" />",
+      "meta": {
+        "stage": "center",
+        "theme": "ember"
+      }
+    },
+    {
+      "name": "feature-tabs",
+      "type": "registry:component",
+      "title": "Feature Tabs",
+      "description": "Auto advancing tabs with a progress line and crossfading imagery.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/feature-tabs.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { FeatureTabs } from \"@/components/feature-tabs\"\n\n<FeatureTabs tabs={tabs} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "harbor"
+      }
+    },
+    {
+      "name": "theme-toggle",
+      "type": "registry:component",
+      "title": "Theme Toggle",
+      "description": "A dark and light switch with a spring thumb and spinning icon.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/theme-toggle.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ThemeToggle } from \"@/components/theme-toggle\"\n\n<ThemeToggle onCheckedChange={(dark) => setTheme(dark ? \"dark\" : \"light\")} />",
+      "meta": {
+        "stage": "center",
+        "theme": "glacier"
+      }
+    },
+    {
+      "name": "code-tabs",
+      "type": "registry:component",
+      "title": "Code Tabs",
+      "description": "An install command block with package manager tabs and a copy button.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/code-tabs.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CodeTabs } from \"@/components/code-tabs\"\n\n<CodeTabs snippets={snippets} />",
+      "meta": {
+        "stage": "center",
+        "theme": "terminal"
+      }
+    },
+    {
+      "name": "animated-list",
+      "type": "registry:component",
+      "title": "Animated List",
+      "description": "A live activity feed where new items spring in and old ones fade out.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/animated-list.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AnimatedList } from \"@/components/animated-list\"\n\n<AnimatedList events={events} />",
+      "meta": {
+        "stage": "center",
+        "theme": "sage"
+      }
+    },
+    {
+      "name": "avatar-group",
+      "type": "registry:component",
+      "title": "Avatar Group",
+      "description": "Overlapping avatars that lift with a following tooltip and a +N chip.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/avatar-group.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AvatarGroup } from \"@/components/avatar-group\"\n\n<AvatarGroup people={people} max={5} />",
+      "meta": {
+        "stage": "center",
+        "theme": "sunset"
+      }
+    },
+    {
+      "name": "multi-step-form",
+      "type": "registry:component",
+      "title": "Multi Step Form",
+      "description": "A three step onboarding form with a progress rail and validation.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/multi-step-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MultiStepForm } from \"@/components/multi-step-form\"\n\n<MultiStepForm />",
+      "meta": {
+        "stage": "center",
+        "theme": "blueprint"
       }
     }
   ]

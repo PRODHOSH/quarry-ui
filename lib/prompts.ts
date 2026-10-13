@@ -91,7 +91,32 @@ Notes
 - Keep the "@/lib/utils" import working with the project's path alias.${extra ? `\n- ${extra}` : ""}`;
 };
 
+const templatePrompt = ({ item }: Context) => {
+  const files = item.files.map((f) => `- ${f.target ?? f.path}`).join("\n");
+  return `Add the "${item.title}" app template from Quarry UI to this Next.js project.
+
+${item.description}
+
+Steps
+1. Confirm this is a Next.js project using the App Router, Tailwind CSS and shadcn/ui. If there is no components.json, run \`npx shadcn@latest init\` first.
+2. Install the template with the shadcn CLI:
+   npx shadcn@latest add ${registryUrl(item.name)}
+   It installs ${item.files.length} files and the packages framer-motion and lucide-react. If the CLI cannot run, fetch ${registryUrl(item.name)} and create each file at its "target" path with the content in the JSON.
+3. These files are created:
+
+${files}
+
+4. Make sure the theme has the tokens the template uses (destructive and chart-1 to chart-5 besides the usual ones). Then start the dev server and open ${item.meta.route ?? ""}.
+
+Notes
+- ${item.docs.split("\n").slice(-1)[0]}
+- Everything runs on local state. Replace the state in the store file under lib/ with calls to your own API.
+- Do not rename the route folder, the template builds its links from it.
+- When finished, run a type check and tell me which files were added.`;
+};
+
 export function buildPrompt(agent: AgentId, ctx: Context): string {
+  if (ctx.item.categories.includes("templates")) return templatePrompt(ctx);
   switch (agent) {
     case "claude-code":
       return cliPrompt(

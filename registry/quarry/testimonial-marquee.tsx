@@ -11,7 +11,7 @@ const TESTIMONIALS = [
   { name: "David Kim", role: "UX Researcher", quote: "Users love the interactions. It feels like a premium product without the premium development time." },
 ];
 
-const AVATAR_TINTS = ["bg-chart-1/15 text-chart-1", "bg-chart-2/15 text-chart-2", "bg-chart-3/15 text-chart-3", "bg-chart-4/15 text-chart-4"];
+const AVATAR_TINTS = ["bg-muted text-foreground", "bg-primary/15 text-primary"];
 
 export function TestimonialMarquee({ className }: { className?: string }) {
   return (

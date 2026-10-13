@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "animated-list",
+  "title": "Animated List",
+  "description": "A live activity feed where new items spring in and old ones fade out.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/animated-list.tsx",
+      "content": "\"use client\";\r\n\r\nimport { useEffect, useState, type ReactNode } from \"react\";\r\nimport { AnimatePresence, motion } from \"framer-motion\";\r\nimport { CreditCard, GitMerge, MessageCircle, UserPlus } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\ntype Event = { icon: ReactNode; title: string; text: string; tone: string };\r\n\r\nconst EVENTS: Event[] = [\r\n  { icon: <CreditCard />, title: \"Payment received\", text: \"$240.00 from Acme Studio\", tone: \"bg-primary/12 text-primary\" },\r\n  { icon: <UserPlus />, title: \"New teammate\", text: \"Maya joined the design workspace\", tone: \"bg-primary/12 text-primary\" },\r\n  { icon: <GitMerge />, title: \"Pull request merged\", text: \"Fix focus ring on the command menu\", tone: \"bg-primary/12 text-primary\" },\r\n  { icon: <MessageCircle />, title: \"New comment\", text: \"Leo replied on the pricing draft\", tone: \"bg-primary/12 text-primary\" },\r\n];\r\n\r\n/**\r\n * A live activity feed. New items drop in at the top with a spring, push the rest down, and the\r\n * oldest ones fade off the bottom. Swap the interval timer for your real event stream.\r\n */\r\nexport function AnimatedList({ events = EVENTS, interval = 2200, max = 4, className }: { events?: Event[]; interval?: number; max?: number; className?: string }) {\r\n  const [feed, setFeed] = useState(() => events.slice(0, max).map((e, i) => ({ ...e, id: -i })).reverse());\r\n\r\n  useEffect(() => {\r\n    let n = 1;\r\n    const t = setInterval(() => {\r\n      const e = events[(max - 1 + n) % events.length];\r\n      setFeed((f) => [{ ...e, id: n }, ...f].slice(0, max));\r\n      n++;\r\n    }, interval);\r\n    return () => clearInterval(t);\r\n  }, [events, interval, max]);\r\n\r\n  return (\r\n    <div className={cn(\"w-full max-w-sm [mask-image:linear-gradient(to_bottom,black_70%,transparent)]\", className)}>\r\n      <ul className=\"flex flex-col gap-2.5\">\r\n        <AnimatePresence initial={false}>\r\n          {feed.map((e) => (\r\n            <motion.li\r\n              key={e.id}\r\n              layout\r\n              initial={{ opacity: 0, scale: 0.9, y: -24 }}\r\n              animate={{ opacity: 1, scale: 1, y: 0 }}\r\n              exit={{ opacity: 0, scale: 0.95 }}\r\n              transition={{ type: \"spring\", stiffness: 380, damping: 30 }}\r\n              className=\"flex items-center gap-3 rounded-2xl border bg-card p-3.5\"\r\n            >\r\n              <span className={cn(\"grid size-10 shrink-0 place-items-center rounded-xl [&_svg]:size-4.5\", e.tone)}>{e.icon}</span>\r\n              <span className=\"min-w-0 leading-tight\">\r\n                <span className=\"block truncate text-sm font-medium\">{e.title}</span>\r\n                <span className=\"block truncate text-xs text-muted-foreground\">{e.text}</span>\r\n              </span>\r\n              <span className=\"ml-auto shrink-0 text-[11px] text-muted-foreground\">now</span>\r\n            </motion.li>\r\n          ))}\r\n        </AnimatePresence>\r\n      </ul>\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "sage"
+  },
+  "docs": "import { AnimatedList } from \"@/components/animated-list\"\n\n<AnimatedList events={events} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

@@ -9,6 +9,7 @@ import { CONTACT_EMAIL, SOCIAL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
+  { href: "/templates", label: "Templates" },
   { href: "/components", label: "Components" },
 ];
 
@@ -21,7 +22,7 @@ const GithubMark = () => (
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const wide = pathname.startsWith("/components");
+  const wide = pathname.startsWith("/components") || pathname.startsWith("/templates");
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -29,6 +30,8 @@ export function SiteHeader() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  if (pathname.startsWith("/preview")) return null;
 
   // The home page is a quiet waiting-list screen: no logo, no menu, just a way to get in touch.
   if (pathname === "/") {

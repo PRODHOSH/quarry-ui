@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spotlight-card",
+  "title": "Spotlight Cards",
+  "description": "A card grid that shares one pointer spotlight across surfaces and borders.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/spotlight-card.tsx",
+      "content": "\"use client\";\n\nimport { useRef, type CSSProperties, type ReactNode } from \"react\";\nimport { Boxes, Gauge, Lock, Workflow } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Item = { icon: ReactNode; title: string; text: string };\n\nconst ITEMS: Item[] = [\n  { icon: <Gauge />, title: \"Fast by default\", text: \"Server friendly code with nothing blocking the first paint.\" },\n  { icon: <Lock />, title: \"Private\", text: \"Your data stays in your region and under your keys.\" },\n  { icon: <Workflow />, title: \"Composable\", text: \"Small parts that fit together however you need them to.\" },\n  { icon: <Boxes />, title: \"Portable\", text: \"Plain files you own. No lock in, no runtime to ship.\" },\n];\n\n/**\n * A grid of cards that share one pointer spotlight. Each card receives the pointer position in its\n * own coordinates, so the glow flows across borders and surfaces as if the grid were one sheet.\n */\nexport function SpotlightCard({ items = ITEMS, className }: { items?: Item[]; className?: string }) {\n  const grid = useRef<HTMLDivElement>(null);\n\n  const move = (e: React.PointerEvent) => {\n    grid.current?.querySelectorAll<HTMLElement>(\"[data-spot]\").forEach((el) => {\n      const r = el.getBoundingClientRect();\n      el.style.setProperty(\"--mx\", `${e.clientX - r.left}px`);\n      el.style.setProperty(\"--my\", `${e.clientY - r.top}px`);\n      el.style.setProperty(\"--on\", \"1\");\n    });\n  };\n  const leave = () =>\n    grid.current?.querySelectorAll<HTMLElement>(\"[data-spot]\").forEach((el) => el.style.setProperty(\"--on\", \"0\"));\n\n  return (\n    <div ref={grid} onPointerMove={move} onPointerLeave={leave} className={cn(\"mx-auto grid w-full max-w-3xl gap-4 sm:grid-cols-2\", className)}>\n      {items.map((it) => (\n        <div\n          key={it.title}\n          data-spot\n          style={{ \"--mx\": \"-999px\", \"--my\": \"-999px\", \"--on\": \"0\" } as CSSProperties}\n          className=\"group relative overflow-hidden rounded-2xl border bg-card p-6\"\n        >\n          {/* surface glow */}\n          <div\n            aria-hidden\n            className=\"pointer-events-none absolute inset-0 transition-opacity duration-300\"\n            style={{\n              opacity: \"var(--on)\",\n              background: \"radial-gradient(280px circle at var(--mx) var(--my), color-mix(in oklab, var(--primary) 16%, transparent), transparent 70%)\",\n            }}\n          />\n          {/* border glow: a bright ring masked to the 1px edge */}\n          <div\n            aria-hidden\n            className=\"pointer-events-none absolute inset-0 rounded-2xl p-px transition-opacity duration-300\"\n            style={{\n              opacity: \"var(--on)\",\n              background: \"radial-gradient(200px circle at var(--mx) var(--my), var(--primary), transparent 70%)\",\n              WebkitMask: \"linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)\",\n              WebkitMaskComposite: \"xor\",\n              mask: \"linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)\",\n            }}\n          />\n          <div className=\"relative\">\n            <div className=\"grid size-10 place-items-center rounded-xl border bg-background [&_svg]:size-5\">{it.icon}</div>\n            <h3 className=\"mt-5 text-base font-semibold tracking-tight\">{it.title}</h3>\n            <p className=\"mt-1.5 text-sm leading-relaxed text-muted-foreground\">{it.text}</p>\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "noir"
+  },
+  "docs": "import { SpotlightCard } from \"@/components/spotlight-card\"\n\n<SpotlightCard items={items} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

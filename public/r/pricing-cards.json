@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pricing-cards",
+  "title": "Pricing Cards",
+  "description": "Three plans with a billing toggle that rolls the prices.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/pricing-cards.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { Check } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Plan = { name: string; blurb: string; monthly: number; features: string[]; featured?: boolean };\n\nconst PLANS: Plan[] = [\n  { name: \"Starter\", blurb: \"For side projects and early ideas.\", monthly: 0, features: [\"3 projects\", \"Community support\", \"Basic analytics\"] },\n  { name: \"Pro\", blurb: \"For teams shipping every week.\", monthly: 24, featured: true, features: [\"Unlimited projects\", \"Priority support\", \"Advanced analytics\", \"Custom domains\"] },\n  { name: \"Scale\", blurb: \"For organisations with real needs.\", monthly: 79, features: [\"Everything in Pro\", \"SSO and audit logs\", \"99.9% uptime SLA\", \"Dedicated manager\"] },\n];\n\nfunction Price({ value }: { value: number }) {\n  return (\n    <span className=\"relative inline-flex h-12 items-baseline overflow-hidden text-4xl font-semibold tabular-nums tracking-tight\">\n      <span className=\"mr-0.5 text-xl text-muted-foreground\">$</span>\n      <AnimatePresence mode=\"popLayout\" initial={false}>\n        <motion.span key={value} initial={{ y: \"70%\", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: \"-70%\", opacity: 0 }} transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}>\n          {value}\n        </motion.span>\n      </AnimatePresence>\n    </span>\n  );\n}\n\n/**\n * Three pricing plans with a billing toggle. Prices roll when you switch between monthly and\n * yearly, and the featured plan lifts with a soft glow.\n */\nexport function PricingCards({ plans = PLANS, discount = 0.2, className }: { plans?: Plan[]; discount?: number; className?: string }) {\n  const [yearly, setYearly] = useState(true);\n\n  return (\n    <section className={cn(\"mx-auto w-full max-w-4xl px-6 py-8\", className)}>\n      <div className=\"flex justify-center\">\n        <div role=\"tablist\" className=\"relative flex rounded-full border bg-card p-1\">\n          {[false, true].map((y) => (\n            <button\n              key={String(y)}\n              role=\"tab\"\n              aria-selected={yearly === y}\n              onClick={() => setYearly(y)}\n              className={cn(\"relative z-10 rounded-full px-4 py-1.5 text-sm font-medium transition-colors\", yearly === y ? \"text-primary-foreground\" : \"text-muted-foreground\")}\n            >\n              {yearly === y && <motion.span layoutId=\"bill-pill\" className=\"absolute inset-0 -z-10 rounded-full bg-primary\" transition={{ type: \"spring\", stiffness: 420, damping: 34 }} />}\n              {y ? \"Yearly\" : \"Monthly\"}\n              {y && <span className=\"ml-1.5 text-[11px] opacity-80\">−{Math.round(discount * 100)}%</span>}\n            </button>\n          ))}\n        </div>\n      </div>\n\n      <div className=\"mt-8 grid gap-4 md:grid-cols-3\">\n        {plans.map((p) => {\n          const price = Math.round(p.monthly * (yearly ? 1 - discount : 1));\n          return (\n            <motion.div\n              key={p.name}\n              whileHover={{ y: -4 }}\n              transition={{ type: \"spring\", stiffness: 300, damping: 24 }}\n              className={cn(\n                \"relative flex flex-col rounded-2xl border bg-card p-6\",\n                p.featured && \"border-primary/60 shadow-[0_0_0_1px_var(--primary),0_24px_60px_-24px_color-mix(in_oklab,var(--primary)_55%,transparent)]\"\n              )}\n            >\n              {p.featured && <span className=\"absolute -top-3 left-6 rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-medium text-primary-foreground\">Most popular</span>}\n              <h3 className=\"text-sm font-medium text-muted-foreground\">{p.name}</h3>\n              <div className=\"mt-2 flex items-baseline gap-1.5\">\n                <Price value={price} />\n                <span className=\"text-sm text-muted-foreground\">/ month</span>\n              </div>\n              <p className=\"mt-1 text-sm text-muted-foreground\">{p.blurb}</p>\n              <ul className=\"mt-6 flex-1 space-y-3\">\n                {p.features.map((f) => (\n                  <li key={f} className=\"flex items-center gap-2.5 text-sm\">\n                    <span className=\"grid size-4 place-items-center rounded-full bg-primary/15 text-primary\"><Check className=\"size-2.5\" strokeWidth={3} /></span>\n                    {f}\n                  </li>\n                ))}\n              </ul>\n              <button\n                className={cn(\n                  \"mt-7 h-10 rounded-xl text-sm font-medium transition-transform active:scale-[0.98]\",\n                  p.featured ? \"bg-primary text-primary-foreground\" : \"border bg-background hover:bg-muted\"\n                )}\n              >\n                {p.monthly === 0 ? \"Start free\" : \"Choose \" + p.name}\n              </button>\n            </motion.div>\n          );\n        })}\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "verdant"
+  },
+  "docs": "import { PricingCards } from \"@/components/pricing-cards\"\n\n<PricingCards plans={plans} discount={0.2} />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:component"
+}

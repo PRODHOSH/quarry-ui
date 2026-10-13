@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "logo-cloud",
+  "title": "Logo Cloud",
+  "description": "A trusted-by strip: a slow edge-faded row that pauses on hover.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/logo-cloud.tsx",
+      "content": "\"use client\";\n\nimport type { ReactNode } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { Aperture, Atom, Cloud, Hexagon, Layers, Orbit, Triangle, Zap } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Logo = { name: string; icon: ReactNode };\n\nconst LOGOS: Logo[] = [\n  { name: \"Vertex\", icon: <Triangle /> },\n  { name: \"Lumen\", icon: <Aperture /> },\n  { name: \"Nimbus\", icon: <Cloud /> },\n  { name: \"Atomic\", icon: <Atom /> },\n  { name: \"Stratum\", icon: <Layers /> },\n  { name: \"Orbital\", icon: <Orbit /> },\n  { name: \"Hexa\", icon: <Hexagon /> },\n  { name: \"Voltage\", icon: <Zap /> },\n];\n\n/**\n * A \"trusted by\" strip. Logos sit muted in a slow endless row, fade at both edges, and the whole\n * row eases to a pause while the pointer is over it so each name can be read and lit up.\n */\nexport function LogoCloud({ logos = LOGOS, label = \"Trusted by teams at\", className }: { logos?: Logo[]; label?: string; className?: string }) {\n  return (\n    <section className={cn(\"w-full py-8\", className)}>\n      <p className=\"mb-8 text-center text-sm text-muted-foreground\">{label}</p>\n      <div className=\"group/row overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]\">\n        <motion.div\n          animate={{ x: [\"0%\", \"-50%\"] }}\n          transition={{ duration: 32, repeat: Infinity, ease: \"linear\" }}\n          className=\"flex w-max items-center gap-14 pr-14 group-hover/row:[animation-play-state:paused]\"\n        >\n          {[...logos, ...logos].map((l, i) => (\n            <div key={i} className=\"flex items-center gap-2.5 text-muted-foreground/70 transition-all duration-300 hover:scale-105 hover:text-foreground [&_svg]:size-6\">\n              {l.icon}\n              <span className=\"text-lg font-semibold tracking-tight\">{l.name}</span>\n            </div>\n          ))}\n        </motion.div>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "signal"
+  },
+  "docs": "import { LogoCloud } from \"@/components/logo-cloud\"\n\n<LogoCloud logos={logos} />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:component"
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "video-dialog",
+  "title": "Video Dialog",
+  "description": "A hero video thumbnail that expands into an autoplaying dialog.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/video-dialog.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { Play, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * A hero style video thumbnail. Hovering pulses the play button, and a click grows the thumbnail\n * into a centred dialog that autoplays. Escape or a click outside closes it.\n */\nexport function VideoDialog({\n  src = \"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4\",\n  thumbnail = \"https://picsum.photos/seed/quarry-video/1280/720\",\n  title = \"Watch the 90 second tour\",\n  className,\n}: {\n  src?: string;\n  thumbnail?: string;\n  title?: string;\n  className?: string;\n}) {\n  const [open, setOpen] = useState(false);\n\n  useEffect(() => {\n    if (!open) return;\n    const onKey = (e: KeyboardEvent) => e.key === \"Escape\" && setOpen(false);\n    window.addEventListener(\"keydown\", onKey);\n    return () => window.removeEventListener(\"keydown\", onKey);\n  }, [open]);\n\n  return (\n    <div className={cn(\"w-full max-w-2xl\", className)}>\n      <motion.button\n        layoutId=\"video-frame\"\n        onClick={() => setOpen(true)}\n        aria-label={title}\n        transition={{ type: \"spring\", stiffness: 280, damping: 30 }}\n        className=\"group relative block aspect-video w-full overflow-hidden rounded-2xl border bg-muted\"\n      >\n        {/* eslint-disable-next-line @next/next/no-img-element */}\n        <img src={thumbnail} alt=\"\" className=\"size-full object-cover transition-transform duration-700 group-hover:scale-105\" />\n        <span className=\"absolute inset-0 bg-black/30 transition-colors group-hover:bg-black/20\" />\n        <span className=\"absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2\">\n          <span className=\"absolute inset-0 animate-ping rounded-full bg-white/40 [animation-duration:2s]\" />\n          <span className=\"relative grid size-16 place-items-center rounded-full bg-white text-black shadow-xl transition-transform group-hover:scale-110\">\n            <Play className=\"ml-0.5 size-6 fill-current\" />\n          </span>\n        </span>\n        <span className=\"absolute bottom-4 left-4 rounded-full bg-black/55 px-3 py-1.5 text-xs font-medium text-white backdrop-blur\">{title}</span>\n      </motion.button>\n\n      <AnimatePresence>\n        {open && (\n          <motion.div\n            initial={{ opacity: 0 }}\n            animate={{ opacity: 1 }}\n            exit={{ opacity: 0 }}\n            onClick={() => setOpen(false)}\n            className=\"fixed inset-0 z-50 grid place-items-center bg-black/80 p-4 backdrop-blur-sm\"\n          >\n            <motion.div\n              layoutId=\"video-frame\"\n              transition={{ type: \"spring\", stiffness: 280, damping: 30 }}\n              onClick={(e) => e.stopPropagation()}\n              className=\"relative aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl\"\n            >\n              <video src={src} autoPlay controls playsInline className=\"size-full\" />\n            </motion.div>\n            <button onClick={() => setOpen(false)} aria-label=\"Close video\" className=\"absolute right-4 top-4 grid size-10 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition-colors hover:bg-white/25\">\n              <X className=\"size-5\" />\n            </button>\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "ember"
+  },
+  "docs": "import { VideoDialog } from \"@/components/video-dialog\"\n\n<VideoDialog src=\"/tour.mp4\" thumbnail=\"/thumb.jpg\" />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

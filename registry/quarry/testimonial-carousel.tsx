@@ -12,7 +12,7 @@ const TESTIMONIALS = [
   { quote: "The before and after view sells itself to clients instantly. No spreadsheets, just clear visual proof.", name: "Lucas Ferreira", role: "Product Lead, Cloudify" },
 ];
 
-const TINTS = ["bg-chart-1/15 text-chart-1", "bg-chart-2/15 text-chart-2", "bg-chart-3/15 text-chart-3", "bg-chart-4/15 text-chart-4"];
+const TINTS = ["bg-muted text-foreground", "bg-primary/15 text-primary"];
 
 export function TestimonialCarousel({
   interval = 6000,

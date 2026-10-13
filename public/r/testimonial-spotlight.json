@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "testimonial-spotlight",
+  "title": "Testimonial Spotlight",
+  "description": "One large quote at a time, switched from an avatar row with a gliding ring.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/testimonial-spotlight.tsx",
+      "content": "\"use client\";\r\n\r\nimport { useState } from \"react\";\r\nimport { AnimatePresence, motion } from \"framer-motion\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\ntype Person = { name: string; role: string; company: string; quote: string };\r\n\r\nconst PEOPLE: Person[] = [\r\n  { name: \"Ava Lindqvist\", role: \"Head of Design\", company: \"Fjord\", quote: \"It gave our small team the polish of a studio ten times our size, and we kept full control of the code.\" },\r\n  { name: \"Marcus Bell\", role: \"Founder\", company: \"Tidewater\", quote: \"I stopped worrying about the front end. Every section looked considered the moment I pasted it in.\" },\r\n  { name: \"Noor Haddad\", role: \"Engineering Lead\", company: \"Parallel\", quote: \"The accessibility and the motion are both right. That combination is rarer than it should be.\" },\r\n  { name: \"Hiro Tanaka\", role: \"Product Manager\", company: \"Lumen\", quote: \"We went from a rough prototype to a launch-ready page in two days, and nobody could tell it was fast.\" },\r\n];\r\n\r\n/**\r\n * One large quote at a time. Pick a person from the avatar row and the quote crossfades with a\r\n * small blur and slide, while a shared outline glides to the active avatar.\r\n */\r\nexport function TestimonialSpotlight({ people = PEOPLE, className }: { people?: Person[]; className?: string }) {\r\n  const [i, setI] = useState(0);\r\n  const p = people[i];\r\n\r\n  return (\r\n    <section className={cn(\"mx-auto w-full max-w-2xl px-6 py-10 text-center\", className)}>\r\n      <div className=\"relative min-h-[11rem]\">\r\n        <AnimatePresence mode=\"wait\">\r\n          <motion.blockquote\r\n            key={i}\r\n            initial={{ opacity: 0, y: 12, filter: \"blur(6px)\" }}\r\n            animate={{ opacity: 1, y: 0, filter: \"blur(0px)\" }}\r\n            exit={{ opacity: 0, y: -10, filter: \"blur(6px)\" }}\r\n            transition={{ duration: 0.32 }}\r\n            className=\"text-balance text-2xl font-medium leading-snug tracking-tight sm:text-3xl\"\r\n          >\r\n            “{p.quote}”\r\n          </motion.blockquote>\r\n        </AnimatePresence>\r\n      </div>\r\n\r\n      <div className=\"mt-8 flex flex-col items-center gap-4\">\r\n        <div className=\"flex items-center gap-2\" role=\"tablist\">\r\n          {people.map((q, n) => (\r\n            <button\r\n              key={q.name}\r\n              role=\"tab\"\r\n              aria-selected={n === i}\r\n              aria-label={q.name}\r\n              onClick={() => setI(n)}\r\n              className=\"relative grid size-12 place-items-center rounded-full\"\r\n            >\r\n              {n === i && (\r\n                <motion.span layoutId=\"spot-ring\" transition={{ type: \"spring\", stiffness: 420, damping: 32 }} className=\"absolute inset-0 rounded-full border-2 border-primary\" />\r\n              )}\r\n              <span className={cn(\"grid size-9 place-items-center rounded-full text-xs font-semibold transition-colors\", n === i ? \"bg-primary text-primary-foreground\" : \"bg-muted text-muted-foreground\")}>\r\n                {q.name.split(\" \").map((w) => w[0]).join(\"\")}\r\n              </span>\r\n            </button>\r\n          ))}\r\n        </div>\r\n        <AnimatePresence mode=\"wait\">\r\n          <motion.p key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className=\"text-sm\">\r\n            <span className=\"font-medium\">{p.name}</span>\r\n            <span className=\"text-muted-foreground\"> · {p.role}, {p.company}</span>\r\n          </motion.p>\r\n        </AnimatePresence>\r\n      </div>\r\n    </section>\r\n  );\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "studio"
+  },
+  "docs": "import { TestimonialSpotlight } from \"@/components/testimonial-spotlight\"\n\n<TestimonialSpotlight people={people} />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:component"
+}

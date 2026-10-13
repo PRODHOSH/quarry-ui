@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-toggle",
+  "title": "Theme Toggle",
+  "description": "A dark and light switch with a spring thumb and spinning icon.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/theme-toggle.tsx",
+      "content": "\"use client\";\r\n\r\nimport { useState } from \"react\";\r\nimport { motion } from \"framer-motion\";\r\nimport { Moon, Sun } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * A light and dark switch with a sliding thumb and an icon that spins between sun and moon. It is\r\n * controlled by `checked` and `onCheckedChange` (true means dark), and works uncontrolled too. Wire\r\n * it to your theme provider in `onCheckedChange`.\r\n */\r\nexport function ThemeToggle({\r\n  checked,\r\n  defaultChecked = true,\r\n  onCheckedChange,\r\n  className,\r\n}: {\r\n  checked?: boolean;\r\n  defaultChecked?: boolean;\r\n  onCheckedChange?: (dark: boolean) => void;\r\n  className?: string;\r\n}) {\r\n  const [inner, setInner] = useState(defaultChecked);\r\n  const dark = checked ?? inner;\r\n  const set = (v: boolean) => {\r\n    setInner(v);\r\n    onCheckedChange?.(v);\r\n  };\r\n\r\n  return (\r\n    <button\r\n      role=\"switch\"\r\n      aria-checked={dark}\r\n      aria-label=\"Toggle dark mode\"\r\n      onClick={() => set(!dark)}\r\n      className={cn(\"relative flex h-10 w-[4.5rem] items-center overflow-hidden rounded-full border p-1 transition-colors duration-500\", dark ? \"bg-muted\" : \"bg-primary/25\", className)}\r\n    >\r\n      {/* stars and clouds in the track */}\r\n      <motion.span animate={{ opacity: dark ? 1 : 0, y: dark ? 0 : 8 }} className=\"absolute left-3 top-2 size-0.5 rounded-full bg-foreground/70 shadow-[10px_8px_0_0_var(--foreground),4px_14px_0_0_var(--muted-foreground)]\" />\r\n      <motion.span animate={{ opacity: dark ? 0 : 1, y: dark ? -8 : 0 }} className=\"absolute bottom-1.5 right-3 h-1.5 w-5 rounded-full bg-background/80\" />\r\n      <motion.span\r\n        animate={{ x: dark ? 32 : 0 }}\r\n        transition={{ type: \"spring\", stiffness: 420, damping: 28 }}\r\n        className=\"relative z-10 grid size-8 place-items-center rounded-full bg-card text-foreground shadow-md\"\r\n      >\r\n        <motion.span key={String(dark)} initial={{ rotate: -90, scale: 0.4, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={{ duration: 0.3 }}>\r\n          {dark ? <Moon className=\"size-4\" /> : <Sun className=\"size-4 text-primary\" />}\r\n        </motion.span>\r\n      </motion.span>\r\n    </button>\r\n  );\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "glacier"
+  },
+  "docs": "import { ThemeToggle } from \"@/components/theme-toggle\"\n\n<ThemeToggle onCheckedChange={(dark) => setTheme(dark ? \"dark\" : \"light\")} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

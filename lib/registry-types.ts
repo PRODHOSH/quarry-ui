@@ -1,4 +1,4 @@
-export type GroupId = "sections" | "elements" | "backgrounds" | "loaders";
+export type GroupId = "templates" | "sections" | "elements" | "backgrounds" | "loaders";
 
 export type RegistryItem = {
   name: string;
@@ -8,12 +8,17 @@ export type RegistryItem = {
   categories: GroupId[];
   dependencies: string[];
   registryDependencies: string[];
-  files: { path: string; type: string }[];
+  files: { path: string; type: string; target?: string }[];
   docs: string;
-  meta: { stage: "center" | "fill"; theme?: import("@/lib/themes").ThemeId };
+  meta: { stage: "center" | "fill"; theme?: import("@/lib/themes").ThemeId; preview?: string; tags?: string[]; route?: string; routes?: string[] };
 };
 
 export const GROUPS: { id: GroupId; title: string; description: string }[] = [
+  {
+    id: "templates",
+    title: "Templates",
+    description: "Whole screens and apps. Install one, then change the copy and wire it to your data.",
+  },
   {
     id: "sections",
     title: "Sections",

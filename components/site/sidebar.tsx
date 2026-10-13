@@ -1,5 +1,7 @@
 "use client";
 
+import { Activity as IActivity, BadgeDollarSign as IBadgeDollarSign, Bell as IBell, Building2 as IBuilding2, CaseSensitive as ICaseSensitive, CirclePlay as ICirclePlay, Clapperboard as IClapperboard, Columns3 as IColumns3, Flashlight as IFlashlight, Hash as IHash, Highlighter as IHighlighter, Images as IImages, ListOrdered as IListOrdered, ListPlus as IListPlus, Menu as IMenu, MessageSquareQuote as IMessageSquareQuote, PanelBottom as IPanelBottom, PanelsTopLeft as IPanelsTopLeft, RefreshCcw as IRefreshCcw, ScanEye as IScanEye, SearchCheck as ISearchCheck, SunMoon as ISunMoon, Terminal as ITerminal, Users as IUsers, UsersRound as IUsersRound } from "lucide-react";
+
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -22,6 +24,7 @@ import {
   Quote,
   Route,
   Search,
+  Folder,
   Activity,
   Gauge,
   Sparkles,
@@ -47,8 +50,33 @@ export type SidebarGroup = {
 };
 
 /** Icons for sections and elements. Loaders are left plain on purpose: 25 similar glyphs would be noise. */
-const ICONS: Record<string, LucideIcon> = {
+export const ICONS: Record<string, LucideIcon> = {
   "feature-bento": LayoutGrid,
+  "mega-footer": IPanelBottom,
+  "wordmark-footer": ICaseSensitive,
+  "mega-menu-navbar": IMenu,
+  "announcement-bar": IBell,
+  "testimonial-columns": IColumns3,
+  "testimonial-spotlight": IMessageSquareQuote,
+  "faq-search": ISearchCheck,
+  "spotlight-card": IFlashlight,
+  "pricing-cards": IBadgeDollarSign,
+  "metric-cards": IActivity,
+  "team-cards": IUsersRound,
+  "lightbox-gallery": IImages,
+  "logo-cloud": IBuilding2,
+  "image-reveal": IScanEye,
+  "text-rotator": IRefreshCcw,
+  "number-ticker": IHash,
+  "text-highlighter": IHighlighter,
+  "video-player": ICirclePlay,
+  "video-dialog": IClapperboard,
+  "feature-tabs": IPanelsTopLeft,
+  "theme-toggle": ISunMoon,
+  "code-tabs": ITerminal,
+  "animated-list": IListPlus,
+  "avatar-group": IUsers,
+  "multi-step-form": IListOrdered,
   "process-steps": ListChecks,
   "scroll-timeline": Route,
   "rewards-list": Gift,
@@ -70,6 +98,8 @@ const ICONS: Record<string, LucideIcon> = {
   "perspective-carousel": Layers,
   "image-trail": Sparkles,
   "card-stack": Boxes,
+  "ai-chat": MessageCircleQuestion,
+  "file-manager": Folder,
   "flow-field": Route,
   "dot-ripple": CircleDot,
   "aurora-mesh": Sparkles,
