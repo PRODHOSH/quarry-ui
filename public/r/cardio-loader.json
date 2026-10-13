@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cardio-loader",
+  "title": "Cardio",
+  "description": "A heartbeat trace drawing itself.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/cardio-loader.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst PATH = \"M 0,25 L 20,25 L 30,6 L 45,44 L 60,14 L 70,25 L 100,25\";\n\nexport function CardioLoader({ className }: { className?: string }) {\n  return (\n    <svg\n      role=\"status\"\n      aria-label=\"Loading\"\n      viewBox=\"0 0 100 50\"\n      className={cn(\"h-10 w-20 overflow-visible text-chart-5\", className)}\n    >\n      <path d={PATH} fill=\"none\" stroke=\"currentColor\" strokeOpacity={0.15} strokeWidth={3} strokeLinecap=\"round\" strokeLinejoin=\"round\" />\n      <motion.path\n        d={PATH}\n        fill=\"none\"\n        stroke=\"currentColor\"\n        strokeWidth={3}\n        strokeLinecap=\"round\"\n        strokeLinejoin=\"round\"\n        initial={{ pathLength: 0, opacity: 1 }}\n        animate={{ pathLength: [0, 1, 1], opacity: [1, 1, 0] }}\n        transition={{ duration: 1.8, repeat: Infinity, ease: \"easeInOut\" }}\n      />\n    </svg>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { CardioLoader } from \"@/components/cardio-loader\"\n\n<CardioLoader />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

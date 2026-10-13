@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shimmer-text",
+  "title": "Shimmer Text",
+  "description": "Text that fills in from left to right.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/shimmer-text.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function ShimmerText({\n  children = \"Loading\",\n  className,\n}: {\n  children?: string;\n  className?: string;\n}) {\n  return (\n    <span\n      role=\"status\"\n      className={cn(\"relative inline-block text-2xl font-medium tracking-tight text-muted-foreground/50\", className)}\n    >\n      {children}\n      <motion.span\n        aria-hidden\n        className=\"absolute inset-y-0 left-0 overflow-hidden whitespace-nowrap text-foreground\"\n        initial={{ width: \"0%\" }}\n        animate={{ width: [\"0%\", \"100%\", \"100%\"] }}\n        transition={{ duration: 2.2, repeat: Infinity, ease: \"easeInOut\" }}\n      >\n        {children}\n      </motion.span>\n    </span>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { ShimmerText } from \"@/components/shimmer-text\"\n\n<ShimmerText />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

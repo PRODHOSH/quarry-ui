@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "github-heatmap",
+  "title": "GitHub Heatmap",
+  "description": "A contribution graph for any GitHub user that follows your theme colours.",
+  "dependencies": [
+    "react-github-calendar"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/github-heatmap.tsx",
+      "content": "\"use client\";\r\n\r\nimport { lazy, Suspense, useState, useSyncExternalStore } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\nconst GitHubCalendar = lazy(() =>\r\n  import(\"react-github-calendar\").then((mod) => ({ default: mod.GitHubCalendar }))\r\n);\r\n\r\nconst Skeleton = () => <div className=\"h-36 w-full animate-pulse rounded-xl bg-muted\" />;\r\n\r\n// Five intensity levels derived from the theme, so the graph follows light and dark mode.\r\nconst LEVELS = [\r\n  \"var(--muted)\",\r\n  \"color-mix(in oklab, var(--chart-2) 30%, var(--muted))\",\r\n  \"color-mix(in oklab, var(--chart-2) 55%, var(--muted))\",\r\n  \"color-mix(in oklab, var(--chart-2) 80%, var(--muted))\",\r\n  \"var(--chart-2)\",\r\n];\r\n\r\nexport function GithubHeatmap({\r\n  username = \"torvalds\",\r\n  className,\r\n}: {\r\n  username?: string;\r\n  className?: string;\r\n}) {\r\n  const currentYear = new Date().getFullYear();\r\n  const years: (number | \"last\")[] = [\"last\", currentYear, currentYear - 1];\r\n  const [year, setYear] = useState<number | \"last\">(\"last\");\r\n  // The calendar fetches in the browser, so render it only after hydration.\r\n  const mounted = useSyncExternalStore(\r\n    () => () => {},\r\n    () => true,\r\n    () => false\r\n  );\r\n\r\n  return (\r\n    <div className={cn(\"w-full rounded-2xl border bg-card p-6 text-card-foreground\", className)}>\r\n      <div className=\"mb-6 flex flex-wrap items-center justify-between gap-3\">\r\n        <div>\r\n          <h3 className=\"text-lg font-semibold tracking-tight\">Contributions</h3>\r\n          <p className=\"text-sm text-muted-foreground\">@{username} on GitHub</p>\r\n        </div>\r\n        <div className=\"flex gap-1 rounded-lg bg-muted p-1\">\r\n          {years.map((y) => (\r\n            <button\r\n              key={y}\r\n              type=\"button\"\r\n              onClick={() => setYear(y)}\r\n              className={cn(\r\n                \"rounded-md px-3 py-1 text-xs font-medium transition-colors\",\r\n                year === y\r\n                  ? \"bg-background text-foreground shadow-xs\"\r\n                  : \"text-muted-foreground hover:text-foreground\"\r\n              )}\r\n            >\r\n              {y === \"last\" ? \"Last year\" : y}\r\n            </button>\r\n          ))}\r\n        </div>\r\n      </div>\r\n\r\n      <div className=\"w-full overflow-x-auto text-sm text-muted-foreground [&_article]:w-full [&_svg]:h-auto [&_svg]:max-w-full\">\r\n        {mounted ? (\r\n          <Suspense fallback={<Skeleton />}>\r\n            <GitHubCalendar\r\n              username={username}\r\n              year={year}\r\n              colorScheme=\"light\"\r\n              theme={{ light: LEVELS as [string, string, string, string, string] }}\r\n              blockRadius={3}\r\n              blockSize={11}\r\n              blockMargin={4}\r\n              fontSize={12}\r\n            />\r\n          </Suspense>\r\n        ) : (\r\n          <Skeleton />\r\n        )}\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill"
+  },
+  "docs": "import { GithubHeatmap } from \"@/components/github-heatmap\"\n\n<GithubHeatmap username=\"your-handle\" />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

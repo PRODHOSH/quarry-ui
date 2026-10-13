@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dot-wave",
+  "title": "Dot Wave",
+  "description": "Four dots rippling in a wave.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/dot-wave.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function DotWave({ className }: { className?: string }) {\n  return (\n    <div role=\"status\" aria-label=\"Loading\" className={cn(\"flex h-10 items-center gap-1.5 text-chart-2\", className)}>\n      {[0, 1, 2, 3].map((i) => (\n        <motion.span\n          key={i}\n          className=\"size-3 rounded-full bg-current\"\n          animate={{ y: [0, -12, 0] }}\n          transition={{ duration: 0.8, repeat: Infinity, ease: \"easeInOut\", delay: i * 0.1 }}\n        />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { DotWave } from \"@/components/dot-wave\"\n\n<DotWave />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

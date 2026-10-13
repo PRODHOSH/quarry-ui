@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "morphing-shapes",
+  "title": "Morphing Shapes",
+  "description": "A shape that morphs between circle and rounded square.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/morphing-shapes.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function MorphingShapes({ className }: { className?: string }) {\n  return (\n    <div role=\"status\" aria-label=\"Loading\" className={cn(\"grid size-12 place-items-center text-primary\", className)}>\n      <motion.span\n        className=\"size-8 bg-current\"\n        animate={{\n          borderRadius: [\"50%\", \"22%\", \"50%\", \"10%\", \"50%\"],\n          rotate: [0, 90, 180, 270, 360],\n          scale: [1, 1.15, 1, 0.85, 1],\n        }}\n        transition={{ duration: 2.4, repeat: Infinity, ease: \"easeInOut\" }}\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { MorphingShapes } from \"@/components/morphing-shapes\"\n\n<MorphingShapes />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

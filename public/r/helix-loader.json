@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "helix-loader",
+  "title": "Helix",
+  "description": "Two dots weaving through a double helix.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/helix-loader.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function HelixLoader({ className }: { className?: string }) {\n  return (\n    <div role=\"status\" aria-label=\"Loading\" className={cn(\"relative grid size-12 place-items-center text-foreground\", className)}>\n      <motion.span\n        className=\"absolute size-3.5 rounded-full bg-primary\"\n        animate={{ y: [-16, 16, -16], scale: [1, 0.6, 1] }}\n        transition={{ duration: 1.6, repeat: Infinity, ease: \"easeInOut\" }}\n      />\n      <motion.span\n        className=\"absolute size-3.5 rounded-full bg-current\"\n        animate={{ y: [16, -16, 16], scale: [0.6, 1, 0.6] }}\n        transition={{ duration: 1.6, repeat: Infinity, ease: \"easeInOut\" }}\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { HelixLoader } from \"@/components/helix-loader\"\n\n<HelixLoader />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

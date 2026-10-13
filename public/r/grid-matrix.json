@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "grid-matrix",
+  "title": "Grid Matrix",
+  "description": "A three by three grid of squares fading in a wave.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/grid-matrix.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function GridMatrix({ className }: { className?: string }) {\n  return (\n    <div\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"grid size-10 grid-cols-3 gap-1 text-foreground\", className)}\n    >\n      {Array.from({ length: 9 }).map((_, i) => (\n        <motion.span\n          key={i}\n          className=\"rounded-[3px] bg-current\"\n          animate={{ opacity: [1, 0.15, 1] }}\n          transition={{\n            duration: 1.2,\n            repeat: Infinity,\n            ease: \"easeInOut\",\n            delay: ((i % 3) + Math.floor(i / 3)) * 0.15,\n          }}\n        />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { GridMatrix } from \"@/components/grid-matrix\"\n\n<GridMatrix />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

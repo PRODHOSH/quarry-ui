@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-timeline",
+  "title": "Scroll Timeline",
+  "description": "A vertical timeline whose line draws itself as the reader scrolls.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/scroll-timeline.tsx",
+      "content": "\"use client\";\n\nimport { useRef, type ReactNode } from \"react\";\nimport { motion, useScroll, useSpring } from \"framer-motion\";\nimport { Calendar, Target, Trophy, UserPlus, Users } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Step = { icon: ReactNode; label: string; title: string; description: string };\n\nconst STEPS: Step[] = [\n  { icon: <Calendar className=\"size-4\" />, label: \"Step 1\", title: \"Create your account\", description: \"Sign up and set your preferences in under a minute.\" },\n  { icon: <Users className=\"size-4\" />, label: \"Step 2\", title: \"Build your network\", description: \"Connect with teammates and grow your audience organically.\" },\n  { icon: <UserPlus className=\"size-4\" />, label: \"Step 3\", title: \"Share your links\", description: \"Distribute your unique links across the channels you use.\" },\n  { icon: <Target className=\"size-4\" />, label: \"Step 4\", title: \"Track your goals\", description: \"Follow progress with live analytics in one dashboard.\" },\n  { icon: <Trophy className=\"size-4\" />, label: \"Step 5\", title: \"Earn rewards\", description: \"Hit milestones and unlock perks as you go.\" },\n];\n\n/** Scroll progress is tracked inside this component's own scroll area. */\nexport function ScrollTimeline({ className }: { className?: string }) {\n  const ref = useRef<HTMLDivElement>(null);\n  const { scrollYProgress } = useScroll({ container: ref });\n  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });\n\n  return (\n    <div ref={ref} className={cn(\"h-[34rem] w-full overflow-y-auto\", className)}>\n      <div className=\"mx-auto max-w-2xl px-6 py-10\">\n        <div className=\"mb-12 text-center\">\n          <p className=\"text-sm font-medium text-primary\">How it works</p>\n          <h2 className=\"mt-2 text-3xl font-semibold tracking-tight text-foreground\">\n            Your journey, step by step\n          </h2>\n        </div>\n\n        <div className=\"relative pl-12\">\n          <div className=\"absolute bottom-2 left-[15px] top-2 w-px bg-border\" />\n          <motion.div\n            style={{ scaleY }}\n            className=\"absolute bottom-2 left-[15px] top-2 w-px origin-top bg-primary\"\n          />\n\n          <ol className=\"space-y-10\">\n            {STEPS.map((step) => (\n              <motion.li\n                key={step.title}\n                initial={{ opacity: 0, x: 12 }}\n                whileInView={{ opacity: 1, x: 0 }}\n                viewport={{ once: true, amount: 0.6, root: ref }}\n                transition={{ duration: 0.4 }}\n                className=\"relative\"\n              >\n                <span className=\"absolute -left-12 grid size-8 place-items-center rounded-full border bg-background text-primary shadow-xs\">\n                  {step.icon}\n                </span>\n                <p className=\"text-xs font-medium uppercase tracking-wide text-muted-foreground\">\n                  {step.label}\n                </p>\n                <h3 className=\"mt-1 text-lg font-semibold text-foreground\">{step.title}</h3>\n                <p className=\"mt-1 text-sm leading-relaxed text-muted-foreground\">\n                  {step.description}\n                </p>\n              </motion.li>\n            ))}\n          </ol>\n        </div>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "meta": {
+    "stage": "fill"
+  },
+  "docs": "import { ScrollTimeline } from \"@/components/scroll-timeline\"\n\n<ScrollTimeline />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:block"
+}

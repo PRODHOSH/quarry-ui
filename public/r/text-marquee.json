@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-marquee",
+  "title": "Text Marquee",
+  "description": "A slim, infinitely scrolling strip of keywords separated by sparkles.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/text-marquee.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { Sparkles } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nconst WORDS = [\"Innovation\", \"Performance\", \"Scalability\", \"Design\", \"Security\", \"Accessibility\", \"Speed\"];\n\nexport function TextMarquee({\n  words = WORDS,\n  duration = 40,\n  className,\n}: {\n  words?: string[];\n  duration?: number;\n  className?: string;\n}) {\n  const group = (suffix: string) =>\n    words.map((word) => (\n      <span key={`${suffix}-${word}`} className=\"flex items-center gap-8\">\n        <span className=\"text-xl font-medium tracking-tight text-foreground/80\">{word}</span>\n        <Sparkles className=\"size-4 text-primary\" />\n      </span>\n    ));\n\n  return (\n    <div\n      className={cn(\n        \"w-full overflow-hidden border-y bg-background py-5 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]\",\n        className\n      )}\n    >\n      <motion.div\n        className=\"flex w-max items-center gap-8\"\n        animate={{ x: [\"0%\", \"-50%\"] }}\n        transition={{ duration, repeat: Infinity, ease: \"linear\" }}\n      >\n        {group(\"a\")}\n        {group(\"b\")}\n        {group(\"c\")}\n        {group(\"d\")}\n      </motion.div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill"
+  },
+  "docs": "import { TextMarquee } from \"@/components/text-marquee\"\n\n<TextMarquee />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

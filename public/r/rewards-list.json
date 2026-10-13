@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rewards-list",
+  "title": "Rewards List",
+  "description": "A two column layout pairing a headline with a numbered list of rewards or perks.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/rewards-list.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst REWARDS = [\n  {\n    title: \"Premium digital identity\",\n    description:\n      \"The top 10 members receive a free year of a custom domain to launch their portfolio.\",\n  },\n  {\n    title: \"Exclusive event swag\",\n    description:\n      \"Weekly top performers get partner goodies: t-shirts for the top three, books for the rest.\",\n  },\n  {\n    title: \"Limited edition swag kit\",\n    description:\n      \"Official tees, personalised notebooks and premium notes for everyone who reaches the final round.\",\n  },\n];\n\nexport function RewardsList({ className }: { className?: string }) {\n  return (\n    <section className={cn(\"w-full px-6 py-10 sm:px-10\", className)}>\n      <div className=\"mx-auto grid max-w-4xl gap-10 lg:grid-cols-[2fr_3fr] lg:gap-16\">\n        <div>\n          <p className=\"text-sm font-medium text-primary\">Leaderboard</p>\n          <h2 className=\"mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl\">\n            Climb the ranks, earn real rewards\n          </h2>\n          <p className=\"mt-3 text-muted-foreground\">\n            Every action counts toward your score. Rankings update live, and the best performers\n            are recognised at the end of the programme.\n          </p>\n        </div>\n\n        <ol className=\"divide-y rounded-2xl border bg-card\">\n          {REWARDS.map((reward, i) => (\n            <motion.li\n              key={reward.title}\n              initial={{ opacity: 0, y: 12 }}\n              whileInView={{ opacity: 1, y: 0 }}\n              viewport={{ once: true, margin: \"-30px\" }}\n              transition={{ duration: 0.4, delay: i * 0.08 }}\n              className=\"flex gap-5 p-5 sm:p-6\"\n            >\n              <span className=\"grid size-9 shrink-0 place-items-center rounded-full bg-accent text-sm font-semibold text-accent-foreground\">\n                {i + 1}\n              </span>\n              <div>\n                <h3 className=\"font-semibold text-card-foreground\">{reward.title}</h3>\n                <p className=\"mt-1 text-sm leading-relaxed text-muted-foreground\">\n                  {reward.description}\n                </p>\n              </div>\n            </motion.li>\n          ))}\n        </ol>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "meta": {
+    "stage": "fill"
+  },
+  "docs": "import { RewardsList } from \"@/components/rewards-list\"\n\n<RewardsList />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:block"
+}

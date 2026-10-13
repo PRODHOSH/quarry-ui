@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "typing-indicator",
+  "title": "Typing Indicator",
+  "description": "Three dots in a chat bubble, ready for any conversation UI.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/typing-indicator.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function TypingIndicator({ className }: { className?: string }) {\n  return (\n    <div\n      role=\"status\"\n      aria-label=\"Typing\"\n      className={cn(\n        \"inline-flex items-center gap-1.5 rounded-2xl rounded-bl-md bg-muted px-4 py-3 text-muted-foreground\",\n        className\n      )}\n    >\n      {[0, 1, 2].map((i) => (\n        <motion.span\n          key={i}\n          className=\"size-2 rounded-full bg-current\"\n          animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}\n          transition={{ duration: 1.2, repeat: Infinity, ease: \"easeInOut\", delay: i * 0.18 }}\n        />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { TypingIndicator } from \"@/components/typing-indicator\"\n\n<TypingIndicator />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

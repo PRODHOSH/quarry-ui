@@ -1,0 +1,1120 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "quarry-ui",
+  "homepage": "https://quarry-ui.com",
+  "items": [
+    {
+      "name": "feature-bento",
+      "type": "registry:block",
+      "title": "Feature Bento Grid",
+      "description": "A calm bento grid that presents product features with tinted icons and staggered reveal.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/feature-bento.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { FeatureBento } from \"@/components/feature-bento\"\n\n<FeatureBento />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "process-steps",
+      "type": "registry:block",
+      "title": "Process Steps",
+      "description": "A step by step flow with an animated progress line that fills as you move through the stages.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/process-steps.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { ProcessSteps } from \"@/components/process-steps\"\n\n<ProcessSteps />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "scroll-timeline",
+      "type": "registry:block",
+      "title": "Scroll Timeline",
+      "description": "A vertical timeline whose line draws itself as the reader scrolls.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/scroll-timeline.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { ScrollTimeline } from \"@/components/scroll-timeline\"\n\n<ScrollTimeline />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "rewards-list",
+      "type": "registry:block",
+      "title": "Rewards List",
+      "description": "A two column layout pairing a headline with a numbered list of rewards or perks.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/rewards-list.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { RewardsList } from \"@/components/rewards-list\"\n\n<RewardsList />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "impact-stats",
+      "type": "registry:block",
+      "title": "Impact Stats",
+      "description": "Four headline numbers with colour coded progress bars that animate into view.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/impact-stats.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { ImpactStats } from \"@/components/impact-stats\"\n\n<ImpactStats />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "tilted-feature-cards",
+      "type": "registry:block",
+      "title": "Tilted Feature Cards",
+      "description": "Three overlapping, slightly rotated cards that straighten on hover.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/tilted-feature-cards.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { TiltedFeatureCards } from \"@/components/tilted-feature-cards\"\n\n<TiltedFeatureCards />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "workflow-grid",
+      "type": "registry:block",
+      "title": "Workflow Grid",
+      "description": "Circular icon tiles that describe three ways to use a product.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/workflow-grid.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { WorkflowGrid } from \"@/components/workflow-grid\"\n\n<WorkflowGrid />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "horizontal-scroll-cards",
+      "type": "registry:block",
+      "title": "Horizontal Scroll Cards",
+      "description": "Vertical scrolling drives a horizontal track of project cards.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/horizontal-scroll-cards.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { HorizontalScrollCards } from \"@/components/horizontal-scroll-cards\"\n\n<HorizontalScrollCards />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "testimonial-marquee",
+      "type": "registry:block",
+      "title": "Testimonial Marquee",
+      "description": "An endlessly scrolling row of quote cards with soft edge fading.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/testimonial-marquee.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { TestimonialMarquee } from \"@/components/testimonial-marquee\"\n\n<TestimonialMarquee />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "testimonial-carousel",
+      "type": "registry:block",
+      "title": "Testimonial Carousel",
+      "description": "A single quote carousel with arrows, dots and autoplay.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/testimonial-carousel.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { TestimonialCarousel } from \"@/components/testimonial-carousel\"\n\n<TestimonialCarousel />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "faq-accordion",
+      "type": "registry:block",
+      "title": "FAQ Accordion",
+      "description": "A single open accordion with smooth height animation for frequently asked questions.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/faq-accordion.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { FaqAccordion } from \"@/components/faq-accordion\"\n\n<FaqAccordion />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "integration-snippet",
+      "type": "registry:block",
+      "title": "Integration Snippet",
+      "description": "A pitch alongside a copyable code window for SDK or install instructions.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/integration-snippet.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { IntegrationSnippet } from \"@/components/integration-snippet\"\n\n<IntegrationSnippet />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "call-to-action",
+      "type": "registry:block",
+      "title": "Call to Action",
+      "description": "A centred closing card with a soft glow, a headline and two buttons.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/call-to-action.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { CallToAction } from \"@/components/call-to-action\"\n\n<CallToAction />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "text-marquee",
+      "type": "registry:component",
+      "title": "Text Marquee",
+      "description": "A slim, infinitely scrolling strip of keywords separated by sparkles.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/text-marquee.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TextMarquee } from \"@/components/text-marquee\"\n\n<TextMarquee />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "floating-socials",
+      "type": "registry:component",
+      "title": "Floating Socials",
+      "description": "A vertical pill of social links that floats at the edge of the screen.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/floating-socials.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { FloatingSocials } from \"@/components/floating-socials\"\n\n<FloatingSocials />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "scroll-reveal-pill",
+      "type": "registry:component",
+      "title": "Scroll Reveal Pill",
+      "description": "A status pill that slides in after the visitor scrolls, with a call to action and dismiss.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/scroll-reveal-pill.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ScrollRevealPill } from \"@/components/scroll-reveal-pill\"\n\n<ScrollRevealPill />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "github-heatmap",
+      "type": "registry:component",
+      "title": "GitHub Heatmap",
+      "description": "A contribution graph for any GitHub user that follows your theme colours.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "react-github-calendar"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/github-heatmap.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { GithubHeatmap } from \"@/components/github-heatmap\"\n\n<GithubHeatmap username=\"your-handle\" />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "auth-modal",
+      "type": "registry:component",
+      "title": "Auth Modal",
+      "description": "A sign in and sign up dialog with social providers and an email form.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/auth-modal.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AuthModal } from \"@/components/auth-modal\"\n\n<AuthModal open={open} onOpenChange={setOpen} />",
+      "meta": {
+        "stage": "fill"
+      }
+    },
+    {
+      "name": "leapfrog-loader",
+      "type": "registry:component",
+      "title": "Leapfrog",
+      "description": "Three dots that hop in sequence.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/leapfrog-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { LeapfrogLoader } from \"@/components/leapfrog-loader\"\n\n<LeapfrogLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "momentum-loader",
+      "type": "registry:component",
+      "title": "Momentum",
+      "description": "Two dots orbiting a shared centre.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/momentum-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MomentumLoader } from \"@/components/momentum-loader\"\n\n<MomentumLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "newtons-cradle",
+      "type": "registry:component",
+      "title": "Newton's Cradle",
+      "description": "Swinging balls that pass momentum along.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/newtons-cradle.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { NewtonsCradle } from \"@/components/newtons-cradle\"\n\n<NewtonsCradle />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "pulse-ring",
+      "type": "registry:component",
+      "title": "Pulse Ring",
+      "description": "Rings that expand and fade from a core dot.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/pulse-ring.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { PulseRing } from \"@/components/pulse-ring\"\n\n<PulseRing />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "grid-matrix",
+      "type": "registry:component",
+      "title": "Grid Matrix",
+      "description": "A three by three grid of squares fading in a wave.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/grid-matrix.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { GridMatrix } from \"@/components/grid-matrix\"\n\n<GridMatrix />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "infinity-spinner",
+      "type": "registry:component",
+      "title": "Infinity",
+      "description": "A highlight tracing an infinity loop.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/infinity-spinner.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { InfinitySpinner } from \"@/components/infinity-spinner\"\n\n<InfinitySpinner />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "tailspin-loader",
+      "type": "registry:component",
+      "title": "Tailspin",
+      "description": "A rotating arc with a fading tail.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/tailspin-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TailspinLoader } from \"@/components/tailspin-loader\"\n\n<TailspinLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "line-spinner",
+      "type": "registry:component",
+      "title": "Line Spinner",
+      "description": "Twelve ticks that fade around a circle.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/line-spinner.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { LineSpinner } from \"@/components/line-spinner\"\n\n<LineSpinner />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "squircle-loader",
+      "type": "registry:component",
+      "title": "Squircle",
+      "description": "A highlight racing around a rounded square.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/squircle-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { SquircleLoader } from \"@/components/squircle-loader\"\n\n<SquircleLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "tail-chase",
+      "type": "registry:component",
+      "title": "Tail Chase",
+      "description": "Dots chasing each other with a trailing fade.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/tail-chase.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TailChase } from \"@/components/tail-chase\"\n\n<TailChase />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "morphing-shapes",
+      "type": "registry:component",
+      "title": "Morphing Shapes",
+      "description": "A shape that morphs between circle and rounded square.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/morphing-shapes.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MorphingShapes } from \"@/components/morphing-shapes\"\n\n<MorphingShapes />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "shimmer-text",
+      "type": "registry:component",
+      "title": "Shimmer Text",
+      "description": "Text that fills in from left to right.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/shimmer-text.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ShimmerText } from \"@/components/shimmer-text\"\n\n<ShimmerText />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "orbit-loader",
+      "type": "registry:component",
+      "title": "Orbit",
+      "description": "A small moon circling a planet.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/orbit-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { OrbitLoader } from \"@/components/orbit-loader\"\n\n<OrbitLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "radar-ping",
+      "type": "registry:component",
+      "title": "Radar Ping",
+      "description": "Ripples radiating outward from a point.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/radar-ping.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { RadarPing } from \"@/components/radar-ping\"\n\n<RadarPing />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "dot-spinner",
+      "type": "registry:component",
+      "title": "Dot Spinner",
+      "description": "Eight dots fading around a circle.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/dot-spinner.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { DotSpinner } from \"@/components/dot-spinner\"\n\n<DotSpinner />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "waveform-loader",
+      "type": "registry:component",
+      "title": "Waveform",
+      "description": "Audio style bars bouncing in sequence.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/waveform-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { WaveformLoader } from \"@/components/waveform-loader\"\n\n<WaveformLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "hourglass-loader",
+      "type": "registry:component",
+      "title": "Hourglass",
+      "description": "An hourglass that flips over and over.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/hourglass-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { HourglassLoader } from \"@/components/hourglass-loader\"\n\n<HourglassLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "cardio-loader",
+      "type": "registry:component",
+      "title": "Cardio",
+      "description": "A heartbeat trace drawing itself.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/cardio-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CardioLoader } from \"@/components/cardio-loader\"\n\n<CardioLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "helix-loader",
+      "type": "registry:component",
+      "title": "Helix",
+      "description": "Two dots weaving through a double helix.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/helix-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { HelixLoader } from \"@/components/helix-loader\"\n\n<HelixLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "trio-loader",
+      "type": "registry:component",
+      "title": "Trio",
+      "description": "Three dots bouncing in a triangle.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/trio-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TrioLoader } from \"@/components/trio-loader\"\n\n<TrioLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "dot-wave",
+      "type": "registry:component",
+      "title": "Dot Wave",
+      "description": "Four dots rippling in a wave.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/dot-wave.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { DotWave } from \"@/components/dot-wave\"\n\n<DotWave />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "metronome-loader",
+      "type": "registry:component",
+      "title": "Metronome",
+      "description": "A pendulum swinging back and forth.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/metronome-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MetronomeLoader } from \"@/components/metronome-loader\"\n\n<MetronomeLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "typing-indicator",
+      "type": "registry:component",
+      "title": "Typing Indicator",
+      "description": "Three dots in a chat bubble, ready for any conversation UI.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/typing-indicator.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TypingIndicator } from \"@/components/typing-indicator\"\n\n<TypingIndicator />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "superballs-loader",
+      "type": "registry:component",
+      "title": "Superballs",
+      "description": "Two squishy balls swapping places.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/superballs-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { SuperballsLoader } from \"@/components/superballs-loader\"\n\n<SuperballsLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "pinwheel-loader",
+      "type": "registry:component",
+      "title": "Pinwheel",
+      "description": "A four piece pinwheel in graded tones.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/pinwheel-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { PinwheelLoader } from \"@/components/pinwheel-loader\"\n\n<PinwheelLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    },
+    {
+      "name": "zoomies-loader",
+      "type": "registry:component",
+      "title": "Zoomies",
+      "description": "A fast indeterminate progress bar.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/zoomies-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ZoomiesLoader } from \"@/components/zoomies-loader\"\n\n<ZoomiesLoader />",
+      "meta": {
+        "stage": "center"
+      }
+    }
+  ]
+}

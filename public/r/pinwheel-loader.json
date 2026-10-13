@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pinwheel-loader",
+  "title": "Pinwheel",
+  "description": "A four piece pinwheel in graded tones.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/pinwheel-loader.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function PinwheelLoader({ className }: { className?: string }) {\n  return (\n    <motion.div\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"grid size-11 grid-cols-2 gap-1 text-primary\", className)}\n      animate={{ rotate: 360 }}\n      transition={{ duration: 2, repeat: Infinity, ease: \"linear\" }}\n    >\n      <span className=\"rounded-tl-full bg-current\" />\n      <span className=\"rounded-tr-full bg-current opacity-70\" />\n      <span className=\"rounded-bl-full bg-current opacity-40\" />\n      <span className=\"rounded-br-full bg-current opacity-20\" />\n    </motion.div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { PinwheelLoader } from \"@/components/pinwheel-loader\"\n\n<PinwheelLoader />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

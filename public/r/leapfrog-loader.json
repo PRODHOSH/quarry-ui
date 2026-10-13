@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "leapfrog-loader",
+  "title": "Leapfrog",
+  "description": "Three dots that hop in sequence.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/leapfrog-loader.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function LeapfrogLoader({ className }: { className?: string }) {\n  return (\n    <div\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"inline-flex items-center gap-2 text-primary\", className)}\n    >\n      {[0, 1, 2].map((i) => (\n        <motion.span\n          key={i}\n          className=\"size-3 rounded-full bg-current\"\n          animate={{ y: [0, -14, 0], opacity: [1, 0.45, 1] }}\n          transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.15, ease: \"easeInOut\" }}\n        />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { LeapfrogLoader } from \"@/components/leapfrog-loader\"\n\n<LeapfrogLoader />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

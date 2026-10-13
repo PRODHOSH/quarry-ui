@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "orbit-loader",
+  "title": "Orbit",
+  "description": "A small moon circling a planet.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/orbit-loader.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function OrbitLoader({ className }: { className?: string }) {\n  return (\n    <div role=\"status\" aria-label=\"Loading\" className={cn(\"relative grid size-16 place-items-center text-foreground\", className)}>\n      <span className=\"absolute size-5 rounded-full bg-current opacity-25\" />\n      <span className=\"absolute size-16 rounded-full border border-current opacity-15\" />\n      <motion.span\n        className=\"absolute size-16\"\n        animate={{ rotate: 360 }}\n        transition={{ duration: 2.2, repeat: Infinity, ease: \"linear\" }}\n      >\n        <span className=\"absolute -top-1.5 left-1/2 size-3 -translate-x-1/2 rounded-full bg-primary\" />\n      </motion.span>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { OrbitLoader } from \"@/components/orbit-loader\"\n\n<OrbitLoader />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

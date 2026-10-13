@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "waveform-loader",
+  "title": "Waveform",
+  "description": "Audio style bars bouncing in sequence.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/waveform-loader.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function WaveformLoader({ className }: { className?: string }) {\n  return (\n    <div role=\"status\" aria-label=\"Loading\" className={cn(\"flex h-10 items-center gap-1 text-primary\", className)}>\n      {Array.from({ length: 5 }).map((_, i) => (\n        <motion.span\n          key={i}\n          className=\"w-1.5 rounded-full bg-current\"\n          animate={{ height: [10, 34, 10] }}\n          transition={{ duration: 0.9, repeat: Infinity, ease: \"easeInOut\", delay: i * 0.12 }}\n        />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { WaveformLoader } from \"@/components/waveform-loader\"\n\n<WaveformLoader />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

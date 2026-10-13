@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tail-chase",
+  "title": "Tail Chase",
+  "description": "Dots chasing each other with a trailing fade.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/tail-chase.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function TailChase({ className }: { className?: string }) {\n  return (\n    <div role=\"status\" aria-label=\"Loading\" className={cn(\"relative size-12 text-foreground\", className)}>\n      {[0, 1, 2, 3].map((i) => (\n        <motion.span\n          key={i}\n          className=\"absolute inset-0\"\n          animate={{ rotate: 360 }}\n          transition={{ duration: 1.6, repeat: Infinity, ease: \"linear\", delay: i * -0.14 }}\n        >\n          <span\n            className=\"absolute left-1/2 top-0 size-3 rounded-full bg-current\"\n            style={{ opacity: 1 - i * 0.22, transform: `translateX(-50%) scale(${1 - i * 0.15})` }}\n          />\n        </motion.span>\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { TailChase } from \"@/components/tail-chase\"\n\n<TailChase />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

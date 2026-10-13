@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "call-to-action",
+  "title": "Call to Action",
+  "description": "A centred closing card with a soft glow, a headline and two buttons.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/call-to-action.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { ArrowRight } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport function CallToAction({\n  title = \"Start building something people love\",\n  description = \"Join thousands of teams shipping faster, lighter and more consistent interfaces.\",\n  primaryLabel = \"Get started\",\n  secondaryLabel = \"Read the docs\",\n  className,\n}: {\n  title?: string;\n  description?: string;\n  primaryLabel?: string;\n  secondaryLabel?: string;\n  className?: string;\n}) {\n  return (\n    <section className={cn(\"w-full px-6 py-10 sm:px-10\", className)}>\n      <motion.div\n        initial={{ opacity: 0, y: 16 }}\n        whileInView={{ opacity: 1, y: 0 }}\n        viewport={{ once: true, margin: \"-40px\" }}\n        transition={{ duration: 0.5 }}\n        className=\"relative mx-auto max-w-3xl overflow-hidden rounded-3xl border bg-card px-8 py-10 text-center sm:px-14\"\n      >\n        <div\n          aria-hidden\n          className=\"pointer-events-none absolute -top-24 left-1/2 h-48 w-[28rem] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl\"\n        />\n        <div className=\"relative\">\n          <h2 className=\"text-balance text-3xl font-semibold tracking-tight text-card-foreground sm:text-4xl\">\n            {title}\n          </h2>\n          <p className=\"mx-auto mt-4 max-w-xl text-pretty text-muted-foreground\">{description}</p>\n          <div className=\"mt-8 flex flex-wrap justify-center gap-3\">\n            <a\n              href=\"#\"\n              className=\"group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-sm transition-opacity hover:opacity-90\"\n            >\n              {primaryLabel}\n              <ArrowRight className=\"size-4 transition-transform group-hover:translate-x-0.5\" />\n            </a>\n            <a\n              href=\"#\"\n              className=\"inline-flex items-center rounded-lg border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted\"\n            >\n              {secondaryLabel}\n            </a>\n          </div>\n        </div>\n      </motion.div>\n    </section>\n  );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "meta": {
+    "stage": "fill"
+  },
+  "docs": "import { CallToAction } from \"@/components/call-to-action\"\n\n<CallToAction />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:block"
+}

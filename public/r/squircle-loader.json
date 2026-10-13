@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "squircle-loader",
+  "title": "Squircle",
+  "description": "A highlight racing around a rounded square.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/squircle-loader.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst PATH =\n  \"M 50,5 C 80,5 95,20 95,50 C 95,80 80,95 50,95 C 20,95 5,80 5,50 C 5,20 20,5 50,5 Z\";\n\nexport function SquircleLoader({ className }: { className?: string }) {\n  return (\n    <svg role=\"status\" aria-label=\"Loading\" viewBox=\"0 0 100 100\" className={cn(\"size-12 text-primary\", className)}>\n      <path d={PATH} fill=\"none\" stroke=\"currentColor\" strokeOpacity={0.18} strokeWidth={8} />\n      <motion.path\n        d={PATH}\n        fill=\"none\"\n        stroke=\"currentColor\"\n        strokeWidth={8}\n        strokeLinecap=\"round\"\n        style={{ pathLength: 0.25 }}\n        animate={{ pathOffset: [0, 1] }}\n        transition={{ duration: 1.6, repeat: Infinity, ease: \"linear\" }}\n      />\n    </svg>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { SquircleLoader } from \"@/components/squircle-loader\"\n\n<SquircleLoader />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

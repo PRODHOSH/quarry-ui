@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "workflow-grid",
+  "title": "Workflow Grid",
+  "description": "Circular icon tiles that describe three ways to use a product.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/workflow-grid.tsx",
+      "content": "\"use client\";\n\nimport type { ReactNode } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { GitPullRequest, Code2, Terminal } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nconst WORKFLOWS: { icon: ReactNode; title: string; description: string }[] = [\n  { icon: <Code2 className=\"size-9\" strokeWidth={1.5} />, title: \"Runtime SDK\", description: \"Drop in a single script tag and optimise assets instantly in the browser.\" },\n  { icon: <Terminal className=\"size-9\" strokeWidth={1.5} />, title: \"Command line\", description: \"Optimise local repositories and assets with one terminal command.\" },\n  { icon: <GitPullRequest className=\"size-9\" strokeWidth={1.5} />, title: \"Pull requests\", description: \"Let automated pull requests refactor your codebase for you.\" },\n];\n\nexport function WorkflowGrid({ className }: { className?: string }) {\n  return (\n    <section className={cn(\"w-full px-6 py-10 sm:px-10\", className)}>\n      <div className=\"mx-auto max-w-4xl\">\n        <div className=\"text-center\">\n          <h2 className=\"text-3xl font-semibold tracking-tight text-foreground sm:text-4xl\">\n            Fits every workflow\n          </h2>\n          <p className=\"mt-3 text-muted-foreground\">\n            Three ways to ship faster with zero configuration.\n          </p>\n        </div>\n\n        <div className=\"mt-12 grid gap-10 md:grid-cols-3\">\n          {WORKFLOWS.map((item, i) => (\n            <motion.div\n              key={item.title}\n              initial={{ opacity: 0, y: 16 }}\n              whileInView={{ opacity: 1, y: 0 }}\n              viewport={{ once: true, margin: \"-40px\" }}\n              transition={{ duration: 0.45, delay: i * 0.1 }}\n              className=\"group flex flex-col items-center text-center\"\n            >\n              <div className=\"relative mb-6 grid size-32 place-items-center rounded-full border bg-card text-foreground shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:border-primary/40 group-hover:text-primary group-hover:shadow-lg group-hover:shadow-primary/10\">\n                <span className=\"absolute inset-0 rounded-full bg-primary/5 opacity-0 transition-opacity group-hover:opacity-100\" />\n                <span className=\"relative\">{item.icon}</span>\n              </div>\n              <h3 className=\"text-lg font-semibold text-foreground\">{item.title}</h3>\n              <p className=\"mt-2 max-w-[220px] text-sm leading-relaxed text-muted-foreground\">\n                {item.description}\n              </p>\n            </motion.div>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "meta": {
+    "stage": "fill"
+  },
+  "docs": "import { WorkflowGrid } from \"@/components/workflow-grid\"\n\n<WorkflowGrid />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:block"
+}

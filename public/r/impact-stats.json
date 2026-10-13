@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "impact-stats",
+  "title": "Impact Stats",
+  "description": "Four headline numbers with colour coded progress bars that animate into view.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/impact-stats.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst STATS = [\n  { value: \"80%\", label: \"Smaller media\", sub: \"Average size reduction per asset\", bar: 80, color: \"bg-chart-1\" },\n  { value: \"3×\", label: \"Faster loads\", sub: \"Typical page load improvement\", bar: 75, color: \"bg-chart-2\" },\n  { value: \"68%\", label: \"Less bandwidth\", sub: \"Fewer bytes sent to users\", bar: 68, color: \"bg-chart-3\" },\n  { value: \"18g\", label: \"CO₂ saved\", sub: \"Carbon avoided per page load\", bar: 60, color: \"bg-chart-4\" },\n];\n\nexport function ImpactStats({ className }: { className?: string }) {\n  return (\n    <section className={cn(\"w-full px-6 py-10 sm:px-10\", className)}>\n      <div className=\"mx-auto max-w-5xl\">\n        <div className=\"mb-10 text-center\">\n          <h2 className=\"text-3xl font-semibold tracking-tight text-foreground sm:text-4xl\">\n            The numbers speak for themselves\n          </h2>\n          <p className=\"mt-3 text-muted-foreground\">Better performance. Lower cost. Smaller footprint.</p>\n        </div>\n\n        <div className=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-4\">\n          {STATS.map((stat, i) => (\n            <motion.div\n              key={stat.label}\n              initial={{ opacity: 0, y: 16 }}\n              whileInView={{ opacity: 1, y: 0 }}\n              viewport={{ once: true, margin: \"-40px\" }}\n              transition={{ duration: 0.45, delay: i * 0.08 }}\n              className=\"rounded-2xl border bg-card p-5\"\n            >\n              <p className=\"text-4xl font-semibold tracking-tight text-card-foreground\">{stat.value}</p>\n              <p className=\"mt-2 text-sm font-medium text-card-foreground\">{stat.label}</p>\n              <p className=\"mt-0.5 text-xs text-muted-foreground\">{stat.sub}</p>\n              <div className=\"mt-4 h-1.5 overflow-hidden rounded-full bg-muted\">\n                <motion.div\n                  className={cn(\"h-full rounded-full\", stat.color)}\n                  initial={{ width: 0 }}\n                  whileInView={{ width: `${stat.bar}%` }}\n                  viewport={{ once: true }}\n                  transition={{ duration: 0.9, delay: 0.2 + i * 0.08, ease: \"easeOut\" }}\n                />\n              </div>\n            </motion.div>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "meta": {
+    "stage": "fill"
+  },
+  "docs": "import { ImpactStats } from \"@/components/impact-stats\"\n\n<ImpactStats />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:block"
+}

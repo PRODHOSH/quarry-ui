@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pulse-ring",
+  "title": "Pulse Ring",
+  "description": "Rings that expand and fade from a core dot.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/pulse-ring.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function PulseRing({ className }: { className?: string }) {\n  return (\n    <div\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"relative grid size-14 place-items-center text-primary\", className)}\n    >\n      {[0, 0.6].map((delay) => (\n        <motion.span\n          key={delay}\n          className=\"absolute inset-0 rounded-full border-2 border-current\"\n          animate={{ scale: [0.5, 1.4], opacity: [0.8, 0] }}\n          transition={{ duration: 1.8, repeat: Infinity, ease: \"easeOut\", delay }}\n        />\n      ))}\n      <span className=\"size-3 rounded-full bg-current\" />\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { PulseRing } from \"@/components/pulse-ring\"\n\n<PulseRing />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

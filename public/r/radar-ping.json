@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radar-ping",
+  "title": "Radar Ping",
+  "description": "Ripples radiating outward from a point.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/radar-ping.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function RadarPing({ className }: { className?: string }) {\n  return (\n    <div role=\"status\" aria-label=\"Loading\" className={cn(\"relative grid size-16 place-items-center text-primary\", className)}>\n      <span className=\"z-10 size-2.5 rounded-full bg-current\" />\n      {[0, 0.6, 1.2].map((delay) => (\n        <motion.span\n          key={delay}\n          className=\"absolute inset-0 rounded-full border border-current\"\n          animate={{ scale: [0.1, 1], opacity: [0.7, 0] }}\n          transition={{ duration: 1.8, repeat: Infinity, ease: \"easeOut\", delay }}\n        />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { RadarPing } from \"@/components/radar-ping\"\n\n<RadarPing />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

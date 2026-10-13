@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "newtons-cradle",
+  "title": "Newton's Cradle",
+  "description": "Swinging balls that pass momentum along.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/newtons-cradle.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport function NewtonsCradle({ className }: { className?: string }) {\n  return (\n    <div\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"inline-flex items-start pt-7 text-foreground\", className)}\n    >\n      <motion.span\n        className=\"size-4 origin-[50%_-28px] rounded-full bg-current\"\n        animate={{ rotate: [0, 40, 0, 0, 0] }}\n        transition={{ duration: 1.2, repeat: Infinity, ease: \"easeInOut\" }}\n      />\n      {[0, 1, 2].map((i) => (\n        <span key={i} className=\"size-4 rounded-full bg-current\" />\n      ))}\n      <motion.span\n        className=\"size-4 origin-[50%_-28px] rounded-full bg-current\"\n        animate={{ rotate: [0, 0, 0, -40, 0] }}\n        transition={{ duration: 1.2, repeat: Infinity, ease: \"easeInOut\" }}\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center"
+  },
+  "docs": "import { NewtonsCradle } from \"@/components/newtons-cradle\"\n\n<NewtonsCradle />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}
