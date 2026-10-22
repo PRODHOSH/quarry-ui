@@ -4,7 +4,7 @@ Quarry UI is copied into other people's projects, so a problem here can travel. 
 
 ## Supported versions
 
-Quarry UI is a registry, not a versioned package. The `main` branch and the live site at [quarry-ui.com](https://quarry-ui.com) are the only supported versions. Fixes are published there, and you get them by running the install command again for the affected component.
+Quarry UI is a registry, not a versioned package. The `main` branch and the live site at [quarryui.tech](https://quarryui.tech) are the only supported versions. Fixes are published there, and you get them by running the install command again for the affected component.
 
 ## Reporting a vulnerability
 
@@ -13,7 +13,7 @@ Please do **not** open a public issue for a security problem.
 Report it privately in one of these ways:
 
 1. Use GitHub's private reporting: go to the [Security tab](https://github.com/PRODHOSH/quarry-ui/security/advisories/new) and choose **Report a vulnerability**.
-2. Or email **hello@quarry-ui.com** with the subject line `Security: Quarry UI`.
+2. Or email **hello@prodhosh.me** with the subject line `Security: Quarry UI`.
 
 Please include:
 

@@ -17,14 +17,22 @@ import { Constellation } from "./quarry/constellation";
 import { WaveLines } from "./quarry/wave-lines";
 import { CompassField } from "./quarry/compass-field";
 import { GlowTrail } from "./quarry/glow-trail";
+import { Starfield } from "./quarry/starfield";
+import { SquareGrid } from "./quarry/square-grid";
+import { TopoLines } from "./quarry/topo-lines";
+import { DotGlobe } from "./quarry/dot-globe";
 import { ToastStack, useToastStack } from "./quarry/toast-stack";
 import { ScrollTextReveal } from "./quarry/scroll-text-reveal";
 import { ScrollRevealPill } from "./quarry/scroll-reveal-pill";
-import { BeforeAfterSlider } from "./quarry/before-after-slider";
 import { CommandMenu } from "./quarry/command-menu";
 import { CookieBanner } from "./quarry/cookie-banner";
-import { LightsOutLoader } from "./quarry/lights-out-loader";
 import { MorphingNavbar } from "./quarry/morphing-navbar";
+import { RewardsList } from "./quarry/rewards-list";
+import { HeroSplit } from "./quarry/hero-split";
+import { HeroCentered } from "./quarry/hero-centered";
+import { FeatureRows } from "./quarry/feature-rows";
+import { CtaBanner } from "./quarry/cta-banner";
+
 
 function FloatingSocialsDemo() {
   return (
@@ -104,51 +112,32 @@ function AuthModalDemo() {
 }
 
 
-function BeforeAfterDemo() {
-  const before = (
-    <div className="flex size-full flex-col gap-3 bg-muted p-8">
-      <div className="h-4 w-1/3 rounded bg-border" />
-      <div className="h-24 rounded bg-border/70" />
-      <div className="grid grid-cols-3 gap-3">
-        <div className="h-16 rounded bg-border/70" />
-        <div className="h-16 rounded bg-border/70" />
-        <div className="h-16 rounded bg-border/70" />
-      </div>
-      <div className="h-3 w-2/3 rounded bg-border/70" />
-    </div>
-  );
-  const after = (
-    <div className="flex size-full flex-col justify-between bg-card p-8">
-      <div>
-        <p className="text-xs font-medium uppercase tracking-widest text-primary">Now live</p>
-        <h3 className="mt-2 text-4xl leading-tight tracking-tight text-card-foreground">A page people stay on</h3>
-        <p className="mt-2 max-w-sm text-sm text-muted-foreground">Clear hierarchy, honest copy and one obvious next step.</p>
-      </div>
-      <div className="grid grid-cols-3 gap-3">
-        {["Faster", "Clearer", "Calmer"].map((t) => (
-          <div key={t} className="rounded-xl border bg-background p-3 text-sm">{t}</div>
-        ))}
-      </div>
-    </div>
-  );
+/** The heading column is sticky, so give it a scroll area to stick inside. */
+function RewardsListDemo() {
   return (
-    <div className="w-full max-w-2xl px-6">
-      <BeforeAfterSlider before={before} after={after} />
+    <div className="h-[34rem] w-full overflow-y-auto scrollbar-none">
+      <RewardsList stickyTop={64} />
     </div>
   );
 }
 
-function LightsOutDemo() {
-  const [run, setRun] = useState(0);
-  return (
-    <div className="flex h-[34rem] w-full flex-col items-center justify-center gap-10">
-      <LightsOutLoader runKey={run} />
-      <button type="button" onClick={() => setRun((n) => n + 1)} className="rounded-full border px-5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
-        Replay
-      </button>
-    </div>
-  );
-}
+/** Site only: the illustrations are CC0 doodles from Open Doodles, shown through the `illustration` slot. */
+const Doodle = ({ name }: { name: string }) => (
+  // eslint-disable-next-line @next/next/no-img-element
+  <img src={`/doodles/${name}.svg`} alt="" draggable={false} />
+);
+const HeroSplitDemo = () => <HeroSplit illustration={<Doodle name="float" />} />;
+const HeroCenteredDemo = () => <HeroCentered illustration={<Doodle name="dancing" />} />;
+const FeatureRowsDemo = () => (
+  <FeatureRows
+    rows={[
+      { eyebrow: "Plan", title: "Everything starts as a plain sentence", text: "Write what you want to happen. The rest of the team can read it, question it and build on it.", points: ["Docs and tasks in one place", "Comments that stay attached", "Nothing lost in chat"], link: "See planning", illustration: <Doodle name="chilling" /> },
+      { eyebrow: "Ship", title: "Release without the ceremony", text: "Small changes go out on their own. Bigger ones get a checklist, and the checklist runs itself.", points: ["One click previews", "Safe rollbacks", "Release notes written for you"], link: "See releases", illustration: <Doodle name="unboxing" /> },
+      { eyebrow: "Learn", title: "Know what actually worked", text: "Simple numbers after every launch, so the next decision starts from evidence instead of opinion.", points: ["Weekly summary by email", "Compare any two releases", "Share a link, not a deck"], link: "See insights", illustration: <Doodle name="strolling" /> },
+    ]}
+  />
+);
+const CtaBannerDemo = () => <CtaBanner illustration={<Doodle name="coffee" />} />;
 
 function CommandMenuDemo() {
   const [open, setOpen] = useState(true);
@@ -195,7 +184,7 @@ function MorphingNavbarDemo() {
 function ToastStackDemo() {
   const { toasts, push, dismiss } = useToastStack();
   const samples = [
-    { title: "Deployment finished", description: "quarry-ui.com is live", tone: "success" as const },
+    { title: "Deployment finished", description: "quarryui.tech is live", tone: "success" as const },
     { title: "New comment on Hero", description: "Priya left a note", tone: "info" as const },
     { title: "Build is slower than usual", description: "2m 14s, usually 40s", tone: "warning" as const },
   ];
@@ -237,7 +226,7 @@ export const DEMOS: Record<string, ComponentType> = {
   "feature-bento": dynamic(() => import("./quarry/feature-bento").then((m) => m.FeatureBento)),
   "process-steps": dynamic(() => import("./quarry/process-steps").then((m) => m.ProcessSteps)),
   "scroll-timeline": dynamic(() => import("./quarry/scroll-timeline").then((m) => m.ScrollTimeline)),
-  "rewards-list": dynamic(() => import("./quarry/rewards-list").then((m) => m.RewardsList)),
+  "rewards-list": RewardsListDemo,
   "impact-stats": dynamic(() => import("./quarry/impact-stats").then((m) => m.ImpactStats)),
   "tilted-feature-cards": dynamic(() => import("./quarry/tilted-feature-cards").then((m) => m.TiltedFeatureCards)),
   "workflow-grid": dynamic(() => import("./quarry/workflow-grid").then((m) => m.WorkflowGrid)),
@@ -255,15 +244,12 @@ export const DEMOS: Record<string, ComponentType> = {
   "grid-matrix": dynamic(() => import("./quarry/grid-matrix").then((m) => m.GridMatrix)),
   "morphing-shapes": dynamic(() => import("./quarry/morphing-shapes").then((m) => m.MorphingShapes)),
   "shimmer-text": dynamic(() => import("./quarry/shimmer-text").then((m) => m.ShimmerText)),
-  "orbit-loader": dynamic(() => import("./quarry/orbit-loader").then((m) => m.OrbitLoader)),
-  "radar-ping": dynamic(() => import("./quarry/radar-ping").then((m) => m.RadarPing)),
   "waveform-loader": dynamic(() => import("./quarry/waveform-loader").then((m) => m.WaveformLoader)),
   "cardio-loader": dynamic(() => import("./quarry/cardio-loader").then((m) => m.CardioLoader)),
   "helix-loader": dynamic(() => import("./quarry/helix-loader").then((m) => m.HelixLoader)),
   "metronome-loader": dynamic(() => import("./quarry/metronome-loader").then((m) => m.MetronomeLoader)),
   "typing-indicator": dynamic(() => import("./quarry/typing-indicator").then((m) => m.TypingIndicator)),
-  "before-after-slider": BeforeAfterDemo,
-  "lights-out-loader": LightsOutDemo,
+  "before-after-slider": dynamic(() => import("./quarry/before-after-slider").then((m) => m.BeforeAfterSlider)),
   "journey-timeline": dynamic(() => import("./quarry/journey-timeline").then((m) => m.JourneyTimeline)),
   "compare-table": dynamic(() => import("./quarry/compare-table").then((m) => m.CompareTable)),
   "command-menu": CommandMenuDemo,
@@ -279,10 +265,7 @@ export const DEMOS: Record<string, ComponentType> = {
   "dock": dynamic(() => import("./quarry/dock").then((m) => m.Dock)),
   "toast-stack": ToastStackDemo,
   "animated-tabs": dynamic(() => import("./quarry/animated-tabs").then((m) => m.AnimatedTabs)),
-  "tilt-card": dynamic(() => import("./quarry/tilt-card").then((m) => m.TiltCard)),
   "scroll-text-reveal": ScrollTextRevealDemo,
-  "orbiting-icons": dynamic(() => import("./quarry/orbiting-icons").then((m) => m.OrbitingIcons)),
-  "magnetic-button": dynamic(() => import("./quarry/magnetic-button").then((m) => m.MagneticButton)),
   "text-scramble": dynamic(() => import("./quarry/text-scramble").then((m) => m.TextScramble)),
   "flow-field": bg(FlowField as ComponentType<Record<string, unknown>>, "Move through the current", "Move your cursor"),
   "dot-ripple": bg(DotRipple as ComponentType<Record<string, unknown>>, "Click anywhere", "Push, pull, ripple"),
@@ -290,6 +273,10 @@ export const DEMOS: Record<string, ComponentType> = {
   "constellation": bg(Constellation as ComponentType<Record<string, unknown>>, "Everything is connected", "Reach for a point"),
   "wave-lines": bg(WaveLines as ComponentType<Record<string, unknown>>, "Pull a ridge through", "Lift the lines"),
   "compass-field": bg(CompassField as ComponentType<Record<string, unknown>>, "Everything points to you", "Move slowly"),
+  "topo-lines": bg(TopoLines as ComponentType<Record<string, unknown>>, "Terrain that never settles", "Raise a hill with your cursor"),
+  "dot-globe": bg(DotGlobe as ComponentType<Record<string, unknown>>, "Built for everywhere", "Drag the globe"),
+  "starfield": bg(Starfield as ComponentType<Record<string, unknown>>, "Look up", "Move to shift the sky"),
+  "square-grid": bg(SquareGrid as ComponentType<Record<string, unknown>>, "Built on a grid", "Move across the squares"),
   "glow-trail": bg(GlowTrail as ComponentType<Record<string, unknown>>, "Leave a light behind", "Draw with your cursor"),
   "mega-footer": dynamic(() => import("./quarry/mega-footer").then((m) => m.MegaFooter)),
   "wordmark-footer": dynamic(() => import("./quarry/wordmark-footer").then((m) => m.WordmarkFooter)),
@@ -300,7 +287,6 @@ export const DEMOS: Record<string, ComponentType> = {
   "faq-search": dynamic(() => import("./quarry/faq-search").then((m) => m.FaqSearch)),
   "spotlight-card": dynamic(() => import("./quarry/spotlight-card").then((m) => m.SpotlightCard)),
   "pricing-cards": dynamic(() => import("./quarry/pricing-cards").then((m) => m.PricingCards)),
-  "metric-cards": dynamic(() => import("./quarry/metric-cards").then((m) => m.MetricCards)),
   "team-cards": dynamic(() => import("./quarry/team-cards").then((m) => m.TeamCards)),
   "lightbox-gallery": dynamic(() => import("./quarry/lightbox-gallery").then((m) => m.LightboxGallery)),
   "logo-cloud": dynamic(() => import("./quarry/logo-cloud").then((m) => m.LogoCloud)),
@@ -316,6 +302,23 @@ export const DEMOS: Record<string, ComponentType> = {
   "animated-list": dynamic(() => import("./quarry/animated-list").then((m) => m.AnimatedList)),
   "avatar-group": dynamic(() => import("./quarry/avatar-group").then((m) => m.AvatarGroup)),
   "multi-step-form": dynamic(() => import("./quarry/multi-step-form").then((m) => m.MultiStepForm)),
+  "dot-ring": dynamic(() => import("./quarry/dot-ring").then((m) => m.DotRing)),
+  "tick-ring": dynamic(() => import("./quarry/tick-ring").then((m) => m.TickRing)),
+  "square-ring": dynamic(() => import("./quarry/square-ring").then((m) => m.SquareRing)),
+  "arc-spinner": dynamic(() => import("./quarry/arc-spinner").then((m) => m.ArcSpinner)),
+  "segment-ring": dynamic(() => import("./quarry/segment-ring").then((m) => m.SegmentRing)),
+  "fade-squares": dynamic(() => import("./quarry/fade-squares").then((m) => m.FadeSquares)),
+  "not-found-doodle": dynamic(() => import("./quarry/not-found-doodle").then((m) => m.NotFoundDoodle)),
+  "not-found-poster": dynamic(() => import("./quarry/not-found-poster").then((m) => m.NotFoundPoster)),
+  "not-found-dots": dynamic(() => import("./quarry/not-found-dots").then((m) => m.NotFoundDots)),
+  "not-found-ascii": dynamic(() => import("./quarry/not-found-ascii").then((m) => m.NotFoundAscii)),
+  "not-found-contour": dynamic(() => import("./quarry/not-found-contour").then((m) => m.NotFoundContour)),
+  "newsletter-reader": dynamic(() => import("./quarry/newsletter-reader").then((m) => m.NewsletterReader)),
+  "sprint-roadmap": dynamic(() => import("./quarry/sprint-roadmap").then((m) => m.SprintRoadmap)),
+  "hero-split": HeroSplitDemo,
+  "hero-centered": HeroCenteredDemo,
+  "feature-rows": FeatureRowsDemo,
+  "cta-banner": CtaBannerDemo,
   "floating-socials": FloatingSocialsDemo,
   "scroll-reveal-pill": ScrollRevealPillDemo,
   "auth-modal": AuthModalDemo,

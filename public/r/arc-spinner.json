@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "arc-spinner",
+  "title": "Arc Spinner",
+  "description": "A smooth gradient arc with a round head, spinning fast.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/arc-spinner.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\n/**\n * A ring whose tail fades out smoothly behind a round head, spinning at constant speed. Thickness\n * and speed are props, and the colour follows `currentColor`.\n */\nexport function ArcSpinner({\n  size = 52,\n  thickness = 5,\n  duration = 0.7,\n  className,\n}: {\n  size?: number;\n  thickness?: number;\n  /** Seconds per full turn. */\n  duration?: number;\n  className?: string;\n}) {\n  const ring = `radial-gradient(farthest-side, transparent calc(100% - ${thickness}px), #000 calc(100% - ${thickness - 0.5}px))`;\n  return (\n    <span role=\"status\" aria-label=\"Loading\" className={cn(\"relative inline-block text-foreground\", className)} style={{ width: size, height: size }}>\n      <span className=\"absolute inset-0 animate-spin\" style={{ animationDuration: `${duration}s`, animationTimingFunction: \"linear\" }}>\n        <span\n          className=\"absolute inset-0 rounded-full\"\n          style={{\n            background: \"conic-gradient(from 0deg, transparent 0%, transparent 8%, currentColor 100%)\",\n            WebkitMask: ring,\n            mask: ring,\n          }}\n        />\n        <span className=\"absolute left-1/2 top-0 rounded-full bg-current\" style={{ width: thickness, height: thickness, marginLeft: -thickness / 2 }} />\n      </span>\n    </span>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "noir"
+  },
+  "docs": "import { ArcSpinner } from \"@/components/arc-spinner\"\n\n<ArcSpinner size={40} thickness={4} />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

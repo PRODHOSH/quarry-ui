@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
+import { getSupabase } from "@/lib/supabase/client";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -17,13 +18,13 @@ export function WaitlistForm({ id = "waitlist-email" }: { id?: string }) {
     setStatus("loading");
     setMessage("");
     try {
-      const res = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data?.error ?? "Something went wrong.");
+      const value = email.trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) || value.length > 254) throw new Error("Please enter a valid email address.");
+      const sb = getSupabase();
+      if (!sb) throw new Error("Signups are not set up yet.");
+      const { error } = await sb.from("waitlist").insert({ email: value });
+      // 23505 means this address is already on the list, which is fine from the visitor's side
+      if (error && error.code !== "23505") throw new Error("Something went wrong. Please try again.");
       setStatus("success");
     } catch (err) {
       setStatus("error");

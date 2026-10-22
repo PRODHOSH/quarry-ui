@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "feature-rows",
+  "title": "Feature Rows",
+  "description": "Alternating feature rows: copy, a checklist and a link beside an illustration, sides swapping down the page.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/feature-rows.tsx",
+      "content": "\"use client\";\n\nimport type { ReactNode } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { ArrowRight, Check } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Row = { eyebrow?: string; title: string; text: string; points?: string[]; link?: string; illustration?: ReactNode };\n\nconst ROWS: Row[] = [\n  { eyebrow: \"Plan\", title: \"Everything starts as a plain sentence\", text: \"Write what you want to happen. The rest of the team can read it, question it and build on it.\", points: [\"Docs and tasks in one place\", \"Comments that stay attached\", \"Nothing lost in chat\"], link: \"See planning\" },\n  { eyebrow: \"Ship\", title: \"Release without the ceremony\", text: \"Small changes go out on their own. Bigger ones get a checklist, and the checklist runs itself.\", points: [\"One click previews\", \"Safe rollbacks\", \"Release notes written for you\"], link: \"See releases\" },\n  { eyebrow: \"Learn\", title: \"Know what actually worked\", text: \"Simple numbers after every launch, so the next decision starts from evidence instead of opinion.\", points: [\"Weekly summary by email\", \"Compare any two releases\", \"Share a link, not a deck\"], link: \"See insights\" },\n];\n\nfunction Placeholder({ i }: { i: number }) {\n  return (\n    <div className=\"grid size-full place-items-center p-8\">\n      <div className=\"w-full max-w-xs space-y-3\">\n        {[0, 1, 2].map((n) => (\n          <div key={n} className={cn(\"flex items-center gap-3 rounded-xl border bg-card p-3\", n === i % 3 && \"border-foreground/30 shadow-sm\")}>\n            <span className={cn(\"size-8 rounded-lg\", n === i % 3 ? \"bg-primary\" : \"bg-muted\")} />\n            <span className=\"space-y-1.5\"><span className=\"block h-2 w-24 rounded-full bg-foreground/70\" /><span className=\"block h-1.5 w-16 rounded-full bg-muted-foreground/30\" /></span>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n\n/**\n * Alternating feature rows. Each row pairs copy, a short checklist and a link with an illustration,\n * and the sides swap down the page. Rows rise into view as you scroll. Pass an `illustration` per\n * row, or rely on the neutral placeholder.\n */\nexport function FeatureRows({ rows = ROWS, className }: { rows?: Row[]; className?: string }) {\n  return (\n    <section className={cn(\"mx-auto w-full max-w-6xl space-y-20 px-6 py-16 lg:space-y-28 lg:py-24\", className)}>\n      {rows.map((r, i) => {\n        const flip = i % 2 === 1;\n        return (\n          <motion.div key={r.title} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: \"-80px\" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className=\"grid items-center gap-10 md:grid-cols-2 md:gap-16\">\n            <div className={cn(flip && \"md:order-2\")}>\n              {r.eyebrow && (\n                <p className=\"flex items-center gap-2 text-sm font-medium text-muted-foreground\">\n                  <span className=\"grid size-6 place-items-center rounded-full border text-xs tabular-nums\">{i + 1}</span>\n                  {r.eyebrow}\n                </p>\n              )}\n              <h2 className=\"mt-4 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl\">{r.title}</h2>\n              <p className=\"mt-4 max-w-md leading-relaxed text-muted-foreground\">{r.text}</p>\n              {r.points && (\n                <ul className=\"mt-6 space-y-3\">\n                  {r.points.map((p) => (\n                    <li key={p} className=\"flex items-center gap-3 text-sm\">\n                      <span className=\"grid size-5 place-items-center rounded-full bg-primary text-primary-foreground\"><Check className=\"size-3\" strokeWidth={3} /></span>\n                      {p}\n                    </li>\n                  ))}\n                </ul>\n              )}\n              {r.link && (\n                <a href=\"#\" className=\"group mt-7 inline-flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline\">\n                  {r.link} <ArrowRight className=\"size-4 transition-transform group-hover:translate-x-0.5\" />\n                </a>\n              )}\n            </div>\n            <div className={cn(\"relative aspect-[5/4] overflow-hidden rounded-[2rem] border bg-muted/60\", flip && \"md:order-1\")}>\n              <div aria-hidden className=\"absolute inset-0 [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:20px_20px]\" />\n              <div className=\"absolute inset-0 grid place-items-center p-6 [&_img]:max-h-full [&_img]:w-full [&_img]:object-contain [&_svg]:max-h-full\">{r.illustration ?? <Placeholder i={i} />}</div>\n            </div>\n          </motion.div>\n        );\n      })}\n    </section>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "harbor"
+  },
+  "docs": "import { FeatureRows } from \"@/components/feature-rows\"\n\n<FeatureRows rows={rows} />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:component"
+}

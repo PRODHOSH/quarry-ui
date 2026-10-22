@@ -1,6 +1,14 @@
 "use client";
 
-import { Activity as IActivity, BadgeDollarSign as IBadgeDollarSign, Bell as IBell, Building2 as IBuilding2, CaseSensitive as ICaseSensitive, CirclePlay as ICirclePlay, Clapperboard as IClapperboard, Columns3 as IColumns3, Flashlight as IFlashlight, Hash as IHash, Highlighter as IHighlighter, Images as IImages, ListOrdered as IListOrdered, ListPlus as IListPlus, Menu as IMenu, MessageSquareQuote as IMessageSquareQuote, PanelBottom as IPanelBottom, PanelsTopLeft as IPanelsTopLeft, RefreshCcw as IRefreshCcw, ScanEye as IScanEye, SearchCheck as ISearchCheck, SunMoon as ISunMoon, Terminal as ITerminal, Users as IUsers, UsersRound as IUsersRound } from "lucide-react";
+import { PanelRight as IPanelRight, Presentation as IPresentation, Rows3 as IRows3, BadgeCheck as IBadgeCheck } from "lucide-react";
+
+import { BookOpen as IBookOpen, Footprints as IFootprints } from "lucide-react";
+
+import { Map as IMap, Globe as IGlobe, Stars as IStars, Grid3x3 as IGrid3x3 } from "lucide-react";
+
+import { Binary as IBinary, FileQuestion as IFileQuestion, Ghost as IGhost, Mountain as IMountain, SearchX as ISearchX } from "lucide-react";
+
+import { BadgeDollarSign as IBadgeDollarSign, Bell as IBell, Building2 as IBuilding2, CaseSensitive as ICaseSensitive, CirclePlay as ICirclePlay, Clapperboard as IClapperboard, Columns3 as IColumns3, Flashlight as IFlashlight, Hash as IHash, Highlighter as IHighlighter, Images as IImages, ListOrdered as IListOrdered, ListPlus as IListPlus, Menu as IMenu, MessageSquareQuote as IMessageSquareQuote, PanelBottom as IPanelBottom, PanelsTopLeft as IPanelsTopLeft, RefreshCcw as IRefreshCcw, ScanEye as IScanEye, SearchCheck as ISearchCheck, SunMoon as ISunMoon, Terminal as ITerminal, Users as IUsers, UsersRound as IUsersRound } from "lucide-react";
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
@@ -52,6 +60,21 @@ export type SidebarGroup = {
 /** Icons for sections and elements. Loaders are left plain on purpose: 25 similar glyphs would be noise. */
 export const ICONS: Record<string, LucideIcon> = {
   "feature-bento": LayoutGrid,
+  "hero-split": IPanelRight,
+  "hero-centered": IPresentation,
+  "feature-rows": IRows3,
+  "cta-banner": IBadgeCheck,
+  "newsletter-reader": IBookOpen,
+  "sprint-roadmap": IFootprints,
+  "topo-lines": IMap,
+  "dot-globe": IGlobe,
+  "starfield": IStars,
+  "square-grid": IGrid3x3,
+  "not-found-doodle": IFileQuestion,
+  "not-found-poster": IGhost,
+  "not-found-dots": ISearchX,
+  "not-found-ascii": IBinary,
+  "not-found-contour": IMountain,
   "mega-footer": IPanelBottom,
   "wordmark-footer": ICaseSensitive,
   "mega-menu-navbar": IMenu,
@@ -61,7 +84,6 @@ export const ICONS: Record<string, LucideIcon> = {
   "faq-search": ISearchCheck,
   "spotlight-card": IFlashlight,
   "pricing-cards": IBadgeDollarSign,
-  "metric-cards": IActivity,
   "team-cards": IUsersRound,
   "lightbox-gallery": IImages,
   "logo-cloud": IBuilding2,
@@ -110,10 +132,7 @@ export const ICONS: Record<string, LucideIcon> = {
   "dock": Gauge,
   "toast-stack": Layers,
   "animated-tabs": PanelTop,
-  "tilt-card": LayoutGrid,
   "scroll-text-reveal": Type,
-  "orbiting-icons": CircleDot,
-  "magnetic-button": MousePointerClick,
   "text-scramble": Type,
   "before-after-slider": MoveHorizontal,
   "journey-timeline": Route,
@@ -124,7 +143,6 @@ export const ICONS: Record<string, LucideIcon> = {
   "availability-badge": BadgeCheck,
   "drop-zone": UploadCloud,
   "morphing-navbar": PanelTop,
-  "lights-out-loader": CircleDot,
 };
 
 export function Sidebar({ groups }: { groups: SidebarGroup[] }) {

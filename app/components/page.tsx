@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = { title: "Components" };
 
 export default function ComponentsPage() {
-  const groups = getGroups().filter((g) => g.id !== "templates");
+  const groups = getGroups().filter((g) => g.id === "sections" || g.id === "elements");
   const total = groups.reduce((sum, group) => sum + group.items.length, 0);
 
   return (

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { DEMOS } from "@/registry/demos";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { themeStyle, type ThemeId } from "@/lib/themes";
 
@@ -21,11 +22,19 @@ export function ComponentThumb({
 }) {
   const box = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [ready, setReady] = useState(false);
   const [scale, setScale] = useState(0.35);
   const Demo = DEMOS[name];
   // Small loaders are magnified so they read clearly on a card.
   const zoom = stage === "center" ? 1.6 : 1;
   const virtualWidth = VIRTUAL_WIDTH / zoom;
+
+  // keep the placeholder up for a beat after mounting so the demo never pops in half drawn
+  useEffect(() => {
+    if (!visible || ready) return;
+    const t = setTimeout(() => setReady(true), 450);
+    return () => clearTimeout(t);
+  }, [visible, ready]);
 
   useEffect(() => {
     const el = box.current;
@@ -59,6 +68,7 @@ export function ComponentThumb({
       style={themeStyle(theme)}
       aria-hidden
     >
+      <Skeleton className={cn("absolute inset-0 z-10 rounded-none transition-opacity duration-500", ready ? "opacity-0" : "opacity-100")} />
       {visible && Demo && (
         <div
           className={cn(

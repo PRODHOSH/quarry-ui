@@ -14,7 +14,7 @@ const rise = (i: number) => ({
 /** The home page for now: the logo and the waiting list. Nothing else. */
 export function ComingSoon() {
   return (
-    <section className="flex min-h-svh items-center justify-center px-6 py-24">
+    <section className="flex min-h-[72svh] items-center justify-center px-6 py-10">
       <div className="flex w-full max-w-xl flex-col items-center text-center">
         <motion.div {...rise(0)} className="w-full">
           <h1 className="sr-only">Quarry UI</h1>

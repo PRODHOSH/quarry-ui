@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tick-ring",
+  "title": "Tick Ring",
+  "description": "The classic activity indicator: thin ticks fading behind a bright head.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/tick-ring.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\n/**\n * The classic activity indicator: a ring of thin ticks fading out behind a bright head. It turns in\n * steps, one tick at a time, so it stays sharp even when it spins fast.\n */\nexport function TickRing({\n  size = 52,\n  ticks = 12,\n  duration = 0.8,\n  className,\n}: {\n  size?: number;\n  ticks?: number;\n  /** Seconds per full turn. */\n  duration?: number;\n  className?: string;\n}) {\n  const w = Math.max(2, size * 0.07);\n  const h = size * 0.26;\n  return (\n    <span role=\"status\" aria-label=\"Loading\" className={cn(\"relative inline-block text-foreground\", className)} style={{ width: size, height: size }}>\n      <span className=\"absolute inset-0 animate-spin\" style={{ animationDuration: `${duration}s`, animationTimingFunction: `steps(${ticks})` }}>\n        {Array.from({ length: ticks }).map((_, i) => (\n          <span\n            key={i}\n            className=\"absolute left-1/2 top-0 rounded-full bg-current\"\n            style={{\n              width: w,\n              height: h,\n              marginLeft: -w / 2,\n              opacity: 0.1 + (i / (ticks - 1)) * 0.9,\n              transform: `rotate(${(360 / ticks) * i}deg)`,\n              transformOrigin: `50% ${size / 2}px`,\n            }}\n          />\n        ))}\n      </span>\n    </span>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "porcelain"
+  },
+  "docs": "import { TickRing } from \"@/components/tick-ring\"\n\n<TickRing size={40} duration={0.8} />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 import { AtSign, Globe, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Member = { name: string; role: string; bio: string };
+type Member = { name: string; role: string; bio: string; image?: string };
 
 const TEAM: Member[] = [
-  { name: "Imani Clarke", role: "Co-founder, Design", bio: "Fifteen years shaping interfaces people forget they are using." },
-  { name: "Rafael Costa", role: "Co-founder, Engineering", bio: "Builds the fast, boring infrastructure everything else relies on." },
-  { name: "Yuki Sato", role: "Motion Designer", bio: "Believes a good transition should feel inevitable, never decorative." },
-  { name: "Elias Berg", role: "Developer Advocate", bio: "Writes the docs he always wished existed." },
+  { image: "https://randomuser.me/api/portraits/women/44.jpg", name: "Imani Clarke", role: "Co-founder, Design", bio: "Fifteen years shaping interfaces people forget they are using." },
+  { image: "https://randomuser.me/api/portraits/men/32.jpg", name: "Rafael Costa", role: "Co-founder, Engineering", bio: "Builds the fast, boring infrastructure everything else relies on." },
+  { image: "https://randomuser.me/api/portraits/women/68.jpg", name: "Yuki Sato", role: "Motion Designer", bio: "Believes a good transition should feel inevitable, never decorative." },
+  { image: "https://randomuser.me/api/portraits/men/75.jpg", name: "Elias Berg", role: "Developer Advocate", bio: "Writes the docs he always wished existed." },
 ];
 
 const HUES = [
@@ -44,14 +44,25 @@ export function TeamCards({ team = TEAM, className }: { team?: Member[]; classNa
             transition={{ duration: 0.25 }}
             className="group relative aspect-[3/4] overflow-hidden rounded-2xl border bg-card outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
-            <div className={cn("absolute inset-0 bg-gradient-to-br", HUES[i % HUES.length])} />
-            <motion.span
-              animate={{ scale: on ? 1.08 : 1, y: on ? -18 : 0 }}
-              transition={{ type: "spring", stiffness: 220, damping: 24 }}
-              className="absolute inset-0 grid place-items-center text-6xl font-semibold tracking-tighter text-foreground/80"
-            >
-              {m.name.split(" ").map((w) => w[0]).join("")}
-            </motion.span>
+            {!m.image && <div className={cn("absolute inset-0 bg-gradient-to-br", HUES[i % HUES.length])} />}
+            {m.image ? (
+              <motion.img
+                src={m.image}
+                alt={m.name}
+                loading="lazy"
+                animate={{ scale: on ? 1.06 : 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 26 }}
+                className="absolute inset-0 size-full object-cover"
+              />
+            ) : (
+              <motion.span
+                animate={{ scale: on ? 1.08 : 1, y: on ? -18 : 0 }}
+                transition={{ type: "spring", stiffness: 220, damping: 24 }}
+                className="absolute inset-0 grid place-items-center text-6xl font-semibold tracking-tighter text-foreground/80"
+              >
+                {m.name.split(" ").map((w) => w[0]).join("")}
+              </motion.span>
+            )}
 
             <motion.div
               animate={{ y: on ? 0 : "62%" }}

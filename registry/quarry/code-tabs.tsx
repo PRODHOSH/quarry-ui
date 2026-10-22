@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 type Snippet = { label: string; code: string };
 
 const SNIPPETS: Snippet[] = [
-  { label: "npm", code: "npx shadcn@latest add https://quarry-ui.com/r/dock.json" },
-  { label: "pnpm", code: "pnpm dlx shadcn@latest add https://quarry-ui.com/r/dock.json" },
-  { label: "yarn", code: "yarn dlx shadcn@latest add https://quarry-ui.com/r/dock.json" },
-  { label: "bun", code: "bunx --bun shadcn@latest add https://quarry-ui.com/r/dock.json" },
+  { label: "npm", code: "npx shadcn@latest add https://quarryui.tech/r/dock.json" },
+  { label: "pnpm", code: "pnpm dlx shadcn@latest add https://quarryui.tech/r/dock.json" },
+  { label: "yarn", code: "yarn dlx shadcn@latest add https://quarryui.tech/r/dock.json" },
+  { label: "bun", code: "bunx --bun shadcn@latest add https://quarryui.tech/r/dock.json" },
 ];
 
 /**

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "square-ring",
+  "title": "Square Ring",
+  "description": "A ring of small squares chasing each other in quick steps.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/square-ring.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\n/**\n * A ring of small squares that fade behind a bright head, turning in steps. A more technical cousin\n * of the dot ring.\n */\nexport function SquareRing({\n  size = 52,\n  squares = 12,\n  duration = 0.9,\n  className,\n}: {\n  size?: number;\n  squares?: number;\n  /** Seconds per full turn. */\n  duration?: number;\n  className?: string;\n}) {\n  const s = size * 0.15;\n  return (\n    <span role=\"status\" aria-label=\"Loading\" className={cn(\"relative inline-block text-foreground\", className)} style={{ width: size, height: size }}>\n      <span className=\"absolute inset-0 animate-spin\" style={{ animationDuration: `${duration}s`, animationTimingFunction: `steps(${squares})` }}>\n        {Array.from({ length: squares }).map((_, i) => (\n          <span\n            key={i}\n            className=\"absolute left-1/2 top-0 rounded-[2px] bg-current\"\n            style={{\n              width: s,\n              height: s,\n              marginLeft: -s / 2,\n              opacity: 0.1 + (i / (squares - 1)) * 0.9,\n              transform: `rotate(${(360 / squares) * i}deg)`,\n              transformOrigin: `50% ${size / 2}px`,\n            }}\n          />\n        ))}\n      </span>\n    </span>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "terminal"
+  },
+  "docs": "import { SquareRing } from \"@/components/square-ring\"\n\n<SquareRing size={40} />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

@@ -1,27 +1,37 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Bot, Building2, ShoppingBag, Wallet } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Project = {
-  name: string;
-  category: string;
-  description: string;
-  icon: ReactNode;
-  tint: string;
-};
+type Project = { name: string; category: string; description: string; image: string; href?: string };
 
 const PROJECTS: Project[] = [
-  { name: "Enterprise Platform", category: "B2B SaaS", description: "Real-time analytics, user management and automated reporting at scale.", icon: <Building2 className="size-8" />, tint: "from-chart-1/25 to-chart-1/5 text-chart-1" },
-  { name: "AI Copilot", category: "Artificial intelligence", description: "An assistant that gives developers contextual suggestions while they write.", icon: <Bot className="size-8" />, tint: "from-chart-4/25 to-chart-4/5 text-chart-4" },
-  { name: "Commerce OS", category: "Platform", description: "A headless commerce system with multi-tenant architecture and clean APIs.", icon: <ShoppingBag className="size-8" />, tint: "from-chart-3/25 to-chart-3/5 text-chart-3" },
-  { name: "Finance App", category: "Mobile", description: "Personal finance and investment tracking designed for the phone first.", icon: <Wallet className="size-8" />, tint: "from-chart-2/25 to-chart-2/5 text-chart-2" },
+  { name: "Enterprise Platform", category: "B2B SaaS", description: "Real-time analytics, user management and automated reporting at scale.", image: "https://picsum.photos/id/1015/800/600" },
+  { name: "AI Copilot", category: "Artificial intelligence", description: "Contextual suggestions for developers while they write.", image: "https://picsum.photos/id/1018/800/600" },
+  { name: "Commerce OS", category: "Platform", description: "A headless commerce system with multi-tenant architecture and clean APIs.", image: "https://picsum.photos/id/1043/800/600" },
+  { name: "Finance App", category: "Mobile", description: "Personal finance and investing, designed for the phone first.", image: "https://picsum.photos/id/1036/800/600" },
+  { name: "Field Notes", category: "Editorial", description: "A quiet reading app for long form writing and research.", image: "https://picsum.photos/id/1039/800/600" },
 ];
 
-/** Vertical scroll inside this component drives the horizontal movement of the cards. */
-export function HorizontalScrollCards({ className }: { className?: string }) {
+/**
+ * Vertical scroll inside this component drives the horizontal movement of the cards. Each card is a
+ * photo, a short description and a quiet link. A thin progress line shows how far along you are.
+ */
+export function HorizontalScrollCards({
+  eyebrow = "Selected work",
+  title = "Featured projects",
+  hint = "Scroll to explore",
+  projects = PROJECTS,
+  className,
+}: {
+  eyebrow?: string;
+  title?: string;
+  hint?: string;
+  projects?: Project[];
+  className?: string;
+}) {
   const scroller = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const [range, setRange] = useState(0);
@@ -29,6 +39,7 @@ export function HorizontalScrollCards({ className }: { className?: string }) {
   const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
   const rangeValue = useMotionValue(0);
   const x = useTransform([smooth, rangeValue], ([p, r]) => -(p as number) * (r as number));
+  const bar = useTransform(smooth, (p) => `${Math.max(4, p * 100)}%`);
 
   useEffect(() => {
     const measure = () => {
@@ -38,54 +49,50 @@ export function HorizontalScrollCards({ className }: { className?: string }) {
       rangeValue.set(next);
     };
     measure();
+    const ro = new ResizeObserver(measure);
+    if (track.current) ro.observe(track.current);
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
   }, [rangeValue]);
 
   return (
     <div ref={scroller} className={cn("h-[34rem] w-full overflow-y-auto scrollbar-none", className)}>
       <div style={{ height: `calc(100% + ${range}px)` }} className="relative">
         <div className="sticky top-0 flex h-[34rem] flex-col justify-center overflow-hidden">
-          <div className="mb-8 px-8">
-            <p className="text-sm font-medium text-primary">Selected work</p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-foreground">
-              Featured projects
-            </h2>
-            <p className="mt-2 text-sm text-muted-foreground">Scroll down to move through the cards.</p>
+          <div className="mb-8 flex items-end justify-between gap-6 px-8">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">{eyebrow}</p>
+              <h2 className="mt-1.5 text-3xl font-semibold tracking-tight">{title}</h2>
+            </div>
+            <p className="hidden text-sm text-muted-foreground sm:block">{hint}</p>
           </div>
 
           <motion.div ref={track} style={{ x }} className="flex w-max gap-5 px-8">
-            {PROJECTS.map((project, i) => (
-              <article
-                key={project.name}
-                className="group flex w-72 shrink-0 flex-col gap-4 rounded-2xl border bg-card p-4 transition-colors hover:border-foreground/20"
-              >
-                <div
-                  className={cn(
-                    "grid aspect-[16/10] place-items-center rounded-xl bg-gradient-to-br",
-                    project.tint
-                  )}
-                >
-                  {project.icon}
+            {projects.map((p, i) => (
+              <a key={p.name} href={p.href ?? "#"} className="group block w-[19rem] shrink-0">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.image} alt={p.name} loading="lazy" className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+                  <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-[11px] font-medium text-foreground backdrop-blur">{p.category}</span>
+                  <span className="absolute bottom-3 right-3 grid size-9 place-items-center rounded-full bg-background text-foreground opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 translate-y-1">
+                    <ArrowUpRight className="size-4" />
+                  </span>
                 </div>
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <h3 className="font-semibold text-card-foreground">{project.name}</h3>
-                    <p className="text-xs text-muted-foreground">{project.category}</p>
-                  </div>
-                  <span className="text-xs tabular-nums text-muted-foreground">0{i + 1}</span>
+                <div className="mt-4 flex items-baseline justify-between gap-3">
+                  <h3 className="text-lg font-semibold tracking-tight">{p.name}</h3>
+                  <span className="text-xs tabular-nums text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">{project.description}</p>
-                <a
-                  href="#"
-                  className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-                >
-                  View project
-                  <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </a>
-              </article>
+                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
+              </a>
             ))}
           </motion.div>
+
+          <div className="mx-8 mt-8 h-px overflow-hidden rounded-full bg-border">
+            <motion.div style={{ width: bar }} className="h-full bg-foreground" />
+          </div>
         </div>
       </div>
     </div>

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { ItemView } from "@/components/site/item-view";
-import { getItem, getItems } from "@/lib/registry";
+import { getItem, getItems, ownerOf } from "@/lib/registry";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return getItems().filter((item) => item.categories[0] !== "templates").map((item) => ({ slug: item.name }));
+  return getItems().filter((item) => ownerOf(item) === "components").map((item) => ({ slug: item.name }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

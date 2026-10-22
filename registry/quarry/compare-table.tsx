@@ -12,18 +12,18 @@ export type CompareOption = { id: string; label: string };
 const SCORE: Record<Mark, number | null> = { yes: 1, partial: 0.5, no: 0, unknown: null };
 
 const DEFAULT_OPTIONS: CompareOption[] = [
-  { id: "pet", label: "PET" },
-  { id: "pp", label: "Polypropylene" },
-  { id: "pla", label: "PLA" },
+  { id: "sheets", label: "Spreadsheets" },
+  { id: "legacy", label: "Legacy suite" },
+  { id: "inhouse", label: "Build in-house" },
 ];
 
 const DEFAULT_ROWS: CompareRow[] = [
-  { label: "Biodegradable", subject: { mark: "yes" }, against: { pet: { mark: "no" }, pp: { mark: "no" }, pla: { mark: "partial", note: "Industrial only" } } },
-  { label: "Compostable", subject: { mark: "yes", note: "Home" }, against: { pet: { mark: "no" }, pp: { mark: "no" }, pla: { mark: "partial", note: "Industrial" } } },
-  { label: "Plant based", subject: { mark: "yes", note: "100%" }, against: { pet: { mark: "no", note: "Fossil" }, pp: { mark: "no", note: "Fossil" }, pla: { mark: "yes", note: "Corn" } } },
-  { label: "Heat resistant", subject: { mark: "yes", note: "120°C" }, against: { pet: { mark: "no", note: "70°C" }, pp: { mark: "yes", note: "100°C" }, pla: { mark: "no", note: "55°C" } } },
-  { label: "Moisture barrier", subject: { mark: "partial", note: "Medium" }, against: { pet: { mark: "yes", note: "High" }, pp: { mark: "yes", note: "High" }, pla: { mark: "partial", note: "Medium" } } },
-  { label: "Food safe", subject: { mark: "yes" }, against: { pet: { mark: "yes" }, pp: { mark: "yes" }, pla: { mark: "yes" } } },
+  { label: "Set up in minutes", subject: { mark: "yes", note: "Under 5 min" }, against: { sheets: { mark: "yes", note: "Blank sheet" }, legacy: { mark: "no", note: "Weeks" }, inhouse: { mark: "no", note: "Months" } } },
+  { label: "Real-time collaboration", subject: { mark: "yes" }, against: { sheets: { mark: "partial", note: "Basic" }, legacy: { mark: "no" }, inhouse: { mark: "partial", note: "If you build it" } } },
+  { label: "Unlimited projects", subject: { mark: "yes", note: "All plans" }, against: { sheets: { mark: "yes" }, legacy: { mark: "no", note: "Per seat" }, inhouse: { mark: "yes" } } },
+  { label: "Audit log and roles", subject: { mark: "yes" }, against: { sheets: { mark: "no" }, legacy: { mark: "yes" }, inhouse: { mark: "partial", note: "Custom" } } },
+  { label: "Works with your tools", subject: { mark: "yes", note: "200+ apps" }, against: { sheets: { mark: "partial", note: "Manual" }, legacy: { mark: "partial", note: "Add-ons" }, inhouse: { mark: "no", note: "You wire it" } } },
+  { label: "Predictable cost", subject: { mark: "yes", note: "Flat fee" }, against: { sheets: { mark: "yes", note: "Free" }, legacy: { mark: "no", note: "Hidden fees" }, inhouse: { mark: "no", note: "Engineer time" } } },
 ];
 
 const list = (items: string[]) =>
@@ -52,8 +52,8 @@ function Entry({ cell, highlight }: { cell: Cell; highlight?: boolean }) {
  * the subject holds up and where it falls behind, using only rows where both sides are known.
  */
 export function CompareTable({
-  title = "How it compares",
-  subjectLabel = "Bagasse",
+  title = "How we compare",
+  subjectLabel = "Northwind",
   options = DEFAULT_OPTIONS,
   rows = DEFAULT_ROWS,
   className,

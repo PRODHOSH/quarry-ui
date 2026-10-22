@@ -10,6 +10,7 @@ export function LivePreview({ src, title, interactive = false }: { src: string; 
   const box = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.4);
   const [on, setOn] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const el = box.current;
@@ -24,11 +25,13 @@ export function LivePreview({ src, title, interactive = false }: { src: string; 
 
   return (
     <div ref={box} className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border bg-card shadow-2xl">
+      <div aria-hidden className={`absolute inset-0 z-10 animate-pulse bg-muted/70 transition-opacity duration-500 ${loaded ? "opacity-0" : "opacity-100"}`} />
       {on && (
         <iframe
           src={src}
           title={`${title} live preview`}
           loading="lazy"
+          onLoad={() => setLoaded(true)}
           tabIndex={interactive ? 0 : -1}
           className={interactive ? "absolute left-0 top-0 origin-top-left border-0" : "pointer-events-none absolute left-0 top-0 origin-top-left border-0"}
           style={{ width: W, height: H, transform: `scale(${scale})` }}

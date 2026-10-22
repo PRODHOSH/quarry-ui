@@ -31,7 +31,7 @@ Maintainers can edit or remove comments, close or lock threads, and restrict or 
 
 ## Reporting
 
-If you see or experience behaviour that breaks this code, please email **hello@quarry-ui.com** with a link or a description of what happened. Reports are handled privately and taken seriously. If the report is about a maintainer, say so, and it will be handled by someone else where possible.
+If you see or experience behaviour that breaks this code, please email **hello@prodhosh.me** with a link or a description of what happened. Reports are handled privately and taken seriously. If the report is about a maintainer, say so, and it will be handled by someone else where possible.
 
 ## Attribution
 

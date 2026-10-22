@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "quarry-ui",
-  "homepage": "https://quarry-ui.com",
+  "homepage": "https://quarryui.tech",
   "items": [
     {
       "name": "ai-chat",
@@ -265,7 +265,7 @@
       "name": "rewards-list",
       "type": "registry:block",
       "title": "Rewards List",
-      "description": "A two column layout pairing a headline with a numbered list of rewards or perks.",
+      "description": "A sticky story: the heading stays put while rewards scroll past and light up one by one.",
       "categories": [
         "sections"
       ],
@@ -284,7 +284,7 @@
       "docs": "import { RewardsList } from \"@/components/rewards-list\"\n\n<RewardsList />",
       "meta": {
         "stage": "fill",
-        "theme": "noir"
+        "theme": "porcelain"
       }
     },
     {
@@ -371,7 +371,7 @@
       "name": "horizontal-scroll-cards",
       "type": "registry:block",
       "title": "Horizontal Scroll Cards",
-      "description": "Vertical scrolling drives a horizontal track of project cards.",
+      "description": "Scroll down and a row of photo cards glides sideways, with a thin progress line underneath.",
       "categories": [
         "sections"
       ],
@@ -391,7 +391,7 @@
       "docs": "import { HorizontalScrollCards } from \"@/components/horizontal-scroll-cards\"\n\n<HorizontalScrollCards />",
       "meta": {
         "stage": "fill",
-        "theme": "studio"
+        "theme": "porcelain"
       }
     },
     {
@@ -845,58 +845,6 @@
       }
     },
     {
-      "name": "orbit-loader",
-      "type": "registry:component",
-      "title": "Orbit",
-      "description": "A small moon circling a planet.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/orbit-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { OrbitLoader } from \"@/components/orbit-loader\"\n\n<OrbitLoader />",
-      "meta": {
-        "stage": "center",
-        "theme": "signal"
-      }
-    },
-    {
-      "name": "radar-ping",
-      "type": "registry:component",
-      "title": "Radar Ping",
-      "description": "Ripples radiating outward from a point.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [
-        "framer-motion"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/radar-ping.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { RadarPing } from \"@/components/radar-ping\"\n\n<RadarPing />",
-      "meta": {
-        "stage": "center",
-        "theme": "porcelain"
-      }
-    },
-    {
       "name": "waveform-loader",
       "type": "registry:component",
       "title": "Waveform",
@@ -1030,11 +978,12 @@
       "name": "before-after-slider",
       "type": "registry:component",
       "title": "Before and After Slider",
-      "description": "A draggable comparison for any two nodes, with touch and keyboard support.",
+      "description": "A draggable before and after image comparison with a springy handle, touch and keyboard support.",
       "categories": [
         "elements"
       ],
       "dependencies": [
+        "framer-motion",
         "lucide-react"
       ],
       "registryDependencies": [
@@ -1046,34 +995,10 @@
           "type": "registry:component"
         }
       ],
-      "docs": "import { BeforeAfterSlider } from \"@/components/before-after-slider\"\n\n<BeforeAfterSlider\n  before={<img src=\"/old.png\" alt=\"\" className=\"size-full object-cover\" />}\n  after={<img src=\"/new.png\" alt=\"\" className=\"size-full object-cover\" />}\n/>",
+      "docs": "import { BeforeAfterSlider } from \"@/components/before-after-slider\"\n\n<BeforeAfterSlider beforeSrc=\"/old.jpg\" afterSrc=\"/new.jpg\" />",
       "meta": {
-        "stage": "fill",
-        "theme": "studio"
-      }
-    },
-    {
-      "name": "lights-out-loader",
-      "type": "registry:component",
-      "title": "Lights Out Loader",
-      "description": "Five lights come on one by one, hold, then go out together. Inline or a full screen intro.",
-      "categories": [
-        "loaders"
-      ],
-      "dependencies": [],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/lights-out-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { LightsOutLoader } from \"@/components/lights-out-loader\"\n\n<LightsOutLoader fullscreen onDone={() => setReady(true)} />",
-      "meta": {
-        "stage": "fill",
-        "theme": "circuit"
+        "stage": "center",
+        "theme": "ink"
       }
     },
     {
@@ -1123,10 +1048,10 @@
           "type": "registry:block"
         }
       ],
-      "docs": "import { CompareTable } from \"@/components/compare-table\"\n\n<CompareTable subjectLabel=\"Bagasse\" options={options} rows={rows} />",
+      "docs": "import { CompareTable } from \"@/components/compare-table\"\n\n<CompareTable subjectLabel=\"Northwind\" options={options} rows={rows} />",
       "meta": {
         "stage": "fill",
-        "theme": "verdant"
+        "theme": "ink"
       }
     },
     {
@@ -1187,7 +1112,7 @@
       "name": "countdown-timer",
       "type": "registry:component",
       "title": "Countdown Timer",
-      "description": "A live countdown whose digits roll when they change. Safe for server rendering.",
+      "description": "A flip clock countdown: hinged cards, digits that tip over, the exact launch moment, and a line that fills each minute.",
       "categories": [
         "elements"
       ],
@@ -1206,7 +1131,7 @@
       "docs": "import { CountdownTimer } from \"@/components/countdown-timer\"\n\n<CountdownTimer target=\"2026-12-31T18:00:00+05:30\" />",
       "meta": {
         "stage": "center",
-        "theme": "signal"
+        "theme": "ink"
       }
     },
     {
@@ -1452,7 +1377,7 @@
       "name": "animated-tabs",
       "type": "registry:component",
       "title": "Animated Tabs",
-      "description": "Tabs with a highlight that glides between labels and content that slides the way you moved.",
+      "description": "Tabs with a gliding pill and a feature panel: copy and a checklist beside a small animated illustration for each tab.",
       "categories": [
         "elements"
       ],
@@ -1472,33 +1397,6 @@
       "meta": {
         "stage": "center",
         "theme": "porcelain"
-      }
-    },
-    {
-      "name": "tilt-card",
-      "type": "registry:component",
-      "title": "Tilt Card",
-      "description": "A card that leans toward the pointer in 3D with a glare that follows it.",
-      "categories": [
-        "elements"
-      ],
-      "dependencies": [
-        "framer-motion",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/tilt-card.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { TiltCard } from \"@/components/tilt-card\"\n\n<TiltCard title=\"Layered depth\" />",
-      "meta": {
-        "stage": "center",
-        "theme": "noir"
       }
     },
     {
@@ -1525,59 +1423,6 @@
       "meta": {
         "stage": "fill",
         "theme": "glacier"
-      }
-    },
-    {
-      "name": "orbiting-icons",
-      "type": "registry:component",
-      "title": "Orbiting Icons",
-      "description": "Icons circling a centre mark on concentric rings, a clean way to show integrations.",
-      "categories": [
-        "elements"
-      ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/orbiting-icons.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { OrbitingIcons } from \"@/components/orbiting-icons\"\n\n<OrbitingIcons rings={[[<Git />, <Db />], [<Cloud />, <Mail />]]} />",
-      "meta": {
-        "stage": "center",
-        "theme": "ember"
-      }
-    },
-    {
-      "name": "magnetic-button",
-      "type": "registry:component",
-      "title": "Magnetic Button",
-      "description": "A button pulled toward the pointer as it gets close, with its label moving a little further.",
-      "categories": [
-        "elements"
-      ],
-      "dependencies": [
-        "framer-motion",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/magnetic-button.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { MagneticButton } from \"@/components/magnetic-button\"\n\n<MagneticButton href=\"/contact\">Start a project</MagneticButton>",
-      "meta": {
-        "stage": "center",
-        "theme": "sage"
       }
     },
     {
@@ -1982,7 +1827,7 @@
       "docs": "import { SpotlightCard } from \"@/components/spotlight-card\"\n\n<SpotlightCard items={items} />",
       "meta": {
         "stage": "fill",
-        "theme": "noir"
+        "theme": "ink"
       }
     },
     {
@@ -2010,33 +1855,6 @@
       "meta": {
         "stage": "fill",
         "theme": "verdant"
-      }
-    },
-    {
-      "name": "metric-cards",
-      "type": "registry:component",
-      "title": "Metric Cards",
-      "description": "Dashboard stat cards with counting numbers and self drawing sparklines.",
-      "categories": [
-        "elements"
-      ],
-      "dependencies": [
-        "framer-motion",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/quarry/metric-cards.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "docs": "import { MetricCards } from \"@/components/metric-cards\"\n\n<MetricCards metrics={metrics} />",
-      "meta": {
-        "stage": "fill",
-        "theme": "glacier"
       }
     },
     {
@@ -2437,6 +2255,559 @@
       "meta": {
         "stage": "center",
         "theme": "blueprint"
+      }
+    },
+    {
+      "name": "dot-ring",
+      "type": "registry:component",
+      "title": "Dot Ring",
+      "description": "A ring of dots fading behind a bright head, turning in fast crisp steps.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/dot-ring.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { DotRing } from \"@/components/dot-ring\"\n\n<DotRing size={40} duration={0.8} />",
+      "meta": {
+        "stage": "center",
+        "theme": "ink"
+      }
+    },
+    {
+      "name": "tick-ring",
+      "type": "registry:component",
+      "title": "Tick Ring",
+      "description": "The classic activity indicator: thin ticks fading behind a bright head.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/tick-ring.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TickRing } from \"@/components/tick-ring\"\n\n<TickRing size={40} duration={0.8} />",
+      "meta": {
+        "stage": "center",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "square-ring",
+      "type": "registry:component",
+      "title": "Square Ring",
+      "description": "A ring of small squares chasing each other in quick steps.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/square-ring.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { SquareRing } from \"@/components/square-ring\"\n\n<SquareRing size={40} />",
+      "meta": {
+        "stage": "center",
+        "theme": "terminal"
+      }
+    },
+    {
+      "name": "arc-spinner",
+      "type": "registry:component",
+      "title": "Arc Spinner",
+      "description": "A smooth gradient arc with a round head, spinning fast.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/arc-spinner.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ArcSpinner } from \"@/components/arc-spinner\"\n\n<ArcSpinner size={40} thickness={4} />",
+      "meta": {
+        "stage": "center",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "segment-ring",
+      "type": "registry:component",
+      "title": "Segment Ring",
+      "description": "A donut cut into segments that fade behind a bright head.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/segment-ring.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { SegmentRing } from \"@/components/segment-ring\"\n\n<SegmentRing size={44} />",
+      "meta": {
+        "stage": "center",
+        "theme": "glacier"
+      }
+    },
+    {
+      "name": "fade-squares",
+      "type": "registry:component",
+      "title": "Fade Squares",
+      "description": "A row of squares that light up in a wave, for inline loading.",
+      "categories": [
+        "loaders"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/fade-squares.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { FadeSquares } from \"@/components/fade-squares\"\n\n<FadeSquares count={6} />",
+      "meta": {
+        "stage": "center",
+        "theme": "studio"
+      }
+    },
+    {
+      "name": "not-found-doodle",
+      "type": "registry:component",
+      "title": "404 Doodle",
+      "description": "A calm 404 with a floating meditating doodle, recoloured to your theme.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/not-found-doodle.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { NotFoundDoodle } from \"@/components/not-found-doodle\"\n\n<NotFoundDoodle homeHref=\"/\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain",
+        "tags": [
+          "404",
+          "error page"
+        ]
+      }
+    },
+    {
+      "name": "not-found-poster",
+      "type": "registry:component",
+      "title": "404 Poster",
+      "description": "A loud 404 poster: a giant ghost word and a tilted card with wobbly lettering.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/not-found-poster.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { NotFoundPoster } from \"@/components/not-found-poster\"\n\n<NotFoundPoster ghost=\"WHOA!\" lines={[\"WRONG\", \"TURN\"]} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "studio",
+        "tags": [
+          "404",
+          "error page"
+        ]
+      }
+    },
+    {
+      "name": "not-found-dots",
+      "type": "registry:component",
+      "title": "404 Dots",
+      "description": "A 404 made of dots that scatter from your pointer and spring back.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/not-found-dots.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { NotFoundDots } from \"@/components/not-found-dots\"\n\n<NotFoundDots href=\"/\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "glacier",
+        "tags": [
+          "404",
+          "error page"
+        ]
+      }
+    },
+    {
+      "name": "not-found-ascii",
+      "type": "registry:component",
+      "title": "404 Ascii",
+      "description": "A 404 drawn in shimmering text characters that flare up under the pointer.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/not-found-ascii.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { NotFoundAscii } from \"@/components/not-found-ascii\"\n\n<NotFoundAscii href=\"/\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "verdant",
+        "tags": [
+          "404",
+          "error page"
+        ]
+      }
+    },
+    {
+      "name": "not-found-contour",
+      "type": "registry:component",
+      "title": "404 Contour",
+      "description": "A moody serif 404 over slowly drifting topographic contour lines.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/not-found-contour.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { NotFoundContour } from \"@/components/not-found-contour\"\n\n<NotFoundContour href=\"/\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "noir",
+        "tags": [
+          "404",
+          "error page"
+        ]
+      }
+    },
+    {
+      "name": "topo-lines",
+      "type": "registry:component",
+      "title": "Topo Lines",
+      "description": "A living topographic map: morphing terrain sliced into contour lines that bend around the pointer.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/topo-lines.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { TopoLines } from \"@/components/topo-lines\"\n\n<TopoLines levels={16} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "dot-globe",
+      "type": "registry:component",
+      "title": "Dot Globe",
+      "description": "A rotating globe of dots with carved continents and glowing arcs. Drag to spin it.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/dot-globe.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { DotGlobe } from \"@/components/dot-globe\"\n\n<DotGlobe arcs={6} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "starfield",
+      "type": "registry:component",
+      "title": "Starfield",
+      "description": "A quiet night sky: layered stars that twinkle, drift and shift with the pointer.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/starfield.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { Starfield } from \"@/components/starfield\"\n\n<Starfield />",
+      "meta": {
+        "stage": "fill",
+        "theme": "obsidian"
+      }
+    },
+    {
+      "name": "square-grid",
+      "type": "registry:component",
+      "title": "Square Grid",
+      "description": "A crisp graph paper grid whose squares light up under the pointer and fade out in a trail.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/square-grid.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { SquareGrid } from \"@/components/square-grid\"\n\n<SquareGrid cell={44} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "ink"
+      }
+    },
+    {
+      "name": "newsletter-reader",
+      "type": "registry:component",
+      "title": "Newsletter Reader",
+      "description": "A newsletter signup with a floating reading doodle, three small facts and a form that confirms in place.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/newsletter-reader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { NewsletterReader } from \"@/components/newsletter-reader\"\n\n<NewsletterReader onSubmit={(email) => subscribe(email)} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "sprint-roadmap",
+      "type": "registry:component",
+      "title": "Sprint Roadmap",
+      "description": "A roadmap that runs: a sprinting doodle dashes along the track and each milestone checks off as it passes.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/sprint-roadmap.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { SprintRoadmap } from \"@/components/sprint-roadmap\"\n\n<SprintRoadmap milestones={milestones} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "harbor"
+      }
+    },
+    {
+      "name": "hero-split",
+      "type": "registry:component",
+      "title": "Hero Split",
+      "description": "A split hero: headline, buttons and social proof beside an illustration panel with a floating stat chip.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/hero-split.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { HeroSplit } from \"@/components/hero-split\"\n\n<HeroSplit illustration={<img src=\"/art/hero.svg\" alt=\"\" />} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "hero-centered",
+      "type": "registry:component",
+      "title": "Hero Centered",
+      "description": "A centred hero with a one field signup that confirms in place and a wide illustration rising below.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/hero-centered.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { HeroCentered } from \"@/components/hero-centered\"\n\n<HeroCentered illustration={<img src=\"/art/hero.svg\" alt=\"\" />} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "glacier"
+      }
+    },
+    {
+      "name": "feature-rows",
+      "type": "registry:component",
+      "title": "Feature Rows",
+      "description": "Alternating feature rows: copy, a checklist and a link beside an illustration, sides swapping down the page.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/feature-rows.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { FeatureRows } from \"@/components/feature-rows\"\n\n<FeatureRows rows={rows} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "harbor"
+      }
+    },
+    {
+      "name": "cta-banner",
+      "type": "registry:component",
+      "title": "CTA Banner",
+      "description": "A closing call to action: message and two buttons beside a floating illustration.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/cta-banner.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CtaBanner } from \"@/components/cta-banner\"\n\n<CtaBanner illustration={<img src=\"/art/cta.svg\" alt=\"\" />} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
       }
     }
   ]

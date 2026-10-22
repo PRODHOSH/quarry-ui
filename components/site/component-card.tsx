@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BookmarkButton } from "@/components/auth/bookmark-button";
 import { ComponentThumb } from "@/components/site/component-thumb";
 import { cn } from "@/lib/utils";
 import type { ThemeId } from "@/lib/themes";
@@ -13,6 +14,7 @@ export function ComponentCard({
   stage,
   theme,
   hidden = false,
+  base = "/components",
   className,
 }: {
   name: string;
@@ -20,6 +22,8 @@ export function ComponentCard({
   stage: "center" | "fill";
   theme?: ThemeId;
   hidden?: boolean;
+  /** Route prefix the card links to. */
+  base?: string;
   className?: string;
 }) {
   return (
@@ -30,8 +34,9 @@ export function ComponentCard({
       <p className="mt-3 text-sm font-normal text-muted-foreground transition-colors group-hover:text-foreground">
         {title}
       </p>
+      <BookmarkButton kind={base.replace("/", "") as "components"} slug={name} className="absolute right-2.5 top-2.5 z-20 size-8 opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100 [&_svg]:size-3.5" />
       <Link
-        href={`/components/${name}`}
+        href={`${base}/${name}`}
         aria-label={title}
         tabIndex={hidden ? -1 : 0}
         className="absolute inset-0 z-10 rounded-xl"

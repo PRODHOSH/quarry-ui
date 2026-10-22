@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fade-squares",
+  "title": "Fade Squares",
+  "description": "A row of squares that light up in a wave, for inline loading.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/fade-squares.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * A row of squares that light up one after another and fade out, like a progress wave. Quick and\n * quiet, good for inline and button loading states.\n */\nexport function FadeSquares({\n  count = 6,\n  size = 18,\n  duration = 0.9,\n  className,\n}: {\n  count?: number;\n  size?: number;\n  /** Seconds for the wave to pass through every square. */\n  duration?: number;\n  className?: string;\n}) {\n  return (\n    <span role=\"status\" aria-label=\"Loading\" className={cn(\"inline-flex items-center text-foreground\", className)} style={{ gap: size * 0.45 }}>\n      {Array.from({ length: count }).map((_, i) => (\n        <motion.span\n          key={i}\n          className=\"rounded-[3px] bg-current\"\n          style={{ width: size, height: size }}\n          animate={{ opacity: [1, 0.12, 1] }}\n          transition={{ duration, repeat: Infinity, ease: \"easeInOut\", delay: (i / count) * duration * 0.8 }}\n        />\n      ))}\n    </span>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "studio"
+  },
+  "docs": "import { FadeSquares } from \"@/components/fade-squares\"\n\n<FadeSquares count={6} />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dot-ring",
+  "title": "Dot Ring",
+  "description": "A ring of dots fading behind a bright head, turning in fast crisp steps.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/dot-ring.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\n/**\n * A ring of dots that shrink and fade behind a bright head. The whole ring turns in discrete steps,\n * so the head hops from dot to dot, which reads as faster and crisper than a smooth spin.\n */\nexport function DotRing({\n  size = 52,\n  dots = 12,\n  duration = 0.8,\n  className,\n}: {\n  size?: number;\n  dots?: number;\n  /** Seconds per full turn. */\n  duration?: number;\n  className?: string;\n}) {\n  const dot = size * 0.16;\n  return (\n    <span role=\"status\" aria-label=\"Loading\" className={cn(\"relative inline-block text-foreground\", className)} style={{ width: size, height: size }}>\n      <span className=\"absolute inset-0 animate-spin\" style={{ animationDuration: `${duration}s`, animationTimingFunction: `steps(${dots})` }}>\n        {Array.from({ length: dots }).map((_, i) => {\n          const t = i / (dots - 1);\n          return (\n            <span\n              key={i}\n              className=\"absolute left-1/2 top-1/2 rounded-full bg-current\"\n              style={{\n                width: dot,\n                height: dot,\n                opacity: 0.12 + t * 0.88,\n                marginLeft: -dot / 2,\n                marginTop: -dot / 2,\n                transform: `rotate(${(360 / dots) * i}deg) translateY(${-(size / 2 - dot / 2)}px) scale(${0.55 + t * 0.45})`,\n              }}\n            />\n          );\n        })}\n      </span>\n    </span>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "ink"
+  },
+  "docs": "import { DotRing } from \"@/components/dot-ring\"\n\n<DotRing size={40} duration={0.8} />",
+  "categories": [
+    "loaders"
+  ],
+  "type": "registry:component"
+}

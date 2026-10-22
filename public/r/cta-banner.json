@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta-banner",
+  "title": "CTA Banner",
+  "description": "A closing call to action: message and two buttons beside a floating illustration.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/cta-banner.tsx",
+      "content": "\"use client\";\n\nimport type { ReactNode } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { ArrowRight } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nfunction Placeholder() {\n  return (\n    <div className=\"grid size-full place-items-center p-6\">\n      <div className=\"flex w-full max-w-[14rem] flex-col gap-2.5\">\n        <span className=\"h-3 w-3/4 rounded-full bg-foreground/80\" />\n        <span className=\"h-3 w-full rounded-full bg-muted-foreground/25\" />\n        <span className=\"h-3 w-2/3 rounded-full bg-muted-foreground/25\" />\n        <span className=\"mt-2 h-9 w-28 rounded-full bg-primary\" />\n      </div>\n    </div>\n  );\n}\n\n/**\n * A closing call to action. A light panel holds the message and two buttons, with an illustration\n * on the right that sits slightly taller than the panel so it feels like it is stepping out. Pass\n * any node as `illustration`.\n */\nexport function CtaBanner({\n  eyebrow = \"Ready when you are\",\n  title = \"Start building something you are proud of\",\n  text = \"Join thousands of teams who ship calmer, clearer work. It takes about five minutes to set up.\",\n  primary = \"Create your workspace\",\n  secondary = \"Talk to us\",\n  illustration,\n  className,\n}: {\n  eyebrow?: string;\n  title?: string;\n  text?: string;\n  primary?: string;\n  secondary?: string;\n  /** Any node. An <img> works well. It is contained in the right hand side. */\n  illustration?: ReactNode;\n  className?: string;\n}) {\n  return (\n    <motion.section\n      initial={{ opacity: 0, y: 24 }}\n      whileInView={{ opacity: 1, y: 0 }}\n      viewport={{ once: true, margin: \"-60px\" }}\n      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}\n      className={cn(\"mx-auto my-16 grid w-full max-w-6xl overflow-hidden rounded-[2rem] border bg-muted/50 md:grid-cols-[1.15fr_1fr]\", className)}\n    >\n      <div className=\"px-8 py-12 sm:px-12 sm:py-16\">\n        <p className=\"text-sm font-medium text-muted-foreground\">{eyebrow}</p>\n        <h2 className=\"mt-3 max-w-lg text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl\">{title}</h2>\n        <p className=\"mt-4 max-w-md leading-relaxed text-muted-foreground\">{text}</p>\n        <div className=\"mt-8 flex flex-wrap gap-3\">\n          <a href=\"#\" className=\"group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 text-sm font-medium text-primary-foreground transition-transform active:scale-95\">\n            {primary} <ArrowRight className=\"size-4 transition-transform group-hover:translate-x-0.5\" />\n          </a>\n          <a href=\"#\" className=\"inline-flex h-12 items-center rounded-full border bg-background px-6 text-sm font-medium transition-colors hover:bg-card active:scale-95\">{secondary}</a>\n        </div>\n      </div>\n      <div className=\"relative min-h-[16rem] border-t bg-card md:border-l md:border-t-0\">\n        <div aria-hidden className=\"absolute inset-0 [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_90%)]\" />\n        <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 6, repeat: Infinity, ease: \"easeInOut\" }} className=\"absolute inset-0 grid place-items-center p-6 [&_img]:max-h-full [&_img]:w-full [&_img]:object-contain [&_svg]:max-h-full\">\n          {illustration ?? <Placeholder />}\n        </motion.div>\n      </div>\n    </motion.section>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "porcelain"
+  },
+  "docs": "import { CtaBanner } from \"@/components/cta-banner\"\n\n<CtaBanner illustration={<img src=\"/art/cta.svg\" alt=\"\" />} />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:component"
+}

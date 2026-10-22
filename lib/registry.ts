@@ -25,8 +25,16 @@ export function getOrderedItems(): RegistryItem[] {
   return getGroups().flatMap((group) => group.items);
 }
 
-export function getNeighbours(name: string, owner: "components" | "templates" = "components") {
-  const ordered = getOrderedItems().filter((i) => (i.categories[0] === "templates") === (owner === "templates"));
+export type Owner = "components" | "templates" | "backgrounds" | "loaders";
+
+/** Which top level section an item lives in. */
+export function ownerOf(item: RegistryItem): Owner {
+  const c = item.categories[0];
+  return c === "templates" || c === "backgrounds" || c === "loaders" ? c : "components";
+}
+
+export function getNeighbours(name: string, owner: Owner = "components") {
+  const ordered = getOrderedItems().filter((i) => ownerOf(i) === owner);
   const index = ordered.findIndex((item) => item.name === name);
   return {
     previous: index > 0 ? ordered[index - 1] : undefined,

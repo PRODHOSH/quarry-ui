@@ -16,7 +16,7 @@
   ],
   "meta": {
     "stage": "fill",
-    "theme": "noir"
+    "theme": "ink"
   },
   "docs": "import { SpotlightCard } from \"@/components/spotlight-card\"\n\n<SpotlightCard items={items} />",
   "categories": [

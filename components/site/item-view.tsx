@@ -5,8 +5,9 @@ import { CodeBlock } from "@/components/site/code-block";
 import { InstallCommand } from "@/components/site/install-command";
 import { LivePreview } from "@/components/site/live-preview";
 import { PreviewStage } from "@/components/site/preview-stage";
+import { BookmarkButton } from "@/components/auth/bookmark-button";
 import { PromptMenu } from "@/components/site/prompt-menu";
-import { getFiles, getItem, getNeighbours, getSource } from "@/lib/registry";
+import { getFiles, getItem, getNeighbours, getSource, ownerOf, type Owner } from "@/lib/registry";
 import { GROUPS } from "@/lib/registry-types";
 import { THEMES, themeCss } from "@/lib/themes";
 
@@ -20,10 +21,12 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 /** Shared by /components/[slug] and /templates/[slug]. Sends a visitor to the right one. */
-export async function ItemView({ slug, kind }: { slug: string; kind: "components" | "templates" }) {
+const OWNER_LABEL: Record<Owner, string> = { components: "Components", templates: "Templates", backgrounds: "Backgrounds", loaders: "Loaders" };
+
+export async function ItemView({ slug, kind }: { slug: string; kind: Owner }) {
   const item = getItem(slug);
   if (!item) notFound();
-  const owner = item.categories[0] === "templates" ? "templates" : "components";
+  const owner = ownerOf(item);
   if (owner !== kind) redirect(`/${owner}/${slug}`);
 
   const source = getSource(item);
@@ -40,7 +43,7 @@ export async function ItemView({ slug, kind }: { slug: string; kind: "components
         <div>
           <p className="text-sm text-muted-foreground">
             <Link href={`/${owner}`} className="hover:text-foreground">
-              {owner === "templates" ? "Templates" : "Components"}
+              {OWNER_LABEL[owner]}
             </Link>
             {owner === "components" && (
               <>
@@ -52,8 +55,9 @@ export async function ItemView({ slug, kind }: { slug: string; kind: "components
           <h1 className="mt-3 text-4xl font-medium tracking-[-0.03em] sm:text-5xl">{item.title}</h1>
           <p className="mt-4 max-w-xl font-normal leading-relaxed text-muted-foreground">{item.description}</p>
         </div>
-        <div className="shrink-0">
-          <PromptMenu item={item} source={source} />
+        <div className="flex shrink-0 items-center gap-2">
+          <BookmarkButton kind={owner} slug={item.name} variant="pill" />
+          <PromptMenu item={item} />
         </div>
       </header>
 

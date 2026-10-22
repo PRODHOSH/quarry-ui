@@ -19,9 +19,10 @@ import {
   Syne,
 } from "next/font/google";
 import localFont from "next/font/local";
-import { HideOnHome } from "@/components/site/hide-on-home";
-import { SiteFooter } from "@/components/site/site-footer";
-import { SiteHeader } from "@/components/site/site-header";
+import { Suspense } from "react";
+import { AppShell } from "@/components/site/app-shell";
+import { getDesignIndex } from "@/lib/design";
+import { getGroups } from "@/lib/registry";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -62,14 +63,21 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const all = getGroups();
+  const plain = (id: string) => (all.find((g) => g.id === id)?.items ?? []).map(({ name, title }) => ({ name, title }));
+  const groups = all
+    .filter((g) => g.id === "sections" || g.id === "elements")
+    .map((g) => ({ id: g.id, title: g.title, items: g.items.map(({ name, title }) => ({ name, title })) }));
+  const templates = (all.find((g) => g.id === "templates")?.items ?? []).map((i) => ({ name: i.name, title: i.title, tags: i.meta.tags ?? [] }));
+
   return (
     <html lang="en" suppressHydrationWarning className={`dark ${figtree.variable} ${presetFonts} ${spaceMono.variable} ${generalSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">{children}</div>
-        <HideOnHome>
-          <SiteFooter />
-        </HideOnHome>
+      <body className="min-h-full">
+        <Suspense fallback={null}>
+          <AppShell groups={groups} templates={templates} backgrounds={plain("backgrounds")} loaders={plain("loaders")} designs={getDesignIndex()}>
+            {children}
+          </AppShell>
+        </Suspense>
       </body>
     </html>
   );

@@ -1,9 +1,5 @@
-import { ComingSoon } from "@/components/landing/coming-soon";
+import { HomeDashboard } from "@/components/home/dashboard";
 
 export default function Home() {
-  return (
-    <main className="flex-1">
-      <ComingSoon />
-    </main>
-  );
+  return <HomeDashboard />;
 }

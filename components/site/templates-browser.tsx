@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
+import { BookmarkButton } from "@/components/auth/bookmark-button";
 import { LivePreview } from "@/components/site/live-preview";
 
 type T = { name: string; title: string; description: string; preview: string; tags: string[]; routes: number; files: number };
@@ -43,7 +44,7 @@ export function TemplatesBrowser({ templates }: { templates: T[] }) {
                 <Link href={`/templates/${t.name}`} className="block truncate font-medium hover:underline">{t.title}</Link>
                 <p className="mt-0.5 text-xs text-muted-foreground">{t.routes} pages · {t.files} files · {t.tags.filter((x) => x !== "Application").join(", ")}</p>
               </div>
-              <span className="shrink-0 rounded-full border px-2.5 py-0.5 text-xs text-muted-foreground">Free</span>
+              <BookmarkButton kind="templates" slug={t.name} className="size-8 shrink-0 [&_svg]:size-3.5" />
             </div>
           </li>
         ))}
@@ -52,7 +53,7 @@ export function TemplatesBrowser({ templates }: { templates: T[] }) {
           <div>
             <p className="font-medium">More on the way</p>
             <p className="mt-1 text-sm text-muted-foreground">Admin panel, SaaS and landing pages are next.</p>
-            <Link href="/#waitlist" className="mt-4 inline-flex items-center gap-1 text-sm underline-offset-4 hover:underline">Join the waiting list <ArrowUpRight className="size-3.5" /></Link>
+            <Link href="/waitlist" className="mt-4 inline-flex items-center gap-1 text-sm underline-offset-4 hover:underline">Join the waiting list <ArrowUpRight className="size-3.5" /></Link>
           </div>
         </li>
       </ul>

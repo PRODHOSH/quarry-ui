@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://quarry-ui.com">
+  <a href="https://quarryui.tech">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset=".github/assets/logo-light.png">
       <img alt="Quarry UI" src=".github/assets/logo-dark.png" width="360">
@@ -38,12 +38,12 @@ A few things we care about:
 | | Count | Examples |
 |---|---|---|
 | Templates | 2 | AI Chat, File Manager (full multi page Next.js apps) |
-| Sections | 24 | Mega Footer, Pricing Cards, Testimonial Columns, FAQ with Search, Feature Tabs |
-| Elements | 40 | Mega Menu Navbar, Dock, Command Menu, Video Player, Lightbox Gallery, Number Ticker |
-| Backgrounds | 7 | Flow Field, Aurora Mesh, Constellation (canvas, with a live configure panel) |
-| Loaders | 15 | Newton's Cradle, Helix, Waveform |
+| Sections | 31 | Mega Footer, Pricing Cards, Testimonial Columns, FAQ with Search, Feature Tabs |
+| Elements | 36 | Mega Menu Navbar, Dock, Command Menu, Video Player, Lightbox Gallery, Countdown Timer |
+| Backgrounds | 11 | Starfield, Square Grid, Topo Lines, Dot Globe, Flow Field (live configure panel on each) |
+| Loaders | 18 | Dot Ring, Tick Ring, Arc Spinner, Newton's Cradle, Waveform |
 
-Browse everything with live previews at [quarry-ui.com](https://quarry-ui.com).
+Browse everything with live previews at [quarryui.tech](https://quarryui.tech). There is also a [design systems](https://quarryui.tech/design) section with ready made DESIGN.md files for popular brands.
 
 ## Quick start
 
@@ -56,15 +56,15 @@ npx shadcn@latest init
 Then add any component by its registry URL:
 
 ```bash
-npx shadcn@latest add https://quarry-ui.com/r/mega-footer.json
+npx shadcn@latest add https://quarryui.tech/r/mega-footer.json
 ```
 
 Prefer another package manager?
 
 ```bash
-pnpm dlx shadcn@latest add https://quarry-ui.com/r/mega-footer.json
-yarn dlx shadcn@latest add https://quarry-ui.com/r/mega-footer.json
-bunx --bun shadcn@latest add https://quarry-ui.com/r/mega-footer.json
+pnpm dlx shadcn@latest add https://quarryui.tech/r/mega-footer.json
+yarn dlx shadcn@latest add https://quarryui.tech/r/mega-footer.json
+bunx --bun shadcn@latest add https://quarryui.tech/r/mega-footer.json
 ```
 
 The CLI copies the file into your components folder and installs whatever it needs (usually `framer-motion` and `lucide-react`). Then import it and use it:
@@ -84,8 +84,8 @@ Every component page on the site shows its own usage snippet and the exact comma
 Templates are complete apps with several routes, not just a single file.
 
 ```bash
-npx shadcn@latest add https://quarry-ui.com/r/file-manager.json
-npx shadcn@latest add https://quarry-ui.com/r/ai-chat.json
+npx shadcn@latest add https://quarryui.tech/r/file-manager.json
+npx shadcn@latest add https://quarryui.tech/r/ai-chat.json
 ```
 
 They need a Next.js project using the App Router. The CLI adds the routes, components and a small store under `lib/`. State lives in memory so the demo works straight away. To make it real, replace the store with calls to your own API.
@@ -118,10 +118,9 @@ Open [http://localhost:3000](http://localhost:3000).
 Optional settings go in `.env.local`:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://quarry-ui.com
-NEXT_PUBLIC_CONTACT_EMAIL=hello@quarry-ui.com
+NEXT_PUBLIC_SITE_URL=https://quarryui.tech
+NEXT_PUBLIC_CONTACT_EMAIL=hello@prodhosh.me
 NEXT_PUBLIC_GITHUB_URL=https://github.com/PRODHOSH/quarry-ui
-WAITLIST_WEBHOOK_URL=
 ```
 
 ## How the repo is organised
@@ -146,6 +145,21 @@ The short version is below. [CONTRIBUTING.md](CONTRIBUTING.md) has the full chec
 2. Add an entry to `registry.json` with a title, description, dependencies, usage snippet and `meta.stage` (`center` for small things, `fill` for full width sections).
 3. Map it to a preview in `registry/demos.tsx`.
 4. Run `npm run registry:build`, then check it in the browser in light and dark mode.
+
+## Sign in and bookmarks
+
+Sign in uses [Supabase](https://supabase.com) with Google and GitHub, and bookmarks are saved to your account. To turn it on:
+
+1. Create a Supabase project and copy the project URL and the anon key into `.env.local` (see `.env.example`).
+2. Run `supabase/migrations/0001_bookmarks.sql` in the SQL editor. It creates the `bookmarks` table with row level security, so people only ever see their own.
+3. In **Authentication > Providers**, enable Google and GitHub and add each provider's client ID and secret.
+4. In **Authentication > URL configuration**, set the site URL and add `http://localhost:3000` and your production URL as redirect URLs.
+
+The waiting list goes straight into Supabase too. Run `supabase/migrations/0002_waitlist.sql` as well. It creates a `waitlist` table where anyone can add their email but nobody can read the list through the API. Open **Table editor > waitlist** in the Supabase dashboard to see the signups.
+
+Copying a prompt is free twice, then it asks people to sign in. The count lives in a signed cookie, with a looser per network cap as a backstop, and the prompt text only leaves the server through `/api/prompt`. Run `supabase/migrations/0003_prompt_usage.sql` for the network counter and set `PROMPT_SECRET` (a long random string) in your server environment.
+
+Without the keys the site still works. The sign in popup just explains that auth is not set up yet.
 
 ## Roadmap
 
