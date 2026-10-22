@@ -29,11 +29,24 @@ export function ComponentThumb({
   const zoom = stage === "center" ? 1.6 : 1;
   const virtualWidth = VIRTUAL_WIDTH / zoom;
 
-  // keep the placeholder up for a beat after mounting so the demo never pops in half drawn
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  // Reveal only once the demo has really drawn something. Its code loads on demand, so a fixed
+  // timer would fade the skeleton out over an empty card.
   useEffect(() => {
     if (!visible || ready) return;
-    const t = setTimeout(() => setReady(true), 450);
-    return () => clearTimeout(t);
+    let tries = 0;
+    const id = setInterval(() => {
+      tries++;
+      const el = stageRef.current;
+      const drawn = !!el && el.firstElementChild !== null && el.getBoundingClientRect().width > 0;
+      if (drawn || tries > 60) {
+        // two frames so the first paint lands before the skeleton fades
+        requestAnimationFrame(() => requestAnimationFrame(() => setReady(true)));
+        clearInterval(id);
+      }
+    }, 120);
+    return () => clearInterval(id);
   }, [visible, ready]);
 
   useEffect(() => {
@@ -41,14 +54,18 @@ export function ComponentThumb({
     if (!el) return;
     const measure = () => setScale(el.clientWidth / VIRTUAL_WIDTH);
     measure();
-    // Mount straight away when already on screen; the observer handles everything below the fold.
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight + 120 && rect.bottom > -120) setVisible(true);
     const resize = new ResizeObserver(measure);
     resize.observe(el);
+    // Start a long way before the card scrolls in, and never tear it down again. Unmounting on the
+    // way out is what made cards flash blank when scrolling back.
     const io = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { rootMargin: "120px" }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "900px 900px" }
     );
     io.observe(el);
     return () => {
@@ -61,7 +78,7 @@ export function ComponentThumb({
     <div
       ref={box}
       className={cn(
-        "pointer-events-none relative aspect-[16/10] overflow-hidden bg-background text-foreground",
+        "pointer-events-none relative aspect-[16/10] overflow-hidden bg-background text-foreground [contain:layout_paint]",
         stage === "center" && "bg-dots",
         className
       )}
@@ -71,6 +88,7 @@ export function ComponentThumb({
       <Skeleton className={cn("absolute inset-0 z-10 rounded-none transition-opacity duration-500", ready ? "opacity-0" : "opacity-100")} />
       {visible && Demo && (
         <div
+          ref={stageRef}
           className={cn(
             "absolute left-0 top-0 flex origin-top-left items-center",
             stage === "center" && "justify-center"
