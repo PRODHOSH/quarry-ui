@@ -31,7 +31,6 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
 !.env.example
 
 # vercel
@@ -46,3 +45,4 @@ next-env.d.ts
 
 # local reference checkout, not part of the site
 /awesome-design-md
+config.bat

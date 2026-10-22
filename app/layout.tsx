@@ -23,6 +23,7 @@ import {
 } from "next/font/google";
 import localFont from "next/font/local";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import { AppShell } from "@/components/site/app-shell";
 import { getDesignIndex } from "@/lib/design";
 import { getGroups } from "@/lib/registry";
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </AppShell>
         </Suspense>
+        <Analytics />
       </body>
     </html>
   );

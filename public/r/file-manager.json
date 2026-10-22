@@ -43,7 +43,7 @@
     },
     {
       "path": "registry/templates/file-manager/layout.tsx",
-      "content": "import { Suspense } from \"react\";\r\nimport { FileManagerShell } from \"@/components/file-manager/shell\";\r\n\r\nexport default function FileManagerLayout({ children }: { children: React.ReactNode }) {\r\n  return (\r\n    <div className=\"h-screen\">\r\n      <Suspense fallback={null}>\r\n        <FileManagerShell>{children}</FileManagerShell>\r\n      </Suspense>\r\n    </div>\r\n  );\r\n}\r\n",
+      "content": "import { Suspense } from \"react\";\nimport { FileManagerShell } from \"@/components/file-manager/shell\";\n\nexport default function FileManagerLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <div className=\"h-screen\">\n      <Suspense fallback={null}>\n        <FileManagerShell>{children}</FileManagerShell>\n      </Suspense>\n    </div>\n  );\n}\n",
       "type": "registry:page",
       "target": "app/file-manager/layout.tsx"
     },
