@@ -22,6 +22,7 @@ import {
   Syne,
 } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Suspense } from "react";
 import { AppShell } from "@/components/site/app-shell";
 import { getDesignIndex } from "@/lib/design";
@@ -61,6 +62,8 @@ const generalSans = localFont({
 });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-PGZKRBR77B";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: `${SITE_NAME} — ${SITE_TAGLINE}`, template: `%s — ${SITE_NAME}` },
@@ -79,6 +82,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning className={`dark ${figtree.variable} ${presetFonts} ${spaceMono.variable} ${generalSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full">
+        {GA_ID && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+            <Script id="ga-init" strategy="afterInteractive">{`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "${GA_ID}");`}</Script>
+          </>
+        )}
         <Suspense fallback={null}>
           <AppShell groups={groups} templates={templates} backgrounds={plain("backgrounds")} loaders={plain("loaders")} designs={getDesignIndex()}>
             {children}
