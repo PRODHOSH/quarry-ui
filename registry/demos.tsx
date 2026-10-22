@@ -28,6 +28,12 @@ import { CommandMenu } from "./quarry/command-menu";
 import { CookieBanner } from "./quarry/cookie-banner";
 import { MorphingNavbar } from "./quarry/morphing-navbar";
 import { RewardsList } from "./quarry/rewards-list";
+import { StickyStack } from "./quarry/sticky-stack";
+import { ParallaxGallery } from "./quarry/parallax-gallery";
+import { CartDrawer } from "./quarry/cart-drawer";
+import { PagePreloader } from "./quarry/page-preloader";
+import { FloatingChat } from "./quarry/floating-chat";
+
 import { HeroSplit } from "./quarry/hero-split";
 import { HeroCentered } from "./quarry/hero-centered";
 import { FeatureRows } from "./quarry/feature-rows";
@@ -138,6 +144,44 @@ const FeatureRowsDemo = () => (
   />
 );
 const CtaBannerDemo = () => <CtaBanner illustration={<Doodle name="coffee" />} />;
+
+/** Site only: demos that need a surrounding scene. */
+function CartDrawerDemo() {
+  const [open, setOpen] = useState(true);
+  return (
+    <div className="relative h-[34rem] w-full overflow-hidden">
+      <div className="grid h-full place-items-center"><button type="button" onClick={() => setOpen(true)} className="rounded-full border bg-card px-5 py-2.5 text-sm font-medium">Open cart</button></div>
+      <CartDrawer open={open} onOpenChange={setOpen} contained />
+    </div>
+  );
+}
+function PagePreloaderDemo() {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="relative h-[34rem] w-full overflow-hidden">
+      <div className="grid h-full place-items-center text-center"><div><p className="text-3xl font-semibold tracking-tight">Welcome back</p><button type="button" onClick={() => setShow(true)} className="mt-5 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">Play the intro</button></div></div>
+      <PagePreloader show={show} onDone={() => setShow(false)} contained />
+    </div>
+  );
+}
+function FloatingChatDemo() {
+  return (
+    <div className="relative h-[34rem] w-full overflow-hidden"><div className="grid h-full place-items-center px-6 text-center text-sm text-muted-foreground">The button stays in the corner of the page.</div><FloatingChat contained /></div>
+  );
+}
+function ParallaxGalleryDemo() {
+  const box = useRef<HTMLDivElement>(null);
+  return (
+    <div ref={box} className="h-[34rem] w-full overflow-y-auto scrollbar-none">
+      <div className="grid h-48 place-items-center text-sm text-muted-foreground">Scroll down</div>
+      <ParallaxGallery container={box} height="34rem" />
+      <div className="h-48" />
+    </div>
+  );
+}
+function StickyStackDemo() {
+  return <div className="h-[34rem] w-full overflow-y-auto scrollbar-none"><StickyStack /></div>;
+}
 
 function CommandMenuDemo() {
   const [open, setOpen] = useState(true);
@@ -319,6 +363,17 @@ export const DEMOS: Record<string, ComponentType> = {
   "hero-centered": HeroCenteredDemo,
   "feature-rows": FeatureRowsDemo,
   "cta-banner": CtaBannerDemo,
+  "hero-sketch": dynamic(() => import("./quarry/hero-sketch").then((m) => m.HeroSketch)),
+  "sticky-stack": StickyStackDemo,
+  "event-cards": dynamic(() => import("./quarry/event-cards").then((m) => m.EventCards)),
+  "parallax-gallery": ParallaxGalleryDemo,
+  "product-card": dynamic(() => import("./quarry/product-card").then((m) => m.ProductCard)),
+  "contact-form": dynamic(() => import("./quarry/contact-form").then((m) => m.ContactForm)),
+  "cart-drawer": CartDrawerDemo,
+  "like-button": dynamic(() => import("./quarry/like-button").then((m) => m.LikeButton)),
+  "custom-select": dynamic(() => import("./quarry/custom-select").then((m) => m.CustomSelect)),
+  "page-preloader": PagePreloaderDemo,
+  "floating-chat": FloatingChatDemo,
   "floating-socials": FloatingSocialsDemo,
   "scroll-reveal-pill": ScrollRevealPillDemo,
   "auth-modal": AuthModalDemo,

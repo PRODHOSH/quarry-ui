@@ -1,5 +1,7 @@
 "use client";
 
+import { ChevronsUpDown as QChevronsUpDown, Heart as QHeart, Images as QImages, Layers as QLayers, Loader as QLoader, Mail as QMail, MessageCircleMore as QMessageCircleMore, ShoppingBag as QShoppingBag, ShoppingCart as QShoppingCart, Smile as QSmile, Ticket as QTicket } from "lucide-react";
+
 import { PanelRight as IPanelRight, Presentation as IPresentation, Rows3 as IRows3, BadgeCheck as IBadgeCheck } from "lucide-react";
 
 import { BookOpen as IBookOpen, Footprints as IFootprints } from "lucide-react";
@@ -60,6 +62,17 @@ export type SidebarGroup = {
 /** Icons for sections and elements. Loaders are left plain on purpose: 25 similar glyphs would be noise. */
 export const ICONS: Record<string, LucideIcon> = {
   "feature-bento": LayoutGrid,
+  "hero-sketch": QSmile,
+  "sticky-stack": QLayers,
+  "event-cards": QTicket,
+  "parallax-gallery": QImages,
+  "product-card": QShoppingBag,
+  "contact-form": QMail,
+  "cart-drawer": QShoppingCart,
+  "like-button": QHeart,
+  "custom-select": QChevronsUpDown,
+  "page-preloader": QLoader,
+  "floating-chat": QMessageCircleMore,
   "hero-split": IPanelRight,
   "hero-centered": IPresentation,
   "feature-rows": IRows3,

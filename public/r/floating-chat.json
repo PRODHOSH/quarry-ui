@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "floating-chat",
+  "title": "Floating Chat",
+  "description": "A floating help button with a soft pulse that opens a small menu of ways to get in touch.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/floating-chat.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { Mail, MessageCircle, Phone, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport type ChatChannel = { label: string; hint: string; href: string; icon: \"chat\" | \"mail\" | \"phone\" };\n\nconst CHANNELS: ChatChannel[] = [\n  { label: \"Chat with us\", hint: \"Usually replies in minutes\", href: \"#\", icon: \"chat\" },\n  { label: \"Email support\", hint: \"hello@example.com\", href: \"mailto:hello@example.com\", icon: \"mail\" },\n  { label: \"Call the team\", hint: \"Mon to Fri, 9 to 6\", href: \"tel:+10000000000\", icon: \"phone\" },\n];\nconst ICON = { chat: MessageCircle, mail: Mail, phone: Phone };\n\n/**\n * A floating help button. It pulses softly to say someone is around, opens a small menu of ways to\n * get in touch, and closes with Escape or a click elsewhere. `contained` keeps it inside a\n * relatively positioned parent instead of the corner of the screen.\n */\nexport function FloatingChat({ channels = CHANNELS, title = \"Need a hand?\", contained = false, className }: { channels?: ChatChannel[]; title?: string; contained?: boolean; className?: string }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <div className={cn(contained ? \"absolute\" : \"fixed\", \"bottom-5 right-5 z-40 flex flex-col items-end gap-3\", className)} onKeyDown={(e) => e.key === \"Escape\" && setOpen(false)}>\n      <AnimatePresence>\n        {open && (\n          <motion.div initial={{ opacity: 0, y: 12, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8, scale: 0.96 }} transition={{ duration: 0.18 }} className=\"w-72 origin-bottom-right overflow-hidden rounded-2xl border bg-card shadow-2xl\">\n            <div className=\"bg-primary px-4 py-3.5 text-primary-foreground\">\n              <p className=\"font-semibold\">{title}</p>\n              <p className=\"mt-0.5 flex items-center gap-1.5 text-xs opacity-80\"><span className=\"size-1.5 rounded-full bg-current\" /> We are online</p>\n            </div>\n            <ul className=\"p-1.5\">\n              {channels.map((c, i) => {\n                const Icon = ICON[c.icon];\n                return (\n                  <motion.li key={c.label} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 + i * 0.05 }}>\n                    <a href={c.href} className=\"flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-muted\">\n                      <span className=\"grid size-9 place-items-center rounded-full border bg-background\"><Icon className=\"size-4\" /></span>\n                      <span className=\"leading-tight\"><span className=\"block text-sm font-medium\">{c.label}</span><span className=\"block text-xs text-muted-foreground\">{c.hint}</span></span>\n                    </a>\n                  </motion.li>\n                );\n              })}\n            </ul>\n          </motion.div>\n        )}\n      </AnimatePresence>\n      <button type=\"button\" aria-expanded={open} aria-label={open ? \"Close help menu\" : \"Open help menu\"} onClick={() => setOpen((o) => !o)} className=\"relative grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-xl transition-transform hover:scale-105 active:scale-95\">\n        {!open && <span aria-hidden className=\"absolute inset-0 animate-ping rounded-full bg-primary/40 [animation-duration:2.6s]\" />}\n        <AnimatePresence mode=\"wait\" initial={false}>\n          <motion.span key={String(open)} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.16 }} className=\"relative flex\">\n            {open ? <X className=\"size-6\" /> : <MessageCircle className=\"size-6\" />}\n          </motion.span>\n        </AnimatePresence>\n      </button>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "verdant"
+  },
+  "docs": "import { FloatingChat } from \"@/components/floating-chat\"\n\n<FloatingChat />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

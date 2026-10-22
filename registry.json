@@ -2909,6 +2909,300 @@
         "stage": "fill",
         "theme": "porcelain"
       }
+    },
+    {
+      "name": "hero-sketch",
+      "type": "registry:component",
+      "title": "Hero Sketch",
+      "description": "A friendly hand made hero: a blob in the headline, bobbing tags and three tilted cards that straighten on hover.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/hero-sketch.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { HeroSketch } from \"@/components/hero-sketch\"\n\n<HeroSketch name=\"I am Sam Rivera,\" role=\"a product designer.\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "studio"
+      }
+    },
+    {
+      "name": "sticky-stack",
+      "type": "registry:component",
+      "title": "Sticky Stack",
+      "description": "Project cards that stack like a deck of paper as you scroll, each sliding over the last.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/sticky-stack.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { StickyStack } from \"@/components/sticky-stack\"\n\n<StickyStack items={projects} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "event-cards",
+      "type": "registry:component",
+      "title": "Event Cards",
+      "description": "Upcoming event cards with black and white posters that fill with colour, and pulsing status pills.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/event-cards.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { EventCards } from \"@/components/event-cards\"\n\n<EventCards events={events} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "parallax-gallery",
+      "type": "registry:component",
+      "title": "Parallax Gallery",
+      "description": "A photo wall in four columns that slide at different speeds as the page scrolls.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/parallax-gallery.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ParallaxGallery } from \"@/components/parallax-gallery\"\n\n<ParallaxGallery height=\"80vh\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "ink"
+      }
+    },
+    {
+      "name": "product-card",
+      "type": "registry:component",
+      "title": "Product Card",
+      "description": "Store product cards: second photo on hover, a wishlist heart and a quick add that confirms in place.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/product-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ProductCard } from \"@/components/product-card\"\n\n<ProductCard products={products} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "glacier"
+      }
+    },
+    {
+      "name": "contact-form",
+      "type": "registry:component",
+      "title": "Contact Form",
+      "description": "A contact form that validates as you go, shows a spinner while sending and swaps to a confirmation.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/contact-form.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ContactForm } from \"@/components/contact-form\"\n\n<ContactForm onSubmit={send} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "harbor"
+      }
+    },
+    {
+      "name": "cart-drawer",
+      "type": "registry:component",
+      "title": "Cart Drawer",
+      "description": "A slide over shopping cart with quantity steppers, a free shipping progress bar and an empty state.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/cart-drawer.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CartDrawer } from \"@/components/cart-drawer\"\n\n<CartDrawer open={open} onOpenChange={setOpen} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
+    },
+    {
+      "name": "like-button",
+      "type": "registry:component",
+      "title": "Like Button",
+      "description": "A like button whose heart pops with a spring, bursts into dots and rolls the count.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/like-button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { LikeButton } from \"@/components/like-button\"\n\n<LikeButton count={128} />",
+      "meta": {
+        "stage": "center",
+        "theme": "studio"
+      }
+    },
+    {
+      "name": "custom-select",
+      "type": "registry:component",
+      "title": "Custom Select",
+      "description": "A fully styled select with keyboard support, type to jump and a springy list.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/custom-select.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CustomSelect } from \"@/components/custom-select\"\n\n<CustomSelect options={options} onChange={setSort} />",
+      "meta": {
+        "stage": "center",
+        "theme": "blueprint"
+      }
+    },
+    {
+      "name": "page-preloader",
+      "type": "registry:component",
+      "title": "Page Preloader",
+      "description": "A first visit intro: a counter runs to 100, then the curtain lifts away to reveal the page.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/page-preloader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { PagePreloader } from \"@/components/page-preloader\"\n\n<PagePreloader show={show} onDone={() => setShow(false)} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "ink"
+      }
+    },
+    {
+      "name": "floating-chat",
+      "type": "registry:component",
+      "title": "Floating Chat",
+      "description": "A floating help button with a soft pulse that opens a small menu of ways to get in touch.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/floating-chat.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { FloatingChat } from \"@/components/floating-chat\"\n\n<FloatingChat />",
+      "meta": {
+        "stage": "fill",
+        "theme": "verdant"
+      }
     }
   ]
 }

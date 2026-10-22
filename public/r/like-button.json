@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "like-button",
+  "title": "Like Button",
+  "description": "A like button whose heart pops with a spring, bursts into dots and rolls the count.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/like-button.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { AnimatePresence, motion } from \"framer-motion\";\nimport { Heart } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * A like button that celebrates. The heart pops with a spring, a ring of small dots bursts outward,\n * and the count rolls up or down. Works controlled (`liked`, `onLikedChange`) or on its own.\n */\nexport function LikeButton({\n  count = 128,\n  defaultLiked = false,\n  liked: controlled,\n  onLikedChange,\n  className,\n}: {\n  count?: number;\n  defaultLiked?: boolean;\n  liked?: boolean;\n  onLikedChange?: (liked: boolean) => void;\n  className?: string;\n}) {\n  const [inner, setInner] = useState(defaultLiked);\n  const [burst, setBurst] = useState(0);\n  const liked = controlled ?? inner;\n  const n = count + (liked && !defaultLiked ? 1 : !liked && defaultLiked ? -1 : 0);\n\n  const toggle = () => {\n    const next = !liked;\n    setInner(next);\n    if (next) setBurst((b) => b + 1);\n    onLikedChange?.(next);\n  };\n\n  return (\n    <button type=\"button\" aria-pressed={liked} aria-label={liked ? \"Unlike\" : \"Like\"} onClick={toggle} className={cn(\"group inline-flex items-center gap-2.5 rounded-full border bg-card py-2 pl-3 pr-4 transition-colors hover:border-foreground/30\", className)}>\n      <span className=\"relative grid size-7 place-items-center\">\n        <AnimatePresence>\n          {burst > 0 && liked && (\n            <motion.span key={burst} aria-hidden className=\"pointer-events-none absolute inset-0\">\n              {Array.from({ length: 8 }).map((_, i) => {\n                const a = (i / 8) * Math.PI * 2;\n                return <motion.span key={i} initial={{ x: 0, y: 0, scale: 1, opacity: 1 }} animate={{ x: Math.cos(a) * 22, y: Math.sin(a) * 22, scale: 0, opacity: 0 }} transition={{ duration: 0.55, ease: \"easeOut\" }} className=\"absolute left-1/2 top-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary\" />;\n              })}\n            </motion.span>\n          )}\n        </AnimatePresence>\n        <motion.span key={`${liked}`} initial={{ scale: liked ? 0.4 : 1 }} animate={{ scale: 1 }} transition={{ type: \"spring\", stiffness: 600, damping: 12 }} className=\"flex\">\n          <Heart className={cn(\"size-5 transition-colors\", liked ? \"fill-primary text-primary\" : \"text-muted-foreground group-hover:text-foreground\")} />\n        </motion.span>\n      </span>\n      <span className=\"relative h-5 overflow-hidden text-sm font-medium tabular-nums\">\n        <AnimatePresence mode=\"popLayout\" initial={false}>\n          <motion.span key={n} initial={{ y: liked ? 14 : -14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: liked ? -14 : 14, opacity: 0 }} transition={{ duration: 0.22 }} className=\"block\">{n}</motion.span>\n        </AnimatePresence>\n      </span>\n    </button>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "studio"
+  },
+  "docs": "import { LikeButton } from \"@/components/like-button\"\n\n<LikeButton count={128} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

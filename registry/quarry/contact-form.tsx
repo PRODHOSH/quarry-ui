@@ -1,0 +1,94 @@
+"use client";
+
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+type Values = { name: string; email: string; topic: string; message: string };
+const TOPICS = ["General question", "Pricing", "Partnership", "Support"];
+
+const input = "w-full rounded-xl border bg-background px-4 text-sm outline-none transition-colors placeholder:text-muted-foreground/70 focus:border-primary aria-[invalid=true]:border-destructive";
+
+/**
+ * A contact form that validates as you go. Errors appear only after a field is touched, the button
+ * shows a spinner while sending, and the card swaps for a confirmation when done. Pass an async
+ * `onSubmit` to send the message somewhere real. It rejects to show an error.
+ */
+export function ContactForm({
+  title = "Tell us what you need",
+  text = "We read every message and reply within one working day.",
+  onSubmit,
+  className,
+}: {
+  title?: string;
+  text?: string;
+  onSubmit?: (values: Values) => Promise<void> | void;
+  className?: string;
+}) {
+  const [v, setV] = useState<Values>({ name: "", email: "", topic: TOPICS[0], message: "" });
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+
+  const err = {
+    name: v.name.trim().length < 2 ? "Please tell us your name." : "",
+    email: /^\S+@\S+\.\S+$/.test(v.email) ? "" : "Enter a valid email address.",
+    message: v.message.trim().length < 10 ? "A few more words please, at least ten characters." : "",
+  };
+  const valid = !err.name && !err.email && !err.message;
+  const set = (k: keyof Values) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setV((s) => ({ ...s, [k]: e.target.value }));
+  const show = (k: "name" | "email" | "message") => touched[k] && err[k];
+  const blur = (k: string) => () => setTouched((t) => ({ ...t, [k]: true }));
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setTouched({ name: true, email: true, message: true });
+    if (!valid || state === "sending") return;
+    setState("sending");
+    try {
+      await (onSubmit ? onSubmit(v) : new Promise((r) => setTimeout(r, 900)));
+      setState("done");
+    } catch {
+      setState("error");
+    }
+  };
+
+  return (
+    <div className={cn("mx-auto w-full max-w-lg rounded-3xl border bg-card p-6 sm:p-8", className)}>
+      <AnimatePresence mode="wait" initial={false}>
+        {state === "done" ? (
+          <motion.div key="done" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="py-8 text-center">
+            <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 400, damping: 16, delay: 0.1 }} className="mx-auto grid size-14 place-items-center rounded-full bg-primary text-primary-foreground"><Check className="size-7" strokeWidth={3} /></motion.span>
+            <h3 className="mt-5 text-xl font-semibold tracking-tight">Message sent</h3>
+            <p className="mt-1.5 text-sm text-muted-foreground">Thanks {v.name.split(" ")[0]}. We will write back to {v.email} soon.</p>
+            <button type="button" onClick={() => { setState("idle"); setV({ name: "", email: "", topic: TOPICS[0], message: "" }); setTouched({}); }} className="mt-6 text-sm underline underline-offset-4 text-muted-foreground hover:text-foreground">Send another</button>
+          </motion.div>
+        ) : (
+          <motion.form key="form" onSubmit={submit} noValidate initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+            <div><h3 className="text-xl font-semibold tracking-tight">{title}</h3><p className="mt-1 text-sm text-muted-foreground">{text}</p></div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {([["name", "Name", "text", "Ada Lovelace"], ["email", "Email", "email", "ada@company.com"]] as const).map(([k, label, type, ph]) => (
+                <label key={k} className="block text-sm font-medium">
+                  {label}
+                  <input type={type} value={v[k]} onChange={set(k)} onBlur={blur(k)} placeholder={ph} aria-invalid={!!show(k)} className={cn(input, "mt-1.5 h-11 font-normal")} />
+                  <AnimatePresence>{show(k) && <motion.span initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="block overflow-hidden pt-1 text-xs font-normal text-destructive">{err[k]}</motion.span>}</AnimatePresence>
+                </label>
+              ))}
+            </div>
+            <label className="block text-sm font-medium">Topic
+              <select value={v.topic} onChange={set("topic")} className={cn(input, "mt-1.5 h-11 font-normal")}>{TOPICS.map((t) => <option key={t}>{t}</option>)}</select>
+            </label>
+            <label className="block text-sm font-medium">Message
+              <textarea value={v.message} onChange={set("message")} onBlur={blur("message")} rows={4} placeholder="How can we help?" aria-invalid={!!show("message")} className={cn(input, "mt-1.5 resize-none py-3 font-normal")} />
+              <AnimatePresence>{show("message") && <motion.span initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="block overflow-hidden pt-1 text-xs font-normal text-destructive">{err.message}</motion.span>}</AnimatePresence>
+            </label>
+            {state === "error" && <p role="alert" className="rounded-xl bg-destructive/10 px-3.5 py-2.5 text-sm text-destructive">Something went wrong. Please try again.</p>}
+            <button type="submit" disabled={state === "sending"} className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-transform active:scale-[0.98] disabled:opacity-70">
+              {state === "sending" ? <><Loader2 className="size-4 animate-spin" /> Sending</> : <>Send message <ArrowRight className="size-4" /></>}
+            </button>
+          </motion.form>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

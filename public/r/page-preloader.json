@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "page-preloader",
+  "title": "Page Preloader",
+  "description": "A first visit intro: a counter runs to 100, then the curtain lifts away to reveal the page.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/page-preloader.tsx",
+      "content": "\"use client\";\r\n\r\nimport { useEffect, useState, type ReactNode } from \"react\";\r\nimport { AnimatePresence, animate, motion, useMotionValue, useTransform } from \"framer-motion\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * A first visit intro. A counter runs from 0 to 100 beside a thin progress line, then the whole\r\n * curtain lifts away to reveal the page. It only plays when `show` is true, so you decide how often\r\n * (for example once per session). `contained` keeps it inside a relatively positioned parent.\r\n */\r\nexport function PagePreloader({\r\n  show,\r\n  onDone,\r\n  logo = <span className=\"text-3xl font-semibold tracking-tight\">Northwind</span>,\r\n  duration = 1.8,\r\n  contained = false,\r\n  className,\r\n}: {\r\n  show: boolean;\r\n  onDone?: () => void;\r\n  logo?: ReactNode;\r\n  duration?: number;\r\n  contained?: boolean;\r\n  className?: string;\r\n}) {\r\n  const [leaving, setLeaving] = useState(false);\r\n  const n = useMotionValue(0);\r\n  const label = useTransform(n, (v) => String(Math.round(v)).padStart(3, \"0\"));\r\n  const bar = useTransform(n, (v) => v / 100);\r\n\r\n  useEffect(() => {\r\n    if (!show) return;\r\n    n.set(0);\r\n    const c = animate(n, 100, { duration, ease: [0.65, 0, 0.35, 1], onComplete: () => { setLeaving(true); } });\r\n    return () => c.stop();\r\n  }, [show, duration, n]);\r\n\r\n  useEffect(() => {\r\n    if (!leaving) return;\r\n    const t = setTimeout(() => { setLeaving(false); onDone?.(); }, 900);\r\n    return () => clearTimeout(t);\r\n  }, [leaving, onDone]);\r\n\r\n  return (\r\n    <AnimatePresence>\r\n      {show && (\r\n        <motion.div\r\n          initial={{ y: 0 }}\r\n          animate={{ y: leaving ? \"-100%\" : 0 }}\r\n          exit={{ y: \"-100%\" }}\r\n          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}\r\n          className={cn(contained ? \"absolute\" : \"fixed\", \"inset-0 z-[90] flex flex-col items-center justify-center bg-foreground text-background\", className)}\r\n        >\r\n          <motion.div animate={{ opacity: leaving ? 0 : 1, y: leaving ? -12 : 0 }} transition={{ duration: 0.4 }} className=\"flex flex-col items-center\">\r\n            {logo}\r\n            <div className=\"mt-8 h-px w-56 overflow-hidden bg-background/20\">\r\n              <motion.div style={{ scaleX: bar }} className=\"h-full origin-left bg-background\" />\r\n            </div>\r\n            <motion.p className=\"mt-3 text-sm tabular-nums tracking-[0.3em] opacity-70\">{label}</motion.p>\r\n          </motion.div>\r\n        </motion.div>\r\n      )}\r\n    </AnimatePresence>\r\n  );\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "ink"
+  },
+  "docs": "import { PagePreloader } from \"@/components/page-preloader\"\n\n<PagePreloader show={show} onDone={() => setShow(false)} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}
