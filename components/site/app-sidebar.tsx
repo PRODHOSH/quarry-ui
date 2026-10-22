@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   FileText,
+  GraduationCap,
   Home,
   LayoutDashboard,
   LayoutTemplate,
@@ -54,7 +55,7 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
   Blog: Newspaper,
   Startup: BookOpen,
 };
-const TEMPLATE_ICONS: Record<string, LucideIcon> = { "ai-chat": Bot, "file-manager": FileText };
+const TEMPLATE_ICONS: Record<string, LucideIcon> = { "ai-chat": Bot, "file-manager": FileText, lms: GraduationCap };
 
 const TEMPLATE_GROUPS: { title: string; items: string[] }[] = [
   { title: "Applications", items: ["Dashboard", "Chat", "AI", "Admin panel", "SaaS"] },

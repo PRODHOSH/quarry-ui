@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { BookmarkButton } from "@/components/auth/bookmark-button";
-import { LivePreview } from "@/components/site/live-preview";
+import { TemplateThumb } from "@/components/site/template-thumb";
 
 type T = { name: string; title: string; description: string; preview: string; tags: string[]; routes: number; files: number };
 
@@ -33,7 +33,7 @@ export function TemplatesBrowser({ templates }: { templates: T[] }) {
         {shown.map((t) => (
           <li key={t.name} className="group min-w-0">
             <div className="relative">
-              <LivePreview src={t.preview} title={t.title} />
+              <TemplateThumb name={t.name} title={t.title} />
               <Link href={`/templates/${t.name}`} aria-label={`${t.title} details`} className="absolute inset-0 z-10 rounded-2xl" />
               <a href={t.preview} target="_blank" rel="noreferrer" className="absolute right-3 top-3 z-20 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium opacity-0 shadow-lg backdrop-blur transition-all duration-300 group-hover:opacity-100">
                 View preview <ArrowUpRight className="size-3.5" />

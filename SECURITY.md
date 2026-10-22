@@ -4,7 +4,7 @@ Quarry UI is copied into other people's projects, so a problem here can travel. 
 
 ## Supported versions
 
-Quarry UI is a registry, not a versioned package. The `main` branch and the live site at [quarryui.tech](https://quarryui.tech) are the only supported versions. Fixes are published there, and you get them by running the install command again for the affected component.
+Quarry UI is a registry, not a versioned package. The `main` branch and the live site at [quarry-ui.vercel.app](https://quarry-ui.vercel.app) are the only supported versions. Fixes are published there, and you get them by running the install command again for the affected component.
 
 ## Reporting a vulnerability
 

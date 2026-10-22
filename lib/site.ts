@@ -1,6 +1,6 @@
 export const SITE_NAME = "Quarry UI";
 export const SITE_TAGLINE = "Free, open source UI components and templates";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://quarryui.tech";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://quarry-ui.vercel.app";
 
 export const registryUrl = (name: string) => `${SITE_URL}/r/${name}.json`;
 

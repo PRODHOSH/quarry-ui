@@ -43,7 +43,7 @@
     "type": "git",
     "url": "git+https://github.com/PRODHOSH/quarry-ui.git"
   },
-  "homepage": "https://quarryui.tech",
+  "homepage": "https://quarry-ui.vercel.app",
   "bugs": {
     "url": "https://github.com/PRODHOSH/quarry-ui/issues"
   },

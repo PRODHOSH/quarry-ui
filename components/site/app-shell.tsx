@@ -15,7 +15,7 @@ type SidebarProps = Omit<ComponentProps<typeof AppSidebar>, "children">;
  */
 export function AppShell({ children, ...sidebar }: SidebarProps & { children: ReactNode }) {
   const pathname = usePathname();
-  if (pathname.startsWith("/preview")) return <>{children}</>;
+  if (pathname.startsWith("/preview") || pathname.startsWith("/thumb")) return <>{children}</>;
   return (
     <AuthProvider>
       <AppSidebar {...sidebar}>

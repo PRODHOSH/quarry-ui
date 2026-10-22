@@ -47,7 +47,7 @@ export function ScrollStory() {
   const q = ramp(p, B, C); // inside the Antigravity phase
   const antiFrame = q < 0.34 ? 0 : q < 0.7 ? 1 : 2;
 
-  const label = p < A ? "quarryui.tech" : p < B ? "Claude Code" : p < C ? "Antigravity IDE" : "Your app";
+  const label = p < A ? "quarry-ui.vercel.app" : p < B ? "Claude Code" : p < C ? "Antigravity IDE" : "Your app";
   const labelIcon = p < A ? null : p < B ? AGENT_ICONS["claude-code"]("size-4") : p < C ? <AntigravityIcon className="size-4" /> : null;
   const caption =
     p < A ? "Real screenshot of the component page" : p < B ? "Real Claude Code session, replayed byte for byte" : p < C ? "Real Antigravity IDE, Gemini agent" : "The installed component, running in a real Next.js app";

@@ -3,7 +3,7 @@
  * and the font it was designed with. The site applies it around the live preview, and the component
  * page shows it so you can copy it into your own app.
  */
-export type ThemeId = "studio" | "circuit" | "harbor" | "verdant" | "terminal" | "rosewater" | "signal" | "sunset" | "blueprint" | "ink" | "obsidian" | "porcelain" | "ember" | "glacier" | "noir" | "sage" | "vault" | "converse";
+export type ThemeId = "studio" | "circuit" | "harbor" | "verdant" | "terminal" | "rosewater" | "signal" | "sunset" | "blueprint" | "ink" | "obsidian" | "porcelain" | "ember" | "glacier" | "noir" | "sage" | "vault" | "converse" | "scholar";
 
 export type Theme = {
   id: ThemeId;
@@ -361,6 +361,32 @@ export const THEMES: Record<ThemeId, Theme> = {
       "--chart-3": "#d6b4ff",
       "--chart-4": "#5ee0a0",
       "--chart-5": "#ff9ccb",
+    }),
+  },
+  scholar: {
+    id: "scholar",
+    name: "Scholar",
+    font: { label: "Manrope", variable: "--font-manrope", fallback: "sans-serif" },
+    mode: "light",
+    vars: base({
+      "--background": "#ffffff",
+      "--foreground": "#12141f",
+      "--card": "#ffffff",
+      "--card-foreground": "#12141f",
+      "--muted": "#f3f4f8",
+      "--muted-foreground": "#6b7080",
+      "--border": "#e6e8ef",
+      "--primary": "#5b45e8",
+      "--primary-foreground": "#ffffff",
+      "--accent": "#ecebfb",
+      "--accent-foreground": "#12141f",
+      "--ring": "#5b45e8",
+      "--destructive": "#ef4444",
+      "--chart-1": "#5b45e8",
+      "--chart-2": "#f5a623",
+      "--chart-3": "#ec4899",
+      "--chart-4": "#22b573",
+      "--chart-5": "#2bb8c9",
     }),
   },
   converse: {

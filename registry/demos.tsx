@@ -184,7 +184,7 @@ function MorphingNavbarDemo() {
 function ToastStackDemo() {
   const { toasts, push, dismiss } = useToastStack();
   const samples = [
-    { title: "Deployment finished", description: "quarryui.tech is live", tone: "success" as const },
+    { title: "Deployment finished", description: "quarry-ui.vercel.app is live", tone: "success" as const },
     { title: "New comment on Hero", description: "Priya left a note", tone: "info" as const },
     { title: "Build is slower than usual", description: "2m 14s, usually 40s", tone: "warning" as const },
   ];

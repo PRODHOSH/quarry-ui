@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Shelf } from "@/components/home/row";
 import { ComponentCard } from "@/components/site/component-card";
-import { LivePreview } from "@/components/site/live-preview";
+import { TemplateThumb } from "@/components/site/template-thumb";
 import { getItem, getItems, ownerOf } from "@/lib/registry";
 import { getDesign, getDesignIndex } from "@/lib/design";
 
@@ -74,7 +74,7 @@ export function HomeDashboard() {
           {templates.map((t) => (
             <li key={t.name} className="group relative w-[26rem] shrink-0">
               <div className="transition-transform duration-300 group-hover:-translate-y-1">
-                <LivePreview src={t.meta.preview ?? ""} title={t.title} />
+                <TemplateThumb name={t.name} title={t.title} />
               </div>
               <p className="mt-3 flex items-center justify-between text-sm text-muted-foreground transition-colors group-hover:text-foreground">
                 {t.title} <ArrowUpRight className="size-4" />
