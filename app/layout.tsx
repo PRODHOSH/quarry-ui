@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     "A free library of production-ready React components and templates. Install with shadcn or hand a prompt to your AI tool.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const all = getGroups();
   const plain = (id: string) => (all.find((g) => g.id === id)?.items ?? []).map(({ name, title }) => ({ name, title }));
   const groups = all
