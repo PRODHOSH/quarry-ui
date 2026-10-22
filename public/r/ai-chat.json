@@ -37,7 +37,7 @@
     },
     {
       "path": "registry/templates/ai-chat/layout.tsx",
-      "content": "import { Suspense } from \"react\";\r\nimport { ChatShell } from \"@/components/ai-chat/shell\";\r\n\r\nexport default function AiChatLayout({ children }: { children: React.ReactNode }) {\r\n  return (\r\n    <div className=\"h-screen\">\r\n      <Suspense fallback={null}>\r\n        <ChatShell>{children}</ChatShell>\r\n      </Suspense>\r\n    </div>\r\n  );\r\n}\r\n",
+      "content": "import { Suspense } from \"react\";\nimport { ChatShell } from \"@/components/ai-chat/shell\";\n\nexport default function AiChatLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <div className=\"h-screen\">\n      <Suspense fallback={null}>\n        <ChatShell>{children}</ChatShell>\n      </Suspense>\n    </div>\n  );\n}\n",
       "type": "registry:page",
       "target": "app/ai-chat/layout.tsx"
     },

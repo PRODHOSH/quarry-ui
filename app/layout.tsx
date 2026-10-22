@@ -24,6 +24,7 @@ import {
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import { AppShell } from "@/components/site/app-shell";
 import { getDesignIndex } from "@/lib/design";
 import { getGroups } from "@/lib/registry";
@@ -96,6 +97,7 @@ gtag("config", "${GA_ID}");`}</Script>
             {children}
           </AppShell>
         </Suspense>
+        <Analytics />
       </body>
     </html>
   );
