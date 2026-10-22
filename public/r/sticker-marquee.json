@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sticker-marquee",
+  "title": "Sticker Marquee",
+  "description": "Two rows of tilted stickers sliding in opposite directions, pausing on hover. Pure CSS.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/sticker-marquee.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\nconst SKILLS = [\n  \"Next.js\", \"React\", \"TypeScript\", \"Tailwind\", \"Framer Motion\", \"Three.js\", \"Figma\", \"Node.js\", \"Python\", \"PostgreSQL\",\n  \"Supabase\", \"Docker\", \"Vercel\", \"Design systems\", \"Accessibility\", \"SEO\", \"Prototyping\", \"Testing\",\n];\nconst TONE = [\n  \"bg-background text-primary\",\n  \"bg-foreground text-background\",\n  \"text-primary-foreground ring-[3px] ring-inset ring-primary-foreground\",\n];\n\nfunction Row({ items, reverse, offset }: { items: string[]; reverse?: boolean; offset: number }) {\n  return (\n    <div className=\"group overflow-hidden py-3\">\n      <div className={cn(\"flex w-max motion-reduce:animate-none group-hover:[animation-play-state:paused]\", reverse ? \"[animation:qmq_44s_linear_infinite_reverse]\" : \"[animation:qmq_38s_linear_infinite]\")} aria-hidden={reverse || undefined}>\n        {[0, 1].map((k) => (\n          <ul key={k} className=\"flex shrink-0 gap-3.5 pr-3.5\">\n            {items.map((s, i) => (\n              <li\n                key={s}\n                style={{ rotate: `${((i * 7 + offset * 3) % 9) - 4}deg` }}\n                className={cn(\n                  \"whitespace-nowrap rounded-full px-[0.95em] pb-[0.3em] pt-[0.35em] font-[family-name:var(--font-anton)] text-[clamp(1.8rem,4.6vw,4.4rem)] uppercase leading-[1.1] transition-all duration-500 hover:!rotate-0 hover:scale-105 hover:bg-foreground hover:text-background\",\n                  TONE[(i + offset) % 3]\n                )}\n              >\n                {s}\n              </li>\n            ))}\n          </ul>\n        ))}\n      </div>\n    </div>\n  );\n}\n\n/**\n * Two rows of tilted stickers that slide in opposite directions. The first row speeds along, the\n * second goes back the other way, and either one pauses while the pointer is over it. It is pure\n * CSS, so it costs nothing to run and stops for people who prefer less motion.\n */\nexport function StickerMarquee({ title = [\"Tools of\", \"the trade\"], items = SKILLS, className }: { title?: [string, string]; items?: string[]; className?: string }) {\n  const half = Math.ceil(items.length / 2);\n  return (\n    <section className={cn(\"w-full overflow-hidden bg-primary py-16 text-primary-foreground\", className)}>\n      <style>{\"@keyframes qmq{to{transform:translateX(-50%)}}\"}</style>\n      <h2 className=\"mb-8 px-6 text-center font-[family-name:var(--font-anton)] text-[clamp(2.6rem,9vw,8rem)] uppercase leading-[0.95]\">\n        <span className=\"block\">{title[0]}</span>\n        <span className=\"block text-foreground\">{title[1]}</span>\n      </h2>\n      <Row items={items.slice(0, half)} offset={0} />\n      <Row items={items.slice(half)} reverse offset={1} />\n    </section>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "flare"
+  },
+  "docs": "import { StickerMarquee } from \"@/components/sticker-marquee\"\n\n<StickerMarquee items={skills} />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:component"
+}

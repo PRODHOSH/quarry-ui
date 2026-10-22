@@ -5,7 +5,7 @@
  * Items that need a surrounding scene (a scroll area, a fake page) get a small wrapper here;
  * the component files in ./quarry stay clean and portable.
  */
-import { useRef, useState, type ComponentType } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import dynamic from "next/dynamic";
 import { AuthModal } from "./quarry/auth-modal";
 import { FloatingSocials } from "./quarry/floating-socials";
@@ -28,6 +28,8 @@ import { CommandMenu } from "./quarry/command-menu";
 import { CookieBanner } from "./quarry/cookie-banner";
 import { MorphingNavbar } from "./quarry/morphing-navbar";
 import { RewardsList } from "./quarry/rewards-list";
+import { ScrollStatement } from "./quarry/scroll-statement";
+import { ServicePath } from "./quarry/service-path";
 import { StickyStack } from "./quarry/sticky-stack";
 import { ParallaxGallery } from "./quarry/parallax-gallery";
 import { CartDrawer } from "./quarry/cart-drawer";
@@ -181,6 +183,26 @@ function ParallaxGalleryDemo() {
 }
 function StickyStackDemo() {
   return <div className="h-[34rem] w-full overflow-y-auto scrollbar-none"><StickyStack /></div>;
+}
+
+/** Scroll driven demos need a scroll area of their own, set part way so the still shows the effect. */
+function useScrolled(frac: number) {
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const id = setTimeout(() => { el.scrollTop = (el.scrollHeight - el.clientHeight) * frac; }, 250);
+    return () => clearTimeout(id);
+  }, [frac]);
+  return box;
+}
+function ScrollStatementDemo() {
+  const box = useScrolled(0.66);
+  return <div ref={box} className="h-[34rem] w-full overflow-y-auto scrollbar-none"><ScrollStatement container={box} stage="34rem" track={3.5} /></div>;
+}
+function ServicePathDemo() {
+  const box = useScrolled(0.4);
+  return <div ref={box} className="h-[34rem] w-full overflow-y-auto scrollbar-none"><ServicePath container={box} /></div>;
 }
 
 function CommandMenuDemo() {
@@ -374,6 +396,10 @@ export const DEMOS: Record<string, ComponentType> = {
   "custom-select": dynamic(() => import("./quarry/custom-select").then((m) => m.CustomSelect)),
   "page-preloader": PagePreloaderDemo,
   "floating-chat": FloatingChatDemo,
+  "scroll-statement": ScrollStatementDemo,
+  "service-path": ServicePathDemo,
+  "sticker-marquee": dynamic(() => import("./quarry/sticker-marquee").then((m) => m.StickerMarquee)),
+  "cert-stack": dynamic(() => import("./quarry/cert-stack").then((m) => m.CertStack)),
   "floating-socials": FloatingSocialsDemo,
   "scroll-reveal-pill": ScrollRevealPillDemo,
   "auth-modal": AuthModalDemo,

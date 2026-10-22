@@ -3,7 +3,7 @@
  * and the font it was designed with. The site applies it around the live preview, and the component
  * page shows it so you can copy it into your own app.
  */
-export type ThemeId = "studio" | "circuit" | "harbor" | "verdant" | "terminal" | "rosewater" | "signal" | "sunset" | "blueprint" | "ink" | "obsidian" | "porcelain" | "ember" | "glacier" | "noir" | "sage" | "vault" | "converse" | "scholar";
+export type ThemeId = "studio" | "circuit" | "harbor" | "verdant" | "terminal" | "rosewater" | "signal" | "sunset" | "blueprint" | "ink" | "obsidian" | "porcelain" | "ember" | "glacier" | "noir" | "sage" | "vault" | "converse" | "scholar" | "flare";
 
 export type Theme = {
   id: ThemeId;
@@ -361,6 +361,27 @@ export const THEMES: Record<ThemeId, Theme> = {
       "--chart-3": "#d6b4ff",
       "--chart-4": "#5ee0a0",
       "--chart-5": "#ff9ccb",
+    }),
+  },
+  flare: {
+    id: "flare",
+    name: "Flare",
+    font: { label: "Hanken Grotesk", variable: "--font-hanken", fallback: "sans-serif" },
+    mode: "light",
+    vars: base({
+      "--background": "#f8eee8",
+      "--foreground": "#0b0b0b",
+      "--card": "#fdf8f5",
+      "--card-foreground": "#0b0b0b",
+      "--muted": "#f1e3da",
+      "--muted-foreground": "#6d5f58",
+      "--border": "#e4d3c8",
+      "--primary": "#ff5400",
+      "--primary-foreground": "#fdf8f5",
+      "--accent": "#fcae88",
+      "--accent-foreground": "#0b0b0b",
+      "--ring": "#ff5400",
+      "--destructive": "#d93636",
     }),
   },
   scholar: {

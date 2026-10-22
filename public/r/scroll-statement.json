@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-statement",
+  "title": "Scroll Statement",
+  "description": "A pinned statement that fills word by word as you scroll, with badges that pop in and keep bobbing.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/scroll-statement.tsx",
+      "content": "\"use client\";\n\nimport { useRef, useState, type RefObject } from \"react\";\nimport { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst STATEMENT = \"I am Sam Rivera, a freelance developer and designer. I turn ideas into websites, apps and software that look sharp, scale well and actually ship.\";\nconst PILLS = [\"Open for freelance\", \"Allergic to generic\", \"Ships, then polishes\"];\nconst POS = [\"left-[2%] top-[4%]\", \"right-[0%] top-[44%]\", \"left-[10%] bottom-[2%]\"];\nconst ROT = [-5, 4, -3];\n\nconst clamp = (v: number) => Math.min(1, Math.max(0, v));\n/** Peach, then the accent, then the ink colour, mixed in the browser so it follows any theme. */\nfunction wordColor(t: number) {\n  return t < 0.5\n    ? `color-mix(in oklab, var(--primary) ${Math.round(t * 200)}%, var(--accent))`\n    : `color-mix(in oklab, var(--foreground) ${Math.round((t - 0.5) * 200)}%, var(--primary))`;\n}\n\nfunction Pill({ progress, at, rotate, className, children }: { progress: MotionValue<number>; at: number; rotate: number; className: string; children: React.ReactNode }) {\n  const scale = useTransform(progress, [at, at + 0.1, at + 0.14], [0, 1.12, 1]);\n  const turn = useTransform(progress, [at, at + 0.14], [0, rotate]);\n  return (\n    <motion.span style={{ scale, rotate: turn }} className={cn(\"absolute hidden sm:block\", className)}>\n      <motion.span animate={{ y: [0, -10, 0] }} transition={{ duration: 3 + at * 3, repeat: Infinity, ease: \"easeInOut\" }} className=\"block whitespace-nowrap rounded-full border-2 border-foreground bg-card px-4 py-1.5 text-sm font-semibold shadow-[3px_3px_0_0_var(--foreground)]\">\n        {children}\n      </motion.span>\n    </motion.span>\n  );\n}\n\n/**\n * A pinned statement that fills in word by word as you scroll. Each word moves from a pale tint to\n * the accent colour to solid ink, and badges pop in around it and keep bobbing. The screen holds\n * still while it plays, then lets go. Pass `container` when it sits inside a scrolling box.\n */\nexport function ScrollStatement({\n  eyebrow = \"A bit about me\",\n  statement = STATEMENT,\n  pills = PILLS,\n  container,\n  stage = \"100vh\",\n  track = 3,\n  className,\n}: {\n  eyebrow?: string;\n  statement?: string;\n  pills?: string[];\n  container?: RefObject<HTMLElement | null>;\n  /** Height of the pinned screen. Any CSS length. */\n  stage?: string;\n  /** Scroll distance, as a multiple of the stage height. */\n  track?: number;\n  className?: string;\n}) {\n  const wrap = useRef<HTMLDivElement>(null);\n  const { scrollYProgress } = useScroll({ target: wrap, container, offset: [\"start start\", \"end end\"] });\n  const [p, setP] = useState(0);\n  useMotionValueEvent(scrollYProgress, \"change\", setP);\n  const words = statement.split(\" \");\n  // the words finish at 80% of the scroll, leaving a moment where the finished sentence rests\n  const fill = clamp(p / 0.8) * words.length;\n\n  return (\n    <div ref={wrap} style={{ height: `calc(${stage} * ${track})` }} className={cn(\"relative w-full\", className)}>\n      <div style={{ height: stage }} className=\"sticky top-0 grid place-items-center overflow-hidden px-6\">\n        <div className=\"w-full max-w-4xl\">\n          <p className=\"text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground\">{eyebrow}</p>\n          <div className=\"relative mt-6 pb-8 pt-4\">\n            <p className=\"font-[family-name:var(--font-anton)] text-[clamp(1.9rem,5vw,3.9rem)] leading-[1.12] tracking-tight\">\n              {words.map((w, i) => (\n                <span key={i} style={{ color: wordColor(clamp(fill - i)) }}>{w} </span>\n              ))}\n            </p>\n            {pills.slice(0, 3).map((t, i) => (\n              <Pill key={t} progress={scrollYProgress} at={[0.24, 0.48, 0.7][i]} rotate={ROT[i]} className={POS[i]}>{t}</Pill>\n            ))}\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "flare"
+  },
+  "docs": "import { ScrollStatement } from \"@/components/scroll-statement\"\n\n<ScrollStatement statement=\"I am Sam Rivera, a freelance developer.\" />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:component"
+}

@@ -3203,6 +3203,110 @@
         "stage": "fill",
         "theme": "verdant"
       }
+    },
+    {
+      "name": "scroll-statement",
+      "type": "registry:component",
+      "title": "Scroll Statement",
+      "description": "A pinned statement that fills word by word as you scroll, with badges that pop in and keep bobbing.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/scroll-statement.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ScrollStatement } from \"@/components/scroll-statement\"\n\n<ScrollStatement statement=\"I am Sam Rivera, a freelance developer.\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "flare"
+      }
+    },
+    {
+      "name": "service-path",
+      "type": "registry:component",
+      "title": "Service Path",
+      "description": "Explain your services with a line that draws itself as you scroll, loops the loop and picks up one service at a time.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/service-path.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ServicePath } from \"@/components/service-path\"\n\n<ServicePath services={services} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "flare"
+      }
+    },
+    {
+      "name": "sticker-marquee",
+      "type": "registry:component",
+      "title": "Sticker Marquee",
+      "description": "Two rows of tilted stickers sliding in opposite directions, pausing on hover. Pure CSS.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/sticker-marquee.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { StickerMarquee } from \"@/components/sticker-marquee\"\n\n<StickerMarquee items={skills} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "flare"
+      }
+    },
+    {
+      "name": "cert-stack",
+      "type": "registry:component",
+      "title": "Certificate Stack",
+      "description": "A pile of tilted certificate cards that flick through: the top one spins off and slides to the back.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/cert-stack.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CertStack } from \"@/components/cert-stack\"\n\n<CertStack certs={certs} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "flare"
+      }
     }
   ]
 }

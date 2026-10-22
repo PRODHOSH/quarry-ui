@@ -10,6 +10,8 @@ import {
   Instrument_Serif,
   JetBrains_Mono,
   Manrope,
+  Anton,
+  Hanken_Grotesk,
   Orbitron,
   Outfit,
   Playfair_Display,
@@ -40,12 +42,14 @@ const chakra = Chakra_Petch({ subsets: ["latin"], preload: false, weight: ["400"
 const poppins = Poppins({ subsets: ["latin"], preload: false, weight: ["400", "500", "600", "700"], variable: "--font-poppins" });
 const plex = IBM_Plex_Sans({ subsets: ["latin"], preload: false, weight: ["400", "500", "600"], variable: "--font-plex" });
 const manrope = Manrope({ subsets: ["latin"], preload: false, variable: "--font-manrope" });
+const anton = Anton({ subsets: ["latin"], preload: false, weight: "400", variable: "--font-anton" });
+const hanken = Hanken_Grotesk({ subsets: ["latin"], preload: false, variable: "--font-hanken" });
 const dmSans = DM_Sans({ subsets: ["latin"], preload: false, variable: "--font-dm-sans" });
 const syne = Syne({ subsets: ["latin"], preload: false, variable: "--font-syne" });
 const outfit = Outfit({ subsets: ["latin"], preload: false, variable: "--font-outfit" });
 const playfair = Playfair_Display({ subsets: ["latin"], preload: false, variable: "--font-playfair" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], preload: false, variable: "--font-grotesk" });
-const presetFonts = [instrument, orbitron, sora, fraunces, jetbrains, bricolage, chakra, poppins, plex, grotesk, syne, outfit, playfair, dmSans, manrope].map((f) => f.variable).join(" ");
+const presetFonts = [instrument, orbitron, sora, fraunces, jetbrains, bricolage, chakra, poppins, plex, grotesk, syne, outfit, playfair, dmSans, manrope, anton, hanken].map((f) => f.variable).join(" ");
 const generalSans = localFont({
   src: [
     { path: "./fonts/GeneralSans-400.woff2", weight: "400" },
