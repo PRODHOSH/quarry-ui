@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 /** Every public page: the sections, each component, template, background, loader and design system. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const top = ["", "/components", "/templates", "/backgrounds", "/loaders", "/design", "/waitlist"].map((p) => ({
+  const top = ["", "/components", "/templates", "/backgrounds", "/loaders", "/design", "/waitlist", "/terms", "/privacy"].map((p) => ({
     url: `${SITE_URL}${p}`,
     lastModified: now,
     changeFrequency: "weekly" as const,

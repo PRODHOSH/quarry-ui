@@ -368,6 +368,10 @@ export function AppSidebar({ groups, templates, backgrounds, loaders, designs, c
           </div>
           <Link href="/bookmarks" className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"><Bookmark className="size-4" /> Bookmarks</Link>
         </div>
+        <div className="flex shrink-0 gap-3 px-6 pb-3 text-xs text-muted-foreground">
+          <Link href="/terms" className="transition-colors hover:text-foreground">Terms</Link>
+          <Link href="/privacy" className="transition-colors hover:text-foreground">Privacy</Link>
+        </div>
       </aside>
       <div className="min-w-0 flex-1">{children}</div>
     </div>

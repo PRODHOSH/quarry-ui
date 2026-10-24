@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { Loader2, X } from "lucide-react";
 import { Logo } from "@/components/site/logo";
 import { useAuth, type Provider } from "@/components/auth/auth-provider";
@@ -100,7 +101,7 @@ export function SignInDialog() {
             )}
 
             <p className="mt-6 text-center text-xs leading-relaxed text-muted-foreground">
-              By continuing you agree to use Quarry UI kindly. We only store your name, email and bookmarks.
+              By continuing you agree to our <Link href="/terms" onClick={closeSignIn} className="underline underline-offset-4 hover:text-foreground">Terms</Link> and <Link href="/privacy" onClick={closeSignIn} className="underline underline-offset-4 hover:text-foreground">Privacy Policy</Link>. We only store your name, email and bookmarks.
             </p>
           </motion.div>
         </motion.div>
