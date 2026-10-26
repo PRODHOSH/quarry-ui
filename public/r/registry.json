@@ -3307,6 +3307,121 @@
         "stage": "fill",
         "theme": "flare"
       }
+    },
+    {
+      "name": "ascii-aquarium",
+      "type": "registry:component",
+      "title": "ASCII Aquarium",
+      "description": "Sharks, a hammerhead, manta, whale, jellyfish or a school of sardines swimming as live ASCII. Six colourways, tiles or plain glyphs, and animals that steer around your content and the cursor.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/ascii-aquarium.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AsciiAquarium } from \"@/components/ascii-aquarium\"\n\n<div className=\"h-screen\">\n  <AsciiAquarium animal=\"shark\" colorway=\"abyss\">\n    <h1>Your headline</h1>\n  </AsciiAquarium>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "abyss"
+      }
+    },
+    {
+      "name": "abyss",
+      "type": "registry:block",
+      "title": "Abyss",
+      "description": "An AI assistant home with a live ASCII creature swimming behind the prompt, plus matching sign in and sign up pages. Choose a shark, a jellyfish, a flock of birds, a cat or a dog, tune the colours and pace, and keep your choice.",
+      "categories": [
+        "templates"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "lib/abyss/settings.tsx",
+          "type": "registry:lib",
+          "target": "lib/abyss/settings.tsx"
+        },
+        {
+          "path": "lib/abyss/data.ts",
+          "type": "registry:lib",
+          "target": "lib/abyss/data.ts"
+        },
+        {
+          "path": "registry/quarry/ascii-aquarium.tsx",
+          "type": "registry:component",
+          "target": "components/abyss/ascii-aquarium.tsx"
+        },
+        {
+          "path": "components/abyss/logo.tsx",
+          "type": "registry:component",
+          "target": "components/abyss/logo.tsx"
+        },
+        {
+          "path": "components/abyss/appearance.tsx",
+          "type": "registry:component",
+          "target": "components/abyss/appearance.tsx"
+        },
+        {
+          "path": "components/abyss/chat.tsx",
+          "type": "registry:component",
+          "target": "components/abyss/chat.tsx"
+        },
+        {
+          "path": "components/abyss/auth.tsx",
+          "type": "registry:component",
+          "target": "components/abyss/auth.tsx"
+        },
+        {
+          "path": "registry/templates/abyss/layout.tsx",
+          "type": "registry:page",
+          "target": "app/abyss/layout.tsx"
+        },
+        {
+          "path": "app/preview/abyss/page.tsx",
+          "type": "registry:page",
+          "target": "app/abyss/page.tsx"
+        },
+        {
+          "path": "app/preview/abyss/login/page.tsx",
+          "type": "registry:page",
+          "target": "app/abyss/login/page.tsx"
+        },
+        {
+          "path": "app/preview/abyss/signup/page.tsx",
+          "type": "registry:page",
+          "target": "app/abyss/signup/page.tsx"
+        }
+      ],
+      "docs": "Installs a small app under app/abyss. Run your dev server and open /abyss, /abyss/login and /abyss/signup. Replace replyFor in lib/abyss/data.ts with your model API and connect the two forms in components/abyss/auth.tsx to your auth service.\n\nThe scene reads your theme tokens by default. Pass colorway=\"abyss\" (or mono, ember, kelp, dusk, paper) to AbyssRoot to fix the colours.",
+      "meta": {
+        "stage": "fill",
+        "theme": "abyss",
+        "preview": "/preview/abyss",
+        "route": "/abyss",
+        "routes": [
+          "/",
+          "/login",
+          "/signup"
+        ],
+        "tags": [
+          "AI",
+          "Chat",
+          "Auth",
+          "ASCII"
+        ]
+      }
     }
   ]
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { Fish as QFish } from "lucide-react";
+
 import { Type as QType, Route as QRoute, Stamp as QStamp, Award as QAward } from "lucide-react";
 
 import { ChevronsUpDown as QChevronsUpDown, Heart as QHeart, Images as QImages, Layers as QLayers, Loader as QLoader, Mail as QMail, MessageCircleMore as QMessageCircleMore, ShoppingBag as QShoppingBag, ShoppingCart as QShoppingCart, Smile as QSmile, Ticket as QTicket } from "lucide-react";
@@ -142,6 +144,7 @@ export const ICONS: Record<string, LucideIcon> = {
   "ai-chat": MessageCircleQuestion,
   "file-manager": Folder,
   "flow-field": Route,
+  "ascii-aquarium": QFish,
   "dot-ripple": CircleDot,
   "aurora-mesh": Sparkles,
   "constellation": Share2,
