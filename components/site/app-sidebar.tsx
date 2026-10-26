@@ -28,7 +28,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import { LoaderCircle, Palette, Wallpaper } from "lucide-react";
+import { BookOpenText, LoaderCircle, Palette, Wallpaper, Waves } from "lucide-react";
 import { BrandLogo } from "@/components/design/brand-logo";
 import { Bookmark } from "lucide-react";
 import { useAuth } from "@/components/auth/auth-provider";
@@ -55,7 +55,7 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
   Blog: Newspaper,
   Startup: BookOpen,
 };
-const TEMPLATE_ICONS: Record<string, LucideIcon> = { "ai-chat": Bot, "file-manager": FileText, lms: GraduationCap };
+const TEMPLATE_ICONS: Record<string, LucideIcon> = { "ai-chat": Bot, "file-manager": FileText, lms: GraduationCap, abyss: Waves };
 
 const TEMPLATE_GROUPS: { title: string; items: string[] }[] = [
   { title: "Applications", items: ["Dashboard", "Chat", "AI", "Admin panel", "SaaS"] },
@@ -169,6 +169,7 @@ export function AppSidebar({ groups, templates, backgrounds, loaders, designs, c
           <>
             <nav className="mt-4 space-y-px" aria-label="Menu">
               <Row href="/" active={pathname === "/"} icon={<Home className="size-4 opacity-70" />}>Home</Row>
+              <Row href="/docs/introduction" active={pathname.startsWith("/docs")} icon={<BookOpenText className="size-4 opacity-70" />}>Documentation</Row>
             </nav>
             <Heading>Explore</Heading>
             <div className="space-y-px">

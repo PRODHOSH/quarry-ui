@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getDesignIndex } from "@/lib/design";
+import { getDocs } from "@/lib/docs";
 import { getItems, ownerOf } from "@/lib/registry";
 import { SITE_URL } from "@/lib/site";
 
@@ -8,7 +9,7 @@ export const dynamic = "force-static";
 /** Every public page: the sections, each component, template, background, loader and design system. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const top = ["", "/components", "/templates", "/backgrounds", "/loaders", "/design", "/waitlist", "/terms", "/privacy"].map((p) => ({
+  const top = [...getDocs().map((d) => `/docs/${d.slug}`), "", "/components", "/templates", "/backgrounds", "/loaders", "/design", "/waitlist", "/terms", "/privacy"].map((p) => ({
     url: `${SITE_URL}${p}`,
     lastModified: now,
     changeFrequency: "weekly" as const,

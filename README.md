@@ -40,6 +40,8 @@ export default function Page() {
 
 You need a React project with Tailwind and shadcn/ui. If you have not set shadcn up yet, run `npx shadcn@latest init` once first.
 
+Read the [documentation](https://quarry-ui.vercel.app/docs/introduction) for the full guide, or grab the [PDF](https://quarry-ui.vercel.app/quarry-ui-documentation.pdf).
+
 Prefer an AI tool? Open any component on the site, press **Copy prompt**, and paste it into Claude Code, Cursor, v0 or whatever you use.
 
 ## What is in it
@@ -47,8 +49,8 @@ Prefer an AI tool? Open any component on the site, press **Copy prompt**, and pa
 | | |
 |---|---|
 | **Components** | Sections and elements: footers, pricing, testimonials, navbars, galleries, video, forms and more |
-| **Templates** | Whole apps you install and make your own: AI Chat, File Manager, Learning Platform |
-| **Backgrounds** | Live canvases with controls: starfield, square grid, topo lines, dot globe |
+| **Templates** | Whole apps you install and make your own: AI Chat, File Manager, Learning Platform, Abyss |
+| **Backgrounds** | Live canvases with controls: starfield, square grid, topo lines, dot globe, an ASCII aquarium of sharks, birds and pets |
 | **Loaders** | Small loading motions |
 | **Design systems** | DESIGN.md briefs for 78 well known brands, to hand to your AI tool |
 
@@ -84,7 +86,7 @@ The full checklist is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Roadmap
 
-- [x] Components, backgrounds, loaders and three templates
+- [x] Components, backgrounds, loaders and four templates
 - [x] Copy prompts for the major AI tools
 - [ ] MCP server so agents can install components directly
 - [ ] More templates: landing page, portfolio, blog
