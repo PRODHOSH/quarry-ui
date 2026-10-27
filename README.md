@@ -106,12 +106,12 @@ Pull requests are welcome, from a typo to a whole new component. Read [CONTRIBUT
       <sub>Creator and maintainer</sub>
     </td>
     <td align="center" width="160">
-      <a href="https://claude.com/claude-code"><img src="https://github.com/anthropics.png?size=120" width="72" alt="Claude"></a><br>
+      <a href="https://claude.com/claude-code"><img src="https://avatars.githubusercontent.com/u/81847?s=120&v=4" width="72" alt="Claude"></a><br>
       <a href="https://claude.com/claude-code"><b>Claude</b></a><br>
       <sub>Pair programmer</sub>
     </td>
     <td align="center" width="160">
-      <a href="https://github.com/apps/vercel"><img src="https://github.com/apps/vercel.png?size=120" width="72" alt="Vercel"></a><br>
+      <a href="https://github.com/apps/vercel"><img src="https://avatars.githubusercontent.com/in/8329?s=120&v=4" width="72" alt="Vercel"></a><br>
       <a href="https://github.com/apps/vercel"><b>vercel[bot]</b></a><br>
       <sub>Web analytics setup</sub>
     </td>
