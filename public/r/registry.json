@@ -3422,6 +3422,30 @@
           "ASCII"
         ]
       }
+    },
+    {
+      "name": "ascii-lagoon",
+      "type": "registry:component",
+      "title": "ASCII Lagoon",
+      "description": "A top down Hawaiian lagoon drawn as ASCII cells: turtles, a manta, dolphins, yellow tangs and a humpback over a reef, with a seamless 24.5 second loop and a frosted patch for your content.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/ascii-lagoon.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { AsciiLagoon } from \"@/components/ascii-lagoon\"\n\n<div className=\"h-screen\">\n  <AsciiLagoon>\n    <h1>What is on your mind?</h1>\n  </AsciiLagoon>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
     }
   ]
 }

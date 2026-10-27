@@ -1,6 +1,6 @@
 "use client";
 
-import { Fish as QFish } from "lucide-react";
+import { Fish as QFish, TreePalm as QTreePalm } from "lucide-react";
 
 import { Type as QType, Route as QRoute, Stamp as QStamp, Award as QAward } from "lucide-react";
 
@@ -145,6 +145,7 @@ export const ICONS: Record<string, LucideIcon> = {
   "file-manager": Folder,
   "flow-field": Route,
   "ascii-aquarium": QFish,
+  "ascii-lagoon": QTreePalm,
   "dot-ripple": CircleDot,
   "aurora-mesh": Sparkles,
   "constellation": Share2,

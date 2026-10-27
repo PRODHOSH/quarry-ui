@@ -20,6 +20,12 @@ const choice = (key: string, label: string, value: string, options: [string, str
 const toggle = (key: string, label: string, value: boolean): Control => ({ key, label, type: "toggle", value });
 
 export const PLAYGROUNDS: Record<string, Control[]> = {
+  "ascii-lagoon": [
+    range("speed", "Speed", 1, 0.2, 2.5, 0.1),
+    toggle("glyphs", "Glyphs", true),
+    toggle("frost", "Frosted centre", true),
+    toggle("paused", "Pause", false),
+  ],
   "ascii-aquarium": [
     choice("animal", "Animal", "shark", [["shark", "Shark"], ["hammerhead", "Hammerhead"], ["manta", "Manta"], ["whale", "Whale"], ["jellyfish", "Jellyfish"], ["school", "Sardines"]]),
     choice("colorway", "Colourway", "abyss", [["abyss", "Abyss"], ["mono", "Mono"], ["ember", "Ember"], ["kelp", "Kelp"], ["dusk", "Dusk"], ["paper", "Paper"], ["theme", "Your theme"]]),

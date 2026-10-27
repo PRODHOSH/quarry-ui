@@ -16,6 +16,7 @@ import { AuroraMesh } from "./quarry/aurora-mesh";
 import { Constellation } from "./quarry/constellation";
 import { WaveLines } from "./quarry/wave-lines";
 import { AsciiAquarium } from "./quarry/ascii-aquarium";
+import { AsciiLagoon } from "./quarry/ascii-lagoon";
 import { CompassField } from "./quarry/compass-field";
 import { GlowTrail } from "./quarry/glow-trail";
 import { Starfield } from "./quarry/starfield";
@@ -338,6 +339,7 @@ export const DEMOS: Record<string, ComponentType> = {
   "dot-ripple": bg(DotRipple as ComponentType<Record<string, unknown>>, "Click anywhere", "Push, pull, ripple"),
   "aurora-mesh": bg(AuroraMesh as ComponentType<Record<string, unknown>>, "A quiet kind of light", "Follow the glow"),
   "constellation": bg(Constellation as ComponentType<Record<string, unknown>>, "Everything is connected", "Reach for a point"),
+  "ascii-lagoon": bg(AsciiLagoon as ComponentType<Record<string, unknown>>, "What is on your mind?", "A calm lagoon"),
   "ascii-aquarium": bg(AsciiAquarium as ComponentType<Record<string, unknown>>, "Something is swimming", "Move your cursor"),
   "wave-lines": bg(WaveLines as ComponentType<Record<string, unknown>>, "Pull a ridge through", "Lift the lines"),
   "compass-field": bg(CompassField as ComponentType<Record<string, unknown>>, "Everything points to you", "Move slowly"),

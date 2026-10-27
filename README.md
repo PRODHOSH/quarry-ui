@@ -50,7 +50,7 @@ Prefer an AI tool? Open any component on the site, press **Copy prompt**, and pa
 |---|---|
 | **Components** | Sections and elements: footers, pricing, testimonials, navbars, galleries, video, forms and more |
 | **Templates** | Whole apps you install and make your own: AI Chat, File Manager, Learning Platform, Abyss |
-| **Backgrounds** | Live canvases with controls: starfield, square grid, topo lines, dot globe, an ASCII aquarium of sharks, birds and pets |
+| **Backgrounds** | Live canvases with controls: starfield, square grid, topo lines, dot globe, an ASCII aquarium of sharks, birds and pets, an ASCII lagoon |
 | **Loaders** | Small loading motions |
 | **Design systems** | DESIGN.md briefs for 78 well known brands, to hand to your AI tool |
 

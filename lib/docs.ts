@@ -377,6 +377,54 @@ export default function Hero() {
       ],
     },
     {
+      slug: "ascii-lagoon",
+      group: "Guides",
+      title: "ASCII Lagoon",
+      lead: "A top down Hawaiian lagoon drawn as ASCII cells, on a seamless loop.",
+      blocks: [
+        { t: "p", text: "Turtles, a manta, dolphins, a school of yellow tangs and a humpback swim over a reef while hibiscus and plumeria drift past. Sun bands and caustics move across the water. The whole scene is a pure function of time, and every motion has a whole number of cycles per loop, so the 24.5 second loop repeats without a seam." },
+        { t: "code", lang: "bash", code: `npx shadcn@latest add ${R}/ascii-lagoon.json` },
+        {
+          t: "code",
+          lang: "tsx",
+          code: `import { AsciiLagoon } from "@/components/ascii-lagoon";
+
+export default function Hero() {
+  return (
+    <div className="h-screen">
+      <AsciiLagoon>
+        <h1>What is on your mind?</h1>
+      </AsciiLagoon>
+    </div>
+  );
+}`,
+        },
+        { t: "h3", text: "Props" },
+        {
+          t: "table",
+          head: ["Prop", "Default", "What it does"],
+          rows: [
+            ["`speed`", "`1`", "Playback speed. Can be changed live without a jump."],
+            ["`glyphs`", "`true`", "Draw a character on every cell. Off leaves plain coloured cells."],
+            ["`frost`", "`true`", "Blur and brighten the water behind the children."],
+            ["`paused`", "`false`", "Hold the current frame."],
+            ["`className`", "none", "Set a height here. The scene covers its container."],
+          ],
+        },
+        { t: "h3", text: "Notes" },
+        {
+          t: "list",
+          items: [
+            "The scene is drawn on a fixed 1944 by 1760 stage and scaled to cover its container, so it fits any shape.",
+            "The palette is fixed. It is a scene, not a theme. Put dark text on it, as the frosted centre is bright.",
+            "It uses your Geist Mono font when the page has it and falls back to a system monospace.",
+            "It pauses when scrolled out of view. Reduced motion shows one still frame.",
+            "To record a video, screen record the tab. One loop is 24.5 seconds.",
+          ],
+        },
+      ],
+    },
+    {
       slug: "loaders",
       group: "Guides",
       title: "Loaders",
