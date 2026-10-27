@@ -96,6 +96,30 @@ The full checklist is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Pull requests are welcome, from a typo to a whole new component. Read [CONTRIBUTING.md](CONTRIBUTING.md) first. Found a security issue? Please see [SECURITY.md](SECURITY.md) instead of opening a public issue.
 
+## Contributors
+
+<table>
+  <tr>
+    <td align="center" width="160">
+      <a href="https://github.com/PRODHOSH"><img src="https://github.com/PRODHOSH.png?size=120" width="72" alt="PRODHOSH"></a><br>
+      <a href="https://github.com/PRODHOSH"><b>PRODHOSH</b></a><br>
+      <sub>Creator and maintainer</sub>
+    </td>
+    <td align="center" width="160">
+      <a href="https://claude.com/claude-code"><img src="https://github.com/anthropics.png?size=120" width="72" alt="Claude"></a><br>
+      <a href="https://claude.com/claude-code"><b>Claude</b></a><br>
+      <sub>Pair programmer</sub>
+    </td>
+    <td align="center" width="160">
+      <a href="https://github.com/apps/vercel"><img src="https://github.com/apps/vercel.png?size=120" width="72" alt="Vercel"></a><br>
+      <a href="https://github.com/apps/vercel"><b>vercel[bot]</b></a><br>
+      <sub>Web analytics setup</sub>
+    </td>
+  </tr>
+</table>
+
+Want to see your name here? Read [CONTRIBUTING.md](CONTRIBUTING.md) and open a pull request.
+
 ## License
 
 [MIT](LICENSE). Use it anywhere, no credit needed. Third party credits are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
