@@ -98,7 +98,7 @@ export function PreviewStage({ name, stage, theme, tall = false }: { name: strin
 }
 
 function Field({ control: c, value, onChange }: { control: Control; value: unknown; onChange: (v: unknown) => void }) {
-  const label = <span className="text-sm text-muted-foreground">{c.label}</span>;
+  const label = c.label ? <span className="text-sm text-muted-foreground">{c.label}</span> : null;
   if (c.type === "color")
     return (
       <label className="flex items-center justify-between gap-3">
@@ -121,17 +121,17 @@ function Field({ control: c, value, onChange }: { control: Control; value: unkno
     );
   if (c.type === "toggle")
     return (
-      <div className="flex items-center justify-between gap-3">
+      <div className={cn("flex items-center gap-3", label ? "justify-between" : "justify-start")}>
         {label}
-        <button type="button" role="switch" aria-checked={Boolean(value)} aria-label={c.label} onClick={() => onChange(!value)} className={cn("relative h-6 w-10 rounded-full transition-colors", value ? "bg-foreground" : "bg-border")}>
+        <button type="button" role="switch" aria-checked={Boolean(value)} aria-label={c.label || "Toggle"} onClick={() => onChange(!value)} className={cn("relative h-6 w-10 rounded-full transition-colors", value ? "bg-foreground" : "bg-border")}>
           <span className={cn("absolute top-0.5 size-5 rounded-full bg-background transition-all", value ? "left-[1.1rem]" : "left-0.5")} />
         </button>
       </div>
     );
   return (
-    <div className="flex items-center justify-between gap-3">
+    <div className={cn("flex items-center gap-3", label ? "justify-between" : "justify-start")}>
       {label}
-      <div role="radiogroup" aria-label={c.label} className="flex rounded-lg bg-muted p-0.5">
+      <div role="radiogroup" aria-label={c.label || "Options"} className="flex rounded-lg bg-muted p-0.5">
         {c.options.map((o) => (
           <button key={o.value} type="button" role="radio" aria-checked={value === o.value} onClick={() => onChange(o.value)} className={cn("rounded-md px-2.5 py-1 text-xs transition-colors", value === o.value ? "bg-background text-foreground shadow-xs" : "text-muted-foreground hover:text-foreground")}>
             {o.label}

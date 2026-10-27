@@ -123,10 +123,10 @@ function AuthModalDemo() {
 
 
 /** The heading column is sticky, so give it a scroll area to stick inside. */
-function RewardsListDemo() {
+function RewardsListDemo(props: { gauge?: "line" | "ruler"; tickCount?: number }) {
   return (
     <div className="h-[34rem] w-full overflow-y-auto scrollbar-none">
-      <RewardsList stickyTop={64} />
+      <RewardsList stickyTop={64} {...props} />
     </div>
   );
 }
