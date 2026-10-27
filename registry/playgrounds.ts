@@ -20,6 +20,12 @@ const choice = (key: string, label: string, value: string, options: [string, str
 const toggle = (key: string, label: string, value: boolean): Control => ({ key, label, type: "toggle", value });
 
 export const PLAYGROUNDS: Record<string, Control[]> = {
+  "rewards-list": [
+    choice("gauge", "", "ruler", [
+      ["ruler", "Ruler gauge"],
+      ["line", "Progress line"],
+    ]),
+  ],
   "ascii-lagoon": [
     range("speed", "Speed", 1, 0.2, 2.5, 0.1),
     toggle("glyphs", "Glyphs", true),

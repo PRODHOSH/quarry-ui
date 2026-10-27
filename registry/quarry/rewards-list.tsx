@@ -7,12 +7,20 @@ import { cn } from "@/lib/utils";
 
 type Reward = { tag: string; title: string; description: string };
 
-const REWARDS: Reward[] = [
+const DEFAULT_REWARDS: Reward[] = [
   { tag: "Top 10", title: "Premium digital identity", description: "The top 10 members receive a free year of a custom domain to launch their portfolio." },
   { tag: "Weekly", title: "Exclusive event swag", description: "Weekly top performers get partner goodies: t-shirts for the top three, books for the rest." },
   { tag: "Finalists", title: "Limited edition swag kit", description: "Official tees, personalised notebooks and premium notes for everyone who reaches the final round." },
   { tag: "Finalists", title: "A mentor in your corner", description: "Finalists book a one on one session with an industry mentor of their choice." },
   { tag: "Winners", title: "A place on the wall", description: "Winners are featured on the public hall of fame for the whole year." },
+];
+
+const RULER_FEATURES: Reward[] = [
+  { tag: "Telemetry", title: "Continuous telemetry & sensing", description: "Captures real-time state shifts with high precision and streams telemetry directly to downstream execution controllers." },
+  { tag: "Automation", title: "Autonomous state management", description: "Automatically triggers state transitions when thresholds are met, guaranteeing deterministic failovers with zero manual intervention." },
+  { tag: "Signal", title: "High-frequency signal filtering", description: "Built with active noise suppression and signal dampening to maintain clean data streams even in volatile operating environments." },
+  { tag: "Protection", title: "Fault isolation & protection", description: "Detects dry cycles, thermal overruns, and unexpected latency, isolating failing subsystems before cascading failures occur." },
+  { tag: "Hardware", title: "Production-grade infrastructure", description: "Engineered for mission-critical deployments with low-voltage standby, high-surge tolerance, and redundant fallback loops." },
 ];
 
 /** The nearest ancestor that scrolls, or the window. */
@@ -33,12 +41,14 @@ function scrollParent(el: HTMLElement | null): HTMLElement | Window {
  * On small screens the two columns simply stack.
  */
 export function RewardsList({
-  eyebrow = "Leaderboard",
-  title = "Climb the ranks, earn real rewards",
-  text = "Every action counts toward your score. Rankings update live, and the best performers are recognised at the end of the programme.",
-  rewards = REWARDS,
-  cta = "See the leaderboard",
+  eyebrow,
+  title,
+  text,
+  rewards,
+  cta,
   stickyTop = 96,
+  gauge = "line",
+  tickCount = 40,
   className,
 }: {
   eyebrow?: string;
@@ -48,8 +58,19 @@ export function RewardsList({
   cta?: string;
   /** Distance from the top of the scroll area where the heading sticks, in pixels. */
   stickyTop?: number;
+  /** Progress gauge style: a minimal line or an interactive ruler gauge. */
+  gauge?: "line" | "ruler";
+  /** Number of ruler ticks when gauge is set to 'ruler'. */
+  tickCount?: number;
   className?: string;
 }) {
+  const isRuler = gauge === "ruler";
+  const displayEyebrow = eyebrow ?? (isRuler ? "Specifications" : "Leaderboard");
+  const displayTitle = title ?? (isRuler ? "Precision engineering, verified in real time" : "Climb the ranks, earn real rewards");
+  const displayText = text ?? (isRuler ? "Continuous telemetry sensing and state control engineered for high-reliability systems and mission-critical installations." : "Every action counts toward your score. Rankings update live, and the best performers are recognised at the end of the programme.");
+  const displayCta = cta ?? (isRuler ? "Explore specifications" : "See the leaderboard");
+  const displayRewards = rewards ?? (isRuler ? RULER_FEATURES : DEFAULT_REWARDS);
+
   const root = useRef<HTMLElement>(null);
   const left = useRef<HTMLDivElement>(null);
   const items = useRef<(HTMLLIElement | null)[]>([]);
@@ -64,10 +85,10 @@ export function RewardsList({
       const l = left.current;
       if (!l) return;
       const lr = l.getBoundingClientRect();
-      // when the columns stack there is nothing sticky, so use the middle of the visible area
       const sticky = getComputedStyle(l).position === "sticky";
       const view = scroller instanceof Window ? { top: 0, h: window.innerHeight } : (() => { const r = scroller.getBoundingClientRect(); return { top: r.top, h: r.height }; })();
       const ref = sticky ? lr.top + lr.height / 2 : view.top + view.h / 2;
+
       let best = 0, bestD = Infinity;
       items.current.forEach((li, i) => {
         if (!li) return;
@@ -76,12 +97,25 @@ export function RewardsList({
         if (d < bestD) { bestD = d; best = i; }
       });
       setActive(best);
-      const list = root.current?.querySelector("ol");
-      if (list) {
-        const r = list.getBoundingClientRect();
-        const total = r.height - Math.min(r.height, view.h) * 0.4;
-        setProgress(Math.min(1, Math.max(0, (ref - r.top) / Math.max(1, r.height))));
-        void total;
+
+      const first = items.current[0];
+      const last = items.current[items.current.length - 1];
+      if (first && last) {
+        const firstCenter = first.getBoundingClientRect().top + first.getBoundingClientRect().height / 2;
+        const lastCenter = last.getBoundingClientRect().top + last.getBoundingClientRect().height / 2;
+        const totalDist = lastCenter - firstCenter;
+        const currentDist = ref - firstCenter;
+        let p = totalDist > 0 ? currentDist / totalDist : 0;
+
+        const isAtBottom = scroller instanceof Window
+          ? window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4
+          : scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4;
+
+        if (isAtBottom || (best === items.current.length - 1 && lastCenter <= ref)) {
+          p = 1;
+        }
+
+        setProgress(Math.min(1, Math.max(0, p)));
       }
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(measure); };
@@ -95,38 +129,92 @@ export function RewardsList({
     };
   }, []);
 
-  const n = rewards.length;
+  const n = displayRewards.length;
   const pad = (v: number) => String(v).padStart(2, "0");
 
   return (
     <section ref={root} className={cn("w-full px-6 py-16 sm:px-10", className)}>
       <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[5fr_6fr] lg:gap-20">
         <div ref={left} style={{ top: stickyTop }} className="self-start lg:sticky">
-          <p className="text-sm font-medium text-muted-foreground">{eyebrow}</p>
-          <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">{title}</h2>
-          <p className="mt-4 max-w-md leading-relaxed text-muted-foreground">{text}</p>
+          <p className="text-sm font-medium text-muted-foreground">{displayEyebrow}</p>
+          <h2 className="mt-3 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">{displayTitle}</h2>
+          <p className="mt-4 max-w-md leading-relaxed text-muted-foreground">{displayText}</p>
 
-          <div className="mt-8 hidden items-end gap-3 lg:flex">
-            <div className="relative h-14 w-16 overflow-hidden text-5xl font-semibold tabular-nums tracking-tight">
-              <AnimatePresence mode="popLayout" initial={false}>
-                <motion.span key={active} initial={{ y: "60%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: "-60%", opacity: 0 }} transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }} className="absolute inset-0">
-                  {pad(active + 1)}
-                </motion.span>
-              </AnimatePresence>
+          {/* Large 01 / 05 counter is only shown for line gauge mode */}
+          {!isRuler && (
+            <div className="mt-8 hidden items-end gap-3 lg:flex">
+              <div className="relative h-14 w-16 overflow-hidden text-5xl font-semibold tabular-nums tracking-tight">
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.span key={active} initial={{ y: "60%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: "-60%", opacity: 0 }} transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }} className="absolute inset-0">
+                    {pad(active + 1)}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+              <span className="pb-1.5 text-lg tabular-nums text-muted-foreground">/ {pad(n)}</span>
             </div>
-            <span className="pb-1.5 text-lg tabular-nums text-muted-foreground">/ {pad(n)}</span>
-          </div>
-          <div className="mt-4 hidden h-px w-full max-w-xs overflow-hidden rounded-full bg-border lg:block">
-            <motion.div className="h-full origin-left bg-foreground" animate={{ scaleX: Math.max(0.04, progress) }} transition={{ type: "spring", stiffness: 160, damping: 26 }} />
-          </div>
+          )}
+
+          {isRuler ? (
+            <div
+              role="progressbar"
+              aria-valuenow={Math.round(progress * 100)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Scroll progress"
+              className="mt-8 hidden w-full max-w-xs flex-col lg:flex"
+            >
+              <div className="relative h-7 w-full">
+                {/* Inactive Background Ticks */}
+                <div className="absolute inset-0 flex items-end gap-1">
+                  {Array.from({ length: tickCount }).map((_, index) => (
+                    <div
+                      key={`bg-${index}`}
+                      className="flex-1 rounded-full bg-border"
+                      style={{ height: index % 5 === 0 ? "100%" : "45%" }}
+                    />
+                  ))}
+                </div>
+
+                {/* Active Foreground Ticks */}
+                <motion.div
+                  className="absolute inset-0 flex items-end gap-1"
+                  style={{
+                    clipPath: `inset(0 ${Math.max(0, 100 - progress * 100)}% 0 0)`,
+                  }}
+                >
+                  {Array.from({ length: tickCount }).map((_, index) => (
+                    <div
+                      key={`fg-${index}`}
+                      className="flex-1 rounded-full bg-primary"
+                      style={{ height: index % 5 === 0 ? "100%" : "45%" }}
+                    />
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Percentage Readout */}
+              <div className="mt-2.5 flex items-center gap-2">
+                <span className="font-mono text-xs font-semibold tabular-nums text-primary">
+                  {Math.round(progress * 100)}%
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                  Completed
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-4 hidden h-px w-full max-w-xs overflow-hidden rounded-full bg-border lg:block">
+              <motion.div className="h-full origin-left bg-foreground" animate={{ scaleX: Math.max(0.04, progress) }} transition={{ type: "spring", stiffness: 160, damping: 26 }} />
+            </div>
+          )}
 
           <a href="#" className="mt-8 inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground transition-transform active:scale-95">
-            {cta} <ArrowRight className="size-4" />
+            {displayCta} <ArrowRight className="size-4" />
           </a>
         </div>
 
         <ol className="space-y-4 pb-8 lg:space-y-6 lg:pb-[28vh] lg:pt-6">
-          {rewards.map((r, i) => {
+          {displayRewards.map((r, i) => {
             const on = i === active;
             return (
               <li key={r.title} ref={(el) => { items.current[i] = el; }}>
