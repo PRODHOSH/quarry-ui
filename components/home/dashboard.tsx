@@ -7,7 +7,8 @@ import { TemplateThumb } from "@/components/site/template-thumb";
 import { getItem, getItems, ownerOf } from "@/lib/registry";
 import { getDesign, getDesignIndex } from "@/lib/design";
 
-const TOP = ["feature-bento", "hero-split", "command-menu", "pricing-cards", "testimonial-columns", "dock", "faq-search", "mega-footer"];
+const TOP = ["ascii-lagoon", "not-found-doodle", "before-after-slider", "expand-gallery", "not-found-poster", "perspective-carousel", "cart-drawer", "feature-bento"];
+const FIRST_BACKGROUNDS = ["ascii-lagoon", "ascii-aquarium"];
 const BRANDS = ["stripe", "vercel", "linear", "notion", "claude", "spotify", "airbnb", "ferrari", "tesla", "apple"];
 
 /** The home page: a welcome, then shelves of the best of each section, the way an app store lays it out. */
@@ -17,7 +18,10 @@ export function HomeDashboard() {
   const top = TOP.map((n) => getItem(n)).filter((i): i is NonNullable<typeof i> => !!i);
   const fresh = of("components").slice(-8).reverse();
   const templates = of("templates");
-  const backgrounds = of("backgrounds");
+  const backgrounds = [...of("backgrounds")].sort((a, b) => {
+    const rank = (n: string) => (FIRST_BACKGROUNDS.includes(n) ? FIRST_BACKGROUNDS.indexOf(n) : FIRST_BACKGROUNDS.length);
+    return rank(a.name) - rank(b.name);
+  });
   const loaders = of("loaders");
   const designs = getDesignIndex();
   const brands = BRANDS.map((s) => designs.find((d) => d.slug === s)).filter((d): d is NonNullable<typeof d> => !!d);
@@ -57,7 +61,7 @@ export function HomeDashboard() {
           {top.map((item, i) => (
             <li key={item.name} className="flex shrink-0 items-center">
               <span aria-hidden className="-mr-5 select-none text-[8.5rem] font-semibold leading-none tracking-tighter text-foreground/[0.07]">{i + 1}</span>
-              <ComponentCard name={item.name} title={item.title} stage={item.meta.stage} theme={item.meta.theme} className="relative w-[19rem]" />
+              <ComponentCard name={item.name} title={item.title} stage={item.meta.stage} theme={item.meta.theme} base={ownerOf(item) === "backgrounds" ? "/backgrounds" : undefined} className="relative w-[19rem]" />
             </li>
           ))}
         </Shelf>
