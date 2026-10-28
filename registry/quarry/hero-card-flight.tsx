@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
  *
  * Standalone UI Component for Quarry UI.
  * Cards fan out in the hero deck and fly along smooth parabolic bezier curves
- * down into their destination grid slots as the user scrolls.
+ * down into their destination grid slots with luxurious momentum as the user scrolls.
  * ───────────────────────────────────────────────────────────────────────────── */
 
 export interface HeroFlightItem {
@@ -84,10 +84,10 @@ function flightSeedFor(id: string, index: number, total: number): FlightSeed {
 
   return {
     curveX,
-    lift: 90 + b * 130,
+    lift: 90 + b * 120,
     startRotation,
     scaleBoost: 0.04 + a * 0.05,
-    stagger: total > 1 ? (index / total) * 0.18 : 0,
+    stagger: total > 1 ? (index / total) * 0.2 : 0,
   };
 }
 
@@ -196,8 +196,8 @@ export function DefaultFlightCard({
         <img
           src={item.image}
           alt={item.title}
-          loading="lazy"
-          decoding="async"
+          loading="eager"
+          decoding="sync"
           className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent opacity-60" />
@@ -270,6 +270,7 @@ export function HeroCardFlight({
       id: string;
       from: { x: number; y: number };
       to: { x: number; y: number };
+      height: number;
       seed: FlightSeed;
     }[]
   >([]);
@@ -284,10 +285,12 @@ export function HeroCardFlight({
     items.forEach((item, index) => {
       const heroEl = heroCardRefs.current.get(item.id);
       const destEl = destCardRefs.current.get(item.id);
+      const cloneEl = cloneRefs.current.get(item.id);
       if (!heroEl || !destEl) return;
 
       const heroRect = heroEl.getBoundingClientRect();
       const destRect = destEl.getBoundingClientRect();
+      const cardHeight = cloneEl?.offsetHeight || heroEl.offsetHeight || destRect.height || 360;
 
       nextCoords.push({
         id: item.id,
@@ -299,6 +302,7 @@ export function HeroCardFlight({
           x: destRect.left - rootRect.left + destRect.width / 2,
           y: destRect.top - rootRect.top + destRect.height / 2,
         },
+        height: cardHeight,
         seed: seeds[index] ?? flightSeedFor(item.id, index, items.length),
       });
     });
@@ -315,33 +319,11 @@ export function HeroCardFlight({
     measure();
     const scroller = scrollParent(rootRef.current);
     let rafId = 0;
+    let targetProgress = 0;
+    let smoothProgress = 0;
+    let isRunning = false;
 
-    const render = () => {
-      rafId = 0;
-      const root = rootRef.current;
-      const heroDeck = heroDeckRef.current;
-      const destGrid = destGridRef.current;
-      if (!root || !heroDeck || !destGrid || coordsRef.current.length === 0) return;
-
-      const scrollerTop = scroller instanceof Window ? 0 : scroller.getBoundingClientRect().top;
-      const viewHeight = scroller instanceof Window ? window.innerHeight : scroller.clientHeight;
-
-      const heroBox = heroDeck.getBoundingClientRect();
-      const destBox = destGrid.getBoundingClientRect();
-
-      // Flight starts as hero deck moves above viewport center
-      const heroCenterY = heroBox.top - scrollerTop + heroBox.height / 2;
-      // Flight finishes when destination grid is comfortably in view
-      const destCenterY = destBox.top - scrollerTop + destBox.height / 2;
-
-      const startDist = viewHeight * 0.45;
-      const endDist = viewHeight * 0.55;
-
-      // Calculate normalised progress between startDist and endDist
-      const totalSpan = Math.max(1, (heroCenterY - destCenterY) + (startDist - endDist));
-      const currentSpan = heroCenterY - endDist;
-      const rawProgress = clamp01(1 - currentSpan / totalSpan);
-
+    const applyFrame = (progress: number) => {
       for (const entry of coordsRef.current) {
         const cloneEl = cloneRefs.current.get(entry.id);
         const heroEl = heroCardRefs.current.get(entry.id);
@@ -349,49 +331,110 @@ export function HeroCardFlight({
 
         if (!cloneEl || !heroEl || !destEl) continue;
 
-        const t = cardProgress(rawProgress, entry.seed.stagger);
+        const t = cardProgress(progress, entry.seed.stagger);
         const frame = flightFrame(entry.from, entry.to, entry.seed, t);
+        const cardH = entry.height || cloneEl.offsetHeight || 360;
 
-        if (t <= 0.001) {
+        if (t <= 0.002) {
           // Resting in hero deck
           cloneEl.style.display = "none";
           heroEl.style.visibility = "visible";
+          heroEl.style.opacity = "1";
           destEl.style.visibility = "hidden";
-        } else if (t >= 0.999) {
+          destEl.style.opacity = "0";
+        } else if (t >= 0.998) {
           // Landed in destination grid
           cloneEl.style.display = "none";
           heroEl.style.visibility = "hidden";
+          heroEl.style.opacity = "0";
           destEl.style.visibility = "visible";
+          destEl.style.opacity = "1";
         } else {
-          // In active flight
+          // In active airborne flight
           cloneEl.style.display = "block";
           heroEl.style.visibility = "hidden";
+          heroEl.style.opacity = "0";
           destEl.style.visibility = "hidden";
+          destEl.style.opacity = "0";
 
-          cloneEl.style.transform = `translate3d(${frame.x - cardWidth / 2}px, ${
-            frame.y - 170
-          }px, 0) rotate(${frame.rotation}deg) scale(${frame.scale})`;
+          const translateX = frame.x - cardWidth / 2;
+          const translateY = frame.y - cardH / 2;
+
+          cloneEl.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) rotate(${frame.rotation}deg) scale(${frame.scale})`;
         }
       }
     };
 
-    const onScrollOrResize = () => {
-      if (!rafId) rafId = requestAnimationFrame(render);
+    const tick = () => {
+      const diff = targetProgress - smoothProgress;
+      if (Math.abs(diff) < 0.0005) {
+        smoothProgress = targetProgress;
+      } else {
+        // Silky exponential damping for organic floating momentum
+        smoothProgress += diff * 0.12;
+      }
+
+      applyFrame(smoothProgress);
+
+      if (Math.abs(targetProgress - smoothProgress) >= 0.0005) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        isRunning = false;
+      }
+    };
+
+    const updateScrollProgress = () => {
+      const heroDeck = heroDeckRef.current;
+      const destGrid = destGridRef.current;
+      if (!heroDeck || !destGrid) return;
+
+      const scrollerTop = scroller instanceof Window ? 0 : scroller.getBoundingClientRect().top;
+      const viewHeight = scroller instanceof Window ? window.innerHeight : scroller.clientHeight;
+
+      const heroBox = heroDeck.getBoundingClientRect();
+      const destBox = destGrid.getBoundingClientRect();
+
+      // Total vertical distance between the two sections
+      const deckDistance = Math.max(150, destBox.top - heroBox.top);
+      const heroY = heroBox.top - scrollerTop;
+
+      // Flight starts as hero deck moves upwards from viewport center
+      const startHeroY = viewHeight * 0.35;
+      // Flight finishes when destination grid is comfortably centered
+      const endDestY = viewHeight * 0.45;
+
+      const totalScroll = Math.max(300, deckDistance + startHeroY - endDestY);
+      targetProgress = clamp01((startHeroY - heroY) / totalScroll);
+
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(tick);
+      }
     };
 
     const onResize = () => {
       measure();
-      onScrollOrResize();
+      updateScrollProgress();
     };
 
-    scroller.addEventListener("scroll", onScrollOrResize, { passive: true });
+    // Watch for size changes (such as images loading) to keep coordinates 100% accurate
+    const ro = new ResizeObserver(() => {
+      measure();
+      updateScrollProgress();
+    });
+
+    if (heroDeckRef.current) ro.observe(heroDeckRef.current);
+    if (destGridRef.current) ro.observe(destGridRef.current);
+
+    scroller.addEventListener("scroll", updateScrollProgress, { passive: true });
     window.addEventListener("resize", onResize);
 
-    // Initial render tick
+    // Initial measurement and render
     onResize();
 
     return () => {
-      scroller.removeEventListener("scroll", onScrollOrResize);
+      ro.disconnect();
+      scroller.removeEventListener("scroll", updateScrollProgress);
       window.removeEventListener("resize", onResize);
       if (rafId) cancelAnimationFrame(rafId);
     };
@@ -435,7 +478,7 @@ export function HeroCardFlight({
       {/* ──────────────────────────────────────────
           2. HERO SECTION WITH CARD STACK
           ────────────────────────────────────────── */}
-      <section className="relative px-6 pb-28 pt-16 sm:px-10 md:pb-36 md:pt-24 lg:px-16">
+      <section className="relative px-6 pb-24 pt-16 sm:px-10 md:pb-32 md:pt-24 lg:px-16">
         {/* Subtle atmospheric backdrop */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-[10%] right-0 size-[500px] rounded-full bg-primary/5 blur-[120px]" />
@@ -502,7 +545,7 @@ export function HeroCardFlight({
                       if (el) heroCardRefs.current.set(item.id, el);
                       else heroCardRefs.current.delete(item.id);
                     }}
-                    className="absolute"
+                    className="absolute transition-opacity duration-200"
                     style={{
                       left: `${leftPercent}%`,
                       top: `${topPercent}%`,
@@ -547,7 +590,7 @@ export function HeroCardFlight({
                   if (el) destCardRefs.current.set(item.id, el);
                   else destCardRefs.current.delete(item.id);
                 }}
-                className="shrink-0 transition-transform duration-300 hover:-translate-y-1"
+                className="shrink-0 transition-all duration-300 hover:-translate-y-1"
                 style={{ width: cardWidth }}
               >
                 {cardRenderer(item)}
