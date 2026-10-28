@@ -53,6 +53,7 @@ import {
   PanelTop,
   BadgeCheck,
   CircleDot,
+  PlaneTakeoff,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -81,6 +82,7 @@ export const ICONS: Record<string, LucideIcon> = {
   "custom-select": QChevronsUpDown,
   "page-preloader": QLoader,
   "floating-chat": QMessageCircleMore,
+  "hero-card-flight": PlaneTakeoff,
   "hero-split": IPanelRight,
   "hero-centered": IPresentation,
   "feature-rows": IRows3,

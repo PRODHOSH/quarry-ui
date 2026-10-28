@@ -38,6 +38,7 @@ import { CartDrawer } from "./quarry/cart-drawer";
 import { PagePreloader } from "./quarry/page-preloader";
 import { FloatingChat } from "./quarry/floating-chat";
 
+import { HeroCardFlight } from "./quarry/hero-card-flight";
 import { HeroSplit } from "./quarry/hero-split";
 import { HeroCentered } from "./quarry/hero-centered";
 import { FeatureRows } from "./quarry/feature-rows";
@@ -183,6 +184,14 @@ function ParallaxGalleryDemo() {
     </div>
   );
 }
+function HeroCardFlightDemo(props: { cardWidth?: number }) {
+  return (
+    <div className="h-[34rem] w-full overflow-y-auto scrollbar-none">
+      <HeroCardFlight {...props} />
+    </div>
+  );
+}
+
 function StickyStackDemo() {
   return <div className="h-[34rem] w-full overflow-y-auto scrollbar-none"><StickyStack /></div>;
 }
@@ -385,6 +394,7 @@ export const DEMOS: Record<string, ComponentType> = {
   "not-found-contour": dynamic(() => import("./quarry/not-found-contour").then((m) => m.NotFoundContour)),
   "newsletter-reader": dynamic(() => import("./quarry/newsletter-reader").then((m) => m.NewsletterReader)),
   "sprint-roadmap": dynamic(() => import("./quarry/sprint-roadmap").then((m) => m.SprintRoadmap)),
+  "hero-card-flight": HeroCardFlightDemo,
   "hero-split": HeroSplitDemo,
   "hero-centered": HeroCenteredDemo,
   "feature-rows": FeatureRowsDemo,
