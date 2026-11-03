@@ -2,6 +2,8 @@
 
 import { Fish as QFish, TreePalm as QTreePalm } from "lucide-react";
 
+import { PanelTop as WPanelTop, Magnet as WMagnet, Mountain as WMountain, Layers3 as WLayers3, ListTree as WListTree, ScanLine as WScanLine, Braces as WBraces, MoveHorizontal as WMoveHorizontal, GalleryHorizontalEnd as WGalleryHorizontalEnd, Calculator as WCalculator, Columns4 as WColumns4, Fan as WFan, Spline as WSpline, ChartNoAxesColumnIncreasing as WStairs, LayoutGrid as WMosaic, CandlestickChart as WCandles, Cloud as WCloud, MousePointerClick as WSpot } from "lucide-react";
+
 import { Type as QType, Route as QRoute, Stamp as QStamp, Award as QAward } from "lucide-react";
 
 import { ChevronsUpDown as QChevronsUpDown, Heart as QHeart, Images as QImages, Layers as QLayers, Loader as QLoader, Mail as QMail, MessageCircleMore as QMessageCircleMore, ShoppingBag as QShoppingBag, ShoppingCart as QShoppingCart, Smile as QSmile, Ticket as QTicket } from "lucide-react";
@@ -146,6 +148,24 @@ export const ICONS: Record<string, LucideIcon> = {
   "flow-field": Route,
   "ascii-aquarium": QFish,
   "ascii-lagoon": QTreePalm,
+  "overlay-menu": WPanelTop,
+  "physics-footer": WMagnet,
+  "contour-shader": WSpline,
+  "fan-hero": WFan,
+  "scene-handover": WMountain,
+  "card-pile": WLayers3,
+  "service-showcase": WListTree,
+  "line-scrub": WScanLine,
+  "brace-title": WBraces,
+  "velocity-marquee": WMoveHorizontal,
+  "drag-carousel": WGalleryHorizontalEnd,
+  "quote-estimator": WCalculator,
+  "grid-lines": WColumns4,
+  "stair-stats": WStairs,
+  "mosaic-hero": WMosaic,
+  "candle-field": WCandles,
+  "cloud-rise": WCloud,
+  "spot-illustrations": WSpot,
   "dot-ripple": CircleDot,
   "aurora-mesh": Sparkles,
   "constellation": Share2,

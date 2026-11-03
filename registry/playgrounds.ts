@@ -20,6 +20,27 @@ const choice = (key: string, label: string, value: string, options: [string, str
 const toggle = (key: string, label: string, value: boolean): Control => ({ key, label, type: "toggle", value });
 
 export const PLAYGROUNDS: Record<string, Control[]> = {
+  "contour-shader": [
+    color("line", "Line colour", "#c9f26b"),
+    color("glow", "Second colour", "#1fa5a0"),
+    color("ground", "Ground", "#06120d"),
+    range("density", "Levels", 10, 4, 22, 1),
+    range("speed", "Speed", 1, 0.2, 3, 0.1),
+    range("pull", "Pointer pull", 1, 0, 2, 0.1),
+  ],
+  "physics-footer": [choice("pile", "Pile", "tags", [["tags", "Tags"], ["tiles", "Tiles"]])],
+  "velocity-marquee": [range("speed", "Drift", 3, 0, 12, 0.5)],
+  "brace-title": [range("speed", "Typing speed (ms)", 60, 20, 200, 5)],
+  "candle-field": [
+    color("highlight", "Highlight", "#ff2a2a"),
+    color("candle", "Candles", "#9a9a9a"),
+    color("ground", "Ground", "#050505"),
+    range("speed", "Speed", 1, 0.2, 3, 0.1),
+    range("size", "Candle size", 1, 0.6, 1.8, 0.1),
+    toggle("glow", "Warm glow", true),
+  ],
+  "grid-lines": [range("columns", "Columns", 4, 2, 8, 1)],
+  "fan-hero": [range("spread", "Arc", 62, 20, 90, 1)],
   "ascii-lagoon": [
     range("speed", "Speed", 1, 0.2, 2.5, 0.1),
     toggle("glyphs", "Glyphs", true),

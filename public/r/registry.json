@@ -3181,7 +3181,7 @@
       "name": "floating-chat",
       "type": "registry:component",
       "title": "Floating Chat",
-      "description": "A floating help button with a soft pulse that opens a small menu of ways to get in touch.",
+      "description": "A floating WhatsApp button with a soft pulse. Click it and a chat opens with your number and a message that is already typed. Swap the placeholder number and text for your own.",
       "categories": [
         "elements"
       ],
@@ -3198,7 +3198,7 @@
           "type": "registry:component"
         }
       ],
-      "docs": "import { FloatingChat } from \"@/components/floating-chat\"\n\n<FloatingChat />",
+      "docs": "import { FloatingChat } from \"@/components/floating-chat\"\n\n<FloatingChat phone=\"15550102030\" message=\"Hi! I would like to know more.\" />",
       "meta": {
         "stage": "fill",
         "theme": "verdant"
@@ -3445,6 +3445,481 @@
       "meta": {
         "stage": "fill",
         "theme": "porcelain"
+      }
+    },
+    {
+      "name": "overlay-menu",
+      "type": "registry:component",
+      "title": "Overlay Menu",
+      "description": "A top bar with a Menu button that opens a full screen menu. The panel wipes down, links rise out of masks one by one, and a side column holds a pitch, a button and two facts.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/overlay-menu.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { OverlayMenu } from \"@/components/overlay-menu\"\n\n<OverlayMenu brand=\"Northwind\" links={links} cta={{ label: \"Start a project\", href: \"/contact\" }} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "reroot"
+      }
+    },
+    {
+      "name": "physics-footer",
+      "type": "registry:component",
+      "title": "Physics Footer",
+      "description": "A footer with a pile of real physics at the bottom. Service tags (or square tiles) drop in when it scrolls into view, settle on the floor, and can be grabbed and thrown. Tags still open their link.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "lucide-react",
+        "matter-js"
+      ],
+      "devDependencies": [
+        "@types/matter-js"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/physics-footer.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { PhysicsFooter } from \"@/components/physics-footer\"\n\n<PhysicsFooter tags={[\"Logo design\", \"Web design\", \"Print\"]} />\n\n// Square tiles instead of tags\n<PhysicsFooter pile=\"tiles\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "sunlight"
+      }
+    },
+    {
+      "name": "contour-shader",
+      "type": "registry:component",
+      "title": "Contour Shader",
+      "description": "A full area field of contour lines drawn by one small WebGL shader. The terrain drifts slowly and swells around the pointer. Colours take any CSS value or token.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/contour-shader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ContourShader } from \"@/components/contour-shader\"\n\n<div className=\"h-screen\">\n  <ContourShader line=\"#c9f26b\" ground=\"#06120d\">\n    <h1>Your headline</h1>\n  </ContourShader>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "reroot"
+      }
+    },
+    {
+      "name": "fan-hero",
+      "type": "registry:component",
+      "title": "Fan Hero",
+      "description": "A hero where picture cards fan out on an arc above the headline, rise into place one after another, then keep bobbing slowly out of step. Draws its own landscapes or takes your photos.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/fan-hero.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { FanHero } from \"@/components/fan-hero\"\n\n<FanHero title=\"Integrated solutions for planetary repair.\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "reroot"
+      }
+    },
+    {
+      "name": "scene-handover",
+      "type": "registry:component",
+      "title": "Scene Handover",
+      "description": "A pinned scene sequence. A framed landscape grows to full screen while a card rises over it, then the card lifts away and the next landscape wipes up from below.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/scene-handover.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { SceneHandover } from \"@/components/scene-handover\"\n\n<SceneHandover panels={panels} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "reroot"
+      }
+    },
+    {
+      "name": "card-pile",
+      "type": "registry:component",
+      "title": "Card Pile",
+      "description": "A heading beside a deck. As you scroll, each card flies up from below and lands on the pile with its own tilt, while the section stays pinned.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/card-pile.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CardPile } from \"@/components/card-pile\"\n\n<CardPile title=\"How we work with you.\" cards={cards} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "sunlight"
+      }
+    },
+    {
+      "name": "service-showcase",
+      "type": "registry:component",
+      "title": "Service Showcase",
+      "description": "A services list with one sticky picture in the middle. As each row passes the centre the picture crossfades to match it and the other rows dim.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/service-showcase.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { ServiceShowcase } from \"@/components/service-showcase\"\n\n<ServiceShowcase rows={rows} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "sunlight"
+      }
+    },
+    {
+      "name": "line-scrub",
+      "type": "registry:component",
+      "title": "Line Scrub",
+      "description": "Three big lines that wake up one at a time as you scroll. Each starts as a dim ghost, then fills with its own colour while it rises into place.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/line-scrub.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { LineScrub } from \"@/components/line-scrub\"\n\n<LineScrub lines={[{ text: \"Quick to start.\", color: \"var(--primary)\" }]} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "sunlight"
+      }
+    },
+    {
+      "name": "brace-title",
+      "type": "registry:component",
+      "title": "Brace Title",
+      "description": "A heading wrapped in curly braces that types itself out with a blinking caret once it scrolls into view. The braces are SVG strokes, so they stay crisp at any size.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/brace-title.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { BraceTitle } from \"@/components/brace-title\"\n\n<BraceTitle text=\"Our services\" />",
+      "meta": {
+        "stage": "center",
+        "theme": "reroot"
+      }
+    },
+    {
+      "name": "velocity-marquee",
+      "type": "registry:component",
+      "title": "Velocity Marquee",
+      "description": "A ticker of words that never stops. It speeds up when you scroll, flips direction when you scroll back, and pauses while the pointer rests on it.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/velocity-marquee.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { VelocityMarquee } from \"@/components/velocity-marquee\"\n\n<VelocityMarquee items={[\"Brand identity\", \"Web design\", \"Print\"]} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "sunlight"
+      }
+    },
+    {
+      "name": "drag-carousel",
+      "type": "registry:component",
+      "title": "Drag Carousel",
+      "description": "A row of tall portrait cards. With a mouse you drag it and it glides on with inertia while a round chip follows the pointer. On touch it becomes a swipe carousel.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/drag-carousel.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { DragCarousel } from \"@/components/drag-carousel\"\n\n<DragCarousel cards={team} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "sunlight"
+      }
+    },
+    {
+      "name": "quote-estimator",
+      "type": "registry:component",
+      "title": "Quote Estimator",
+      "description": "A project cost estimator. Four cards of sliders and choices beside a sticky result with a ring chart, the total, and the three changes that would save the most.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/quote-estimator.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { QuoteEstimator } from \"@/components/quote-estimator\"\n\n<QuoteEstimator />",
+      "meta": {
+        "stage": "fill",
+        "theme": "reroot"
+      }
+    },
+    {
+      "name": "grid-lines",
+      "type": "registry:component",
+      "title": "Grid Lines",
+      "description": "Faint vertical guide lines that run the full height of a section, like the columns of a layout grid. Adds structure without weight.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/grid-lines.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { GridLines } from \"@/components/grid-lines\"\n\n<section className=\"relative\">\n  <GridLines columns={4} />\n</section>",
+      "meta": {
+        "stage": "center",
+        "theme": "sunlight"
+      }
+    },
+    {
+      "name": "stair-stats",
+      "type": "registry:component",
+      "title": "Stair Stats",
+      "description": "Big figures on a staircase of coloured bars. Each bar sits further right than the last, wipes in from the left as it scrolls into view, and counts up to its number.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/stair-stats.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { StairStats } from \"@/components/stair-stats\"\n\n<StairStats stats={[{ value: 14, suffix: \"+ years\", text: \"Designing since 2012.\" }]} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "sunlight"
+      }
+    },
+    {
+      "name": "mosaic-hero",
+      "type": "registry:component",
+      "title": "Mosaic Hero",
+      "description": "A hero with a tilted wall of pictures drifting behind it. Three rows slide sideways at different speeds under a soft tint, and the tint and accent word follow your theme.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/mosaic-hero.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { MosaicHero } from \"@/components/mosaic-hero\"\n\n<MosaicHero title=\"Success is what your brand speaks.\" accent=\"brand\" tiles={photos} />",
+      "meta": {
+        "stage": "fill",
+        "theme": "reroot"
+      }
+    },
+    {
+      "name": "candle-field",
+      "type": "registry:component",
+      "title": "Candle Field",
+      "description": "A live candlestick chart drawn as a background. Candles drift left, short runs light up in a highlight colour, and the ones under the pointer glow. Warm light rises from the bottom edge.",
+      "categories": [
+        "backgrounds"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/candle-field.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CandleField } from \"@/components/candle-field\"\n\n<div className=\"h-screen\">\n  <CandleField highlight=\"#ff2a2a\" ground=\"#050505\">\n    <h1>Built for traders</h1>\n  </CandleField>\n</div>",
+      "meta": {
+        "stage": "fill",
+        "theme": "noir"
+      }
+    },
+    {
+      "name": "cloud-rise",
+      "type": "registry:component",
+      "title": "Cloud Rise",
+      "description": "A pinned hero that scrolls through the clouds. A picture and a single word sit behind banks of soft cloud that rise at different speeds, then clear to a bright section with a mixed type headline.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/cloud-rise.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CloudRise } from \"@/components/cloud-rise\"\n\n<CloudRise image=\"/hero.jpg\" title=\"First Aid\" accent=\"for your skin\" />",
+      "meta": {
+        "stage": "fill",
+        "theme": "spot"
+      }
+    },
+    {
+      "name": "spot-illustrations",
+      "type": "registry:component",
+      "title": "Spot Illustrations",
+      "description": "Small looping scenes of a product doing its job: a visitor books a slot, a setting flips, a key is copied, a command finds a match, a meter fills. Five of them in one file.",
+      "categories": [
+        "elements"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/spot-illustrations.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "import { CalendarBooking, SettingsToggles, ApiKeyCopy, CommandSpot, UsageMeter } from \"@/components/spot-illustrations\"\n\n<CalendarBooking />",
+      "meta": {
+        "stage": "fill",
+        "theme": "spot"
       }
     }
   ]

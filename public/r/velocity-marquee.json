@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "velocity-marquee",
+  "title": "Velocity Marquee",
+  "description": "A ticker of words that never stops. It speeds up when you scroll, flips direction when you scroll back, and pauses while the pointer rests on it.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/velocity-marquee.tsx",
+      "content": "\"use client\";\n\nimport { useRef, type RefObject } from \"react\";\nimport { motion, useAnimationFrame, useMotionValue, useScroll, useSpring, useTransform, useVelocity } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst ITEMS = [\"Brand identity\", \"Web design\", \"Packaging\", \"Print\", \"Social media\", \"Motion\", \"Signage\"];\nconst wrap = (min: number, max: number, v: number) => {\n  const range = max - min;\n  return ((((v - min) % range) + range) % range) + min;\n};\n\n/**\n * A ticker of words that never stops. It speeds up when you scroll, flips direction when you scroll\n * the other way, settles back to a slow drift, and pauses while the pointer rests on it.\n */\nexport function VelocityMarquee({\n  items = ITEMS,\n  speed = 3,\n  scrollContainer,\n  className,\n}: {\n  items?: string[];\n  /** Base drift, in percent of one group per second. */\n  speed?: number;\n  scrollContainer?: RefObject<HTMLElement | null>;\n  className?: string;\n}) {\n  const x = useMotionValue(0);\n  const { scrollY } = useScroll({ container: scrollContainer });\n  const velocity = useVelocity(scrollY);\n  const smooth = useSpring(velocity, { damping: 50, stiffness: 400 });\n  const boost = useTransform(smooth, [0, 1500], [0, 5], { clamp: false });\n  const xPct = useTransform(x, (v) => `${v}%`);\n  const dir = useRef(1);\n  const paused = useRef(false);\n\n  useAnimationFrame((_, delta) => {\n    if (paused.current) return;\n    const b = boost.get();\n    if (b < -0.05) dir.current = -1;\n    else if (b > 0.05) dir.current = 1;\n    const move = dir.current * speed * (1 + Math.abs(b)) * (delta / 1000);\n    x.set(wrap(-50, 0, x.get() - move));\n  });\n\n  const group = (\n    <div className=\"flex flex-none items-center\" aria-hidden>\n      {[...items, ...items].map((t, i) => (\n        <span key={i} className=\"inline-flex items-center gap-[clamp(1.5rem,4vw,4rem)] whitespace-nowrap py-[clamp(0.9rem,2vw,1.4rem)] pr-[clamp(1.5rem,4vw,4rem)] text-[clamp(1.05rem,0.98rem+0.4vw,1.3rem)] font-medium\">\n          {t}\n          <svg viewBox=\"0 0 24 24\" className={cn(\"size-[1.15rem] flex-none\", i % 2 ? \"text-primary\" : \"text-foreground\")}>\n            <circle cx=\"12\" cy=\"12\" r=\"7\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"3\" />\n          </svg>\n        </span>\n      ))}\n    </div>\n  );\n\n  return (\n    <div\n      role=\"marquee\"\n      aria-label={items.join(\", \")}\n      onPointerEnter={() => (paused.current = true)}\n      onPointerLeave={() => (paused.current = false)}\n      className={cn(\"overflow-hidden border-y border-primary bg-card text-foreground\", className)}\n    >\n      <motion.div className=\"flex w-max\" style={{ x: xPct }}>\n        {group}\n        {group}\n      </motion.div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "sunlight"
+  },
+  "docs": "import { VelocityMarquee } from \"@/components/velocity-marquee\"\n\n<VelocityMarquee items={[\"Brand identity\", \"Web design\", \"Print\"]} />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

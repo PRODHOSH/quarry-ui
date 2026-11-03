@@ -3,7 +3,7 @@
  * and the font it was designed with. The site applies it around the live preview, and the component
  * page shows it so you can copy it into your own app.
  */
-export type ThemeId = "studio" | "circuit" | "harbor" | "verdant" | "terminal" | "rosewater" | "signal" | "sunset" | "blueprint" | "ink" | "obsidian" | "porcelain" | "ember" | "glacier" | "noir" | "sage" | "vault" | "converse" | "scholar" | "flare" | "abyss";
+export type ThemeId = "studio" | "circuit" | "harbor" | "verdant" | "terminal" | "rosewater" | "signal" | "sunset" | "blueprint" | "ink" | "obsidian" | "porcelain" | "ember" | "glacier" | "noir" | "sage" | "vault" | "converse" | "scholar" | "flare" | "abyss" | "reroot" | "sunlight" | "spot";
 
 export type Theme = {
   id: ThemeId;
@@ -408,6 +408,66 @@ export const THEMES: Record<ThemeId, Theme> = {
       "--chart-3": "#ec4899",
       "--chart-4": "#22b573",
       "--chart-5": "#2bb8c9",
+    }),
+  },
+  reroot: {
+    id: "reroot",
+    name: "Reroot",
+    font: { label: "General Sans", variable: "--font-general-sans", fallback: "sans-serif" },
+    mode: "light",
+    vars: base({
+      "--background": "#f4f2eb",
+      "--foreground": "#06120d",
+      "--card": "#f9f8f3",
+      "--card-foreground": "#12201a",
+      "--muted": "#e6e8e1",
+      "--muted-foreground": "#5b6a62",
+      "--border": "#d9dbd1",
+      "--primary": "#c9f26b",
+      "--primary-foreground": "#06120d",
+      "--accent": "#e7eadf",
+      "--accent-foreground": "#06120d",
+      "--ring": "#1f6b4b",
+    }),
+  },
+  sunlight: {
+    id: "sunlight",
+    name: "Sunlight",
+    font: { label: "General Sans", variable: "--font-general-sans", fallback: "sans-serif" },
+    mode: "light",
+    vars: base({
+      "--background": "#f4f8fa",
+      "--foreground": "#04232f",
+      "--card": "#ffffff",
+      "--card-foreground": "#14262f",
+      "--muted": "#e6f4fb",
+      "--muted-foreground": "#587080",
+      "--border": "#d3e2ea",
+      "--primary": "#f16436",
+      "--primary-foreground": "#ffffff",
+      "--accent": "#e2f0f7",
+      "--accent-foreground": "#04232f",
+      "--ring": "#005678",
+    }),
+  },
+  spot: {
+    id: "spot",
+    name: "Spot",
+    font: { label: "General Sans", variable: "--font-general-sans", fallback: "sans-serif" },
+    mode: "light",
+    vars: base({
+      "--background": "#f1f0ea",
+      "--foreground": "#1b2420",
+      "--card": "#fffdf9",
+      "--card-foreground": "#1b2420",
+      "--muted": "#e8e7df",
+      "--muted-foreground": "#6b746f",
+      "--border": "#dad9d0",
+      "--primary": "#1f7a68",
+      "--primary-foreground": "#f4fbf8",
+      "--accent": "#dff0ea",
+      "--accent-foreground": "#16453a",
+      "--ring": "#1f7a68",
     }),
   },
   abyss: {

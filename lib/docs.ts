@@ -235,6 +235,13 @@ export function Example({ title = "Hello", className }: { title?: string; classN
             "**Edit the source last.** The file is in your repository. Change what you like.",
           ],
         },
+        { t: "h3", text: "Scroll driven sections" },
+        { t: "p", text: "Pinned sections such as Scene Handover, Card Pile, Line Scrub and Cloud Rise follow the page scroll by default. If you place one inside a scrolling box, make the box `position: relative`, pass it as `scrollContainer` and set `stageHeight` to the height of the box." },
+        { t: "code", lang: "tsx", code: `const box = useRef<HTMLDivElement>(null);
+
+<div ref={box} className="relative h-[34rem] overflow-y-auto">
+  <CardPile scrollContainer={box} stageHeight="34rem" />
+</div>` },
         { t: "h3", text: "Motion" },
         { t: "p", text: "Motion uses `framer-motion` or plain CSS. Many ambient effects check `prefers-reduced-motion` and fall back to a still frame. Interactive motion keeps durations short." },
         { t: "h3", text: "Dependencies" },
