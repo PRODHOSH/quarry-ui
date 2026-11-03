@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "brace-title",
+  "title": "Brace Title",
+  "description": "A heading wrapped in curly braces that types itself out with a blinking caret once it scrolls into view. The braces are SVG strokes, so they stay crisp at any size.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/brace-title.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useRef, useState } from \"react\";\nimport { useInView } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nconst PATH = \"M17 2C9 2 8 8 8 18L8 38C8 46 5 50 2 50C5 50 8 54 8 62L8 82C8 92 9 98 17 98\";\n\nfunction Brace({ flip }: { flip?: boolean }) {\n  return (\n    <svg\n      viewBox=\"0 0 20 100\"\n      preserveAspectRatio=\"none\"\n      aria-hidden\n      focusable=\"false\"\n      className={cn(\"inline-block h-[1.05em] w-[0.34em] shrink-0 align-middle text-primary\", flip && \"-scale-x-100\")}\n    >\n      <path d={PATH} fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2.4\" strokeLinecap=\"round\" vectorEffect=\"non-scaling-stroke\" />\n    </svg>\n  );\n}\n\n/**\n * A heading wrapped in curly braces that types itself out with a blinking caret once it scrolls\n * into view. The braces are drawn as SVG strokes, so they stay crisp at any size and never move\n * while the text types. Screen readers get the full title straight away.\n */\nexport function BraceTitle({\n  text = \"Our services\",\n  speed = 60,\n  as: Tag = \"h2\",\n  className,\n}: {\n  text?: string;\n  /** Milliseconds per character. */\n  speed?: number;\n  as?: \"h1\" | \"h2\" | \"h3\";\n  className?: string;\n}) {\n  const ref = useRef<HTMLHeadingElement>(null);\n  const seen = useInView(ref, { once: true, amount: 0.6 });\n  const [count, setCount] = useState(0);\n  const shown = Math.min(count, text.length);\n\n  useEffect(() => {\n    if (!seen) return;\n    if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) {\n      const r = requestAnimationFrame(() => setCount(text.length));\n      return () => cancelAnimationFrame(r);\n    }\n    let i = 0;\n    const id = window.setInterval(() => {\n      i += 1;\n      setCount(i);\n      if (i >= text.length) window.clearInterval(id);\n    }, speed);\n    return () => window.clearInterval(id);\n  }, [seen, text, speed]);\n\n  return (\n    <Tag ref={ref} className={cn(\"inline-flex max-w-full items-center justify-center gap-[0.18em] text-center text-[clamp(2rem,1.1rem+3.8vw,4.4rem)] font-medium leading-[1.05] tracking-[-0.03em] text-foreground\", className)}>\n      <span className=\"sr-only\">{text}</span>\n      <Brace />\n      <span aria-hidden className=\"relative text-balance\">\n        <span className=\"invisible\">{text}</span>\n        <span className=\"absolute inset-0 text-left\">\n          {text.slice(0, shown)}\n          {shown < text.length ? <i className=\"ml-[0.06em] inline-block h-[0.8em] w-[0.06em] translate-y-[0.06em] animate-[brace-blink_0.7s_steps(1)_infinite] bg-primary align-baseline\" /> : null}\n        </span>\n      </span>\n      <Brace flip />\n      <style>{`@keyframes brace-blink{50%{opacity:0}}`}</style>\n    </Tag>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "reroot"
+  },
+  "docs": "import { BraceTitle } from \"@/components/brace-title\"\n\n<BraceTitle text=\"Our services\" />",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stair-stats",
+  "title": "Stair Stats",
+  "description": "Big figures on a staircase of coloured bars. Each bar sits further right than the last, wipes in from the left as it scrolls into view, and counts up to its number.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/stair-stats.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useRef, useState, type RefObject } from \"react\";\nimport { animate, motion, useInView } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport type StairStat = { value: number; suffix: string; text: string; color?: string; ink?: string };\n\nconst STATS: StairStat[] = [\n  { value: 14, suffix: \"+ years\", text: \"Designing, printing and promoting brands since 2012.\" },\n  { value: 15, suffix: \"services\", text: \"From logos and print to films and digital marketing, in one studio.\" },\n  { value: 60, suffix: \"+ projects\", text: \"Brand work shown in our portfolio across retail, finance, food and more.\" },\n];\nconst COLORS = [\n  { bg: \"var(--ring)\", fg: \"#fff\" },\n  { bg: \"var(--primary)\", fg: \"var(--primary-foreground)\" },\n  { bg: \"color-mix(in oklab, var(--ring) 55%, #29b6ff)\", fg: \"#fff\" },\n];\n\nfunction Count({ to, seen }: { to: number; seen: boolean }) {\n  const [v, setV] = useState(0);\n  useEffect(() => {\n    if (!seen) return;\n    if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) {\n      const r = requestAnimationFrame(() => setV(to));\n      return () => cancelAnimationFrame(r);\n    }\n    const c = animate(0, to, { duration: 2, ease: [0.22, 1, 0.36, 1], onUpdate: (x) => setV(Math.round(x)) });\n    return () => c.stop();\n  }, [seen, to]);\n  return <span className=\"tabular-nums\">{new Intl.NumberFormat(\"en-US\").format(v)}</span>;\n}\n\n/** One bar. The in view check sits on the wrapper, because a clipped element can never count as visible. */\nfunction Step({ stat, index, root }: { stat: StairStat; index: number; root?: RefObject<HTMLElement | null> }) {\n  const wrap = useRef<HTMLDivElement>(null);\n  const seen = useInView(wrap, { once: true, amount: 0.2, root });\n  const c = COLORS[index % COLORS.length];\n  return (\n    <div ref={wrap}>\n      <motion.div\n        initial={false}\n        animate={{ clipPath: seen ? \"inset(0 0% 0 0)\" : \"inset(0 100% 0 0)\" }}\n        transition={{ duration: 1.2, ease: [0.65, 0, 0.35, 1] }}\n        className=\"flex min-h-[clamp(9rem,17vw,15.5rem)] flex-col flex-wrap items-start justify-between gap-3 px-[clamp(1.4rem,3.4vw,4rem)] py-[clamp(1.75rem,4vw,4rem)] [margin-left:calc(var(--n)*6%)] sm:flex-row sm:flex-nowrap sm:items-center sm:gap-6 sm:[margin-left:calc(14%+var(--n)*17%)]\"\n        style={{ [\"--n\" as string]: index, background: stat.color ?? c.bg, color: stat.ink ?? c.fg }}\n      >\n        <b className=\"whitespace-nowrap text-[clamp(3rem,1rem+7.2vw,9.5rem)] font-medium leading-[0.95] tracking-[-0.055em]\">\n          <Count to={stat.value} seen={seen} />\n          <small className=\"ml-2.5 text-[0.34em] font-medium tracking-[-0.01em]\">{stat.suffix}</small>\n        </b>\n        <p className=\"min-w-0 max-w-[34ch] text-[clamp(0.9rem,0.8rem+0.35vw,1.15rem)] leading-[1.35] opacity-90 sm:max-w-[28ch] sm:text-right\">{stat.text}</p>\n      </motion.div>\n    </div>\n  );\n}\n\n/**\n * Big figures on a staircase of coloured bars. Each bar sits further right than the one above it,\n * wipes in from the left as it scrolls into view, and counts up to its number. On a phone the steps\n * shrink to a small indent and stack their text under the figure.\n */\nexport function StairStats({\n  eyebrow = \"Northwind in numbers\",\n  title = \"A studio you can count on.\",\n  stats = STATS,\n  scrollContainer,\n  className,\n}: {\n  eyebrow?: string;\n  title?: string;\n  stats?: StairStat[];\n  /** Set this when the section lives inside a scrolling box. */\n  scrollContainer?: RefObject<HTMLElement | null>;\n  className?: string;\n}) {\n  return (\n    <section className={cn(\"bg-background px-[clamp(1rem,3.2vw,3rem)] py-[clamp(3.5rem,6.5vw,7rem)] text-foreground\", className)}>\n      <div className=\"mx-auto max-w-[110rem]\">\n        <p className=\"text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground\">{eyebrow}</p>\n        <h2 className=\"mb-[clamp(1.5rem,3vw,2.5rem)] mt-2.5 max-w-[16ch] text-[clamp(1.9rem,1rem+3.4vw,4.2rem)] font-medium leading-[1.04] tracking-[-0.035em]\">{title}</h2>\n        <div>\n          {stats.map((s, i) => (\n            <Step key={s.suffix} stat={s} index={i} root={scrollContainer} />\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "fill",
+    "theme": "sunlight"
+  },
+  "docs": "import { StairStats } from \"@/components/stair-stats\"\n\n<StairStats stats={[{ value: 14, suffix: \"+ years\", text: \"Designing since 2012.\" }]} />",
+  "categories": [
+    "sections"
+  ],
+  "type": "registry:component"
+}

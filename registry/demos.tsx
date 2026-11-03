@@ -17,6 +17,24 @@ import { Constellation } from "./quarry/constellation";
 import { WaveLines } from "./quarry/wave-lines";
 import { AsciiAquarium } from "./quarry/ascii-aquarium";
 import { AsciiLagoon } from "./quarry/ascii-lagoon";
+import { OverlayMenu } from "./quarry/overlay-menu";
+import { PhysicsFooter } from "./quarry/physics-footer";
+import { ContourShader } from "./quarry/contour-shader";
+import { FanHero } from "./quarry/fan-hero";
+import { SceneHandover } from "./quarry/scene-handover";
+import { CardPile } from "./quarry/card-pile";
+import { ServiceShowcase } from "./quarry/service-showcase";
+import { LineScrub } from "./quarry/line-scrub";
+import { BraceTitle } from "./quarry/brace-title";
+import { VelocityMarquee } from "./quarry/velocity-marquee";
+import { DragCarousel } from "./quarry/drag-carousel";
+import { QuoteEstimator } from "./quarry/quote-estimator";
+import { GridLines } from "./quarry/grid-lines";
+import { StairStats } from "./quarry/stair-stats";
+import { MosaicHero } from "./quarry/mosaic-hero";
+import { CandleField } from "./quarry/candle-field";
+import { CloudRise } from "./quarry/cloud-rise";
+import { ApiKeyCopy, CalendarBooking, CommandSpot, SettingsToggles, UsageMeter } from "./quarry/spot-illustrations";
 import { CompassField } from "./quarry/compass-field";
 import { GlowTrail } from "./quarry/glow-trail";
 import { Starfield } from "./quarry/starfield";
@@ -299,6 +317,146 @@ const bg = (C: ComponentType<Record<string, unknown>>, title: string, hint: stri
     return <C {...props} className="h-[34rem]">{over(title, hint)}</C>;
   };
 
+/** The Reroot and Sunlights style demos. Scroll driven ones get their own scrolling box. */
+function OverlayMenuDemo() {
+  return (
+    <div className="relative h-[34rem] w-full overflow-hidden bg-[linear-gradient(160deg,#0d3b2c,#06120d)]">
+      <OverlayMenu position="absolute" brand="Northwind" actions={[{ label: "Our work", href: "#" }]} />
+      <div className="grid h-full place-items-center px-8 text-center text-background">
+        <h3 className="max-w-[14ch] text-balance text-5xl font-medium tracking-tight sm:text-6xl">Open the menu in the corner.</h3>
+      </div>
+    </div>
+  );
+}
+
+function PhysicsFooterDemo(props: Record<string, unknown>) {
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = box.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [props.pile]);
+  return (
+    <div ref={box} className="h-[34rem] w-full overflow-y-auto scrollbar-none bg-background">
+      <div className="grid h-40 place-items-center text-xs uppercase tracking-[0.3em] text-muted-foreground">Scroll up</div>
+      <PhysicsFooter
+        {...props}
+        tagColors={[
+          { bg: "#ffffff", fg: "#04232f" },
+          { bg: "#005678", fg: "#ffffff" },
+          { bg: "#f16436", fg: "#ffffff" },
+          { bg: "transparent", fg: "#ffffff", outline: true },
+          { bg: "#0097d9", fg: "#ffffff" },
+          { bg: "#fdee0d", fg: "#04232f" },
+        ]}
+        hover="#fdee0d"
+        tileColors={[
+          { bg: "#005678", fg: "#ffffff" },
+          { bg: "#f16436", fg: "#ffffff" },
+          { bg: "#fdee0d", fg: "#04232f" },
+          { bg: "#0097d9", fg: "#ffffff" },
+        ]}
+      />
+    </div>
+  );
+}
+
+function ContourShaderDemo(props: Record<string, unknown>) {
+  return (
+    <ContourShader line="#c9f26b" glow="#1fa5a0" ground="#06120d" {...props} className="h-[34rem]">
+      <div className="text-center">
+        <p className="font-label text-xs uppercase tracking-[0.3em] text-primary">Move your cursor</p>
+        <h3 className="mt-3 max-w-[14ch] text-balance px-6 text-4xl font-medium tracking-tight sm:text-6xl">Where industry meets restoration.</h3>
+      </div>
+    </ContourShader>
+  );
+}
+
+function FanHeroDemo(props: Record<string, unknown>) {
+  return <FanHero {...props} className="h-[34rem]" />;
+}
+
+function ScrollBox({ children, start = 0 }: { children: (ref: React.RefObject<HTMLDivElement | null>) => React.ReactNode; start?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !start) return;
+    const r = requestAnimationFrame(() => (el.scrollTop = (el.scrollHeight - el.clientHeight) * start));
+    return () => cancelAnimationFrame(r);
+  }, [start]);
+  return (
+    <div ref={ref} className="relative h-[34rem] w-full overflow-y-auto scrollbar-none bg-background">
+      {children(ref)}
+    </div>
+  );
+}
+
+const SceneHandoverDemo = () => <ScrollBox start={0.3}>{(ref) => <SceneHandover scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
+const CardPileDemo = () => <ScrollBox start={0.9}>{(ref) => <CardPile scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
+const ServiceShowcaseDemo = () => <ScrollBox start={0.3}>{(ref) => <ServiceShowcase scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
+const LineScrubDemo = () => <ScrollBox start={0.85}>{(ref) => <LineScrub scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
+
+function VelocityMarqueeDemo(props: Record<string, unknown>) {
+  return (
+    <ScrollBox>
+      {(ref) => (
+        <>
+          <div className="grid h-[13rem] place-items-end pb-8 text-xs uppercase tracking-[0.3em] text-muted-foreground">Scroll to speed it up</div>
+          <VelocityMarquee {...props} scrollContainer={ref} />
+          <div className="h-[60rem]" />
+        </>
+      )}
+    </ScrollBox>
+  );
+}
+
+function GridLinesDemo(props: Record<string, unknown>) {
+  return (
+    <div className="relative grid h-[34rem] w-full place-items-center overflow-hidden bg-background">
+      <GridLines {...props} />
+      <div className="relative z-10 text-center">
+        <p className="font-label text-xs uppercase tracking-[0.3em] text-muted-foreground">Four columns</p>
+        <h3 className="mt-3 text-4xl font-medium tracking-tight sm:text-6xl">Quiet structure.</h3>
+      </div>
+    </div>
+  );
+}
+
+const QuoteEstimatorDemo = () => (
+  <div className="h-[34rem] w-full overflow-y-auto scrollbar-none bg-background">
+    <QuoteEstimator />
+  </div>
+);
+const DragCarouselDemo = () => (
+  <div className="grid h-[34rem] w-full content-center bg-background">
+    <DragCarousel />
+  </div>
+);
+const StairStatsDemo = () => <ScrollBox>{(ref) => <StairStats scrollContainer={ref} />}</ScrollBox>;
+const MosaicHeroDemo = () => <MosaicHero className="h-[34rem]" />;
+const CloudRiseDemo = () => <ScrollBox start={0.34}>{(ref) => <CloudRise scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
+function CandleFieldDemo(props: Record<string, unknown>) {
+  return (
+    <CandleField ground="#050505" candle="#9a9a9a" highlight="#ff2a2a" {...props} className="h-[34rem]">
+      <div className="text-center text-white">
+        <p className="font-label text-xs uppercase tracking-[0.3em] text-white/60">Move your cursor</p>
+        <h3 className="mt-3 max-w-[12ch] text-balance px-6 text-4xl font-medium tracking-tight sm:text-6xl">Built for the ones who read the chart.</h3>
+      </div>
+    </CandleField>
+  );
+}
+const SpotDemo = () => (
+  <div className="h-[34rem] w-full overflow-y-auto scrollbar-none bg-background">
+    <div className="grid gap-4 p-6 sm:grid-cols-2 lg:grid-cols-3">
+      <CalendarBooking />
+      <SettingsToggles />
+      <ApiKeyCopy />
+      <CommandSpot />
+      <UsageMeter />
+    </div>
+  </div>
+);
+const BraceTitleDemo = (props: Record<string, unknown>) => <BraceTitle speed={28} {...props} />;
+
 export const DEMOS: Record<string, ComponentType> = {
   "feature-bento": dynamic(() => import("./quarry/feature-bento").then((m) => m.FeatureBento)),
   "process-steps": dynamic(() => import("./quarry/process-steps").then((m) => m.ProcessSteps)),
@@ -348,6 +506,24 @@ export const DEMOS: Record<string, ComponentType> = {
   "dot-ripple": bg(DotRipple as ComponentType<Record<string, unknown>>, "Click anywhere", "Push, pull, ripple"),
   "aurora-mesh": bg(AuroraMesh as ComponentType<Record<string, unknown>>, "A quiet kind of light", "Follow the glow"),
   "constellation": bg(Constellation as ComponentType<Record<string, unknown>>, "Everything is connected", "Reach for a point"),
+  "overlay-menu": OverlayMenuDemo,
+  "physics-footer": PhysicsFooterDemo as ComponentType,
+  "contour-shader": ContourShaderDemo as ComponentType,
+  "fan-hero": FanHeroDemo as ComponentType,
+  "scene-handover": SceneHandoverDemo,
+  "card-pile": CardPileDemo,
+  "service-showcase": ServiceShowcaseDemo,
+  "line-scrub": LineScrubDemo,
+  "brace-title": BraceTitleDemo as ComponentType,
+  "velocity-marquee": VelocityMarqueeDemo as ComponentType,
+  "drag-carousel": DragCarouselDemo,
+  "quote-estimator": QuoteEstimatorDemo,
+  "grid-lines": GridLinesDemo as ComponentType,
+  "stair-stats": StairStatsDemo,
+  "mosaic-hero": MosaicHeroDemo,
+  "cloud-rise": CloudRiseDemo,
+  "candle-field": CandleFieldDemo as ComponentType,
+  "spot-illustrations": SpotDemo,
   "ascii-lagoon": bg(AsciiLagoon as ComponentType<Record<string, unknown>>, "What is on your mind?", "A calm lagoon"),
   "ascii-aquarium": bg(AsciiAquarium as ComponentType<Record<string, unknown>>, "Something is swimming", "Move your cursor"),
   "wave-lines": bg(WaveLines as ComponentType<Record<string, unknown>>, "Pull a ridge through", "Lift the lines"),

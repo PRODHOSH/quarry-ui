@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "grid-lines",
+  "title": "Grid Lines",
+  "description": "Faint vertical guide lines that run the full height of a section, like the columns of a layout grid. Adds structure without weight.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/quarry/grid-lines.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\n/**\n * Faint vertical guide lines that run the full height of a section, like the columns of a layout\n * grid. They add structure without adding weight. Put it inside any relatively positioned box,\n * or set `position` to `fixed` to lay it over the whole page.\n */\nexport function GridLines({\n  columns = 4,\n  inset = \"clamp(1rem, 3.2vw, 3rem)\",\n  position = \"absolute\",\n  className,\n}: {\n  /** How many equal columns, which gives columns + 1 lines. */\n  columns?: number;\n  /** Space kept free at the left and right edges. */\n  inset?: string;\n  position?: \"absolute\" | \"fixed\";\n  className?: string;\n}) {\n  return (\n    <div aria-hidden className={cn(\"pointer-events-none inset-y-0 z-[3]\", position, className)} style={{ left: inset, right: inset }}>\n      {Array.from({ length: columns + 1 }, (_, i) => (\n        <i\n          key={i}\n          className={cn(\"absolute inset-y-0 w-px bg-foreground/[0.09]\", i > 0 && i < columns && i % 2 === 1 && \"max-sm:hidden\")}\n          style={i === columns ? { right: 0 } : { left: `${(i / columns) * 100}%` }}\n        />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "stage": "center",
+    "theme": "sunlight"
+  },
+  "docs": "import { GridLines } from \"@/components/grid-lines\"\n\n<section className=\"relative\">\n  <GridLines columns={4} />\n</section>",
+  "categories": [
+    "elements"
+  ],
+  "type": "registry:component"
+}
