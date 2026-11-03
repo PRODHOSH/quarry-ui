@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "shadcn build && next build",
-    "start": "next start",
+    "dev": "node init && next dev",
+    "build": "node init && shadcn build && next build",
+    "start": "node init && next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "registry:build": "shadcn build"
