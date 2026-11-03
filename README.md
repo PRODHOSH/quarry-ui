@@ -115,6 +115,11 @@ Pull requests are welcome, from a typo to a whole new component. Read [CONTRIBUT
       <a href="https://github.com/apps/vercel"><b>vercel[bot]</b></a><br>
       <sub>Web analytics setup</sub>
     </td>
+    <td align="center" width="160">
+      <a href="https://github.com/sanjayontech"><img src="https://github.com/sanjayontech.png?size=120" width="72" alt="sanjayontech"></a><br>
+      <a href="https://github.com/sanjayontech"><b>sanjayontech</b></a><br>
+      <sub>Hero Card Flight</sub>
+    </td>
   </tr>
 </table>
 

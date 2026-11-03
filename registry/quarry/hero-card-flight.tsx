@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useMemo, useCallback } from "react";
+import { useEffect, useRef, useMemo, useCallback, type ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -28,15 +28,19 @@ export interface HeroCardFlightProps {
   /** Card width in pixels. Default: 250 */
   cardWidth?: number;
   /** Hero title text */
-  heroTitle?: React.ReactNode;
+  heroTitle?: ReactNode;
   /** Hero subtitle / description */
   heroSubtitle?: string;
   /** Primary CTA button text */
   primaryCtaText?: string;
+  /** Primary CTA link. Renders an anchor when set. */
+  primaryCtaHref?: string;
   /** Primary CTA click handler */
   onPrimaryCtaClick?: () => void;
   /** Secondary CTA button text */
   secondaryCtaText?: string;
+  /** Secondary CTA link. Renders an anchor when set. */
+  secondaryCtaHref?: string;
   /** Secondary CTA click handler */
   onSecondaryCtaClick?: () => void;
   /** Landing section heading */
@@ -44,9 +48,22 @@ export interface HeroCardFlightProps {
   /** Landing section eyebrow label */
   gridEyebrow?: string;
   /** Optional custom card renderer */
-  renderCard?: (item: HeroFlightItem) => React.ReactNode;
+  renderCard?: (item: HeroFlightItem) => ReactNode;
   /** Container custom class name */
   className?: string;
+}
+
+/** A link when it has an href, a button otherwise. */
+function Cta({ href, onClick, className, children }: { href?: string; onClick?: () => void; className: string; children: ReactNode }) {
+  return href ? (
+    <a href={href} onClick={onClick} className={className}>
+      {children}
+    </a>
+  ) : (
+    <button type="button" onClick={onClick} className={className}>
+      {children}
+    </button>
+  );
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -148,7 +165,7 @@ const DEFAULT_ITEMS: HeroFlightItem[] = [
     subtitle: "Limited Edition",
     price: "$480",
     badge: "Bestseller",
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    image: "https://picsum.photos/id/26/600/750",
   },
   {
     id: "card-2",
@@ -156,7 +173,7 @@ const DEFAULT_ITEMS: HeroFlightItem[] = [
     subtitle: "Artisanal Forge",
     price: "$240",
     badge: "New",
-    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=80",
+    image: "https://picsum.photos/id/60/600/750",
   },
   {
     id: "card-3",
@@ -164,14 +181,14 @@ const DEFAULT_ITEMS: HeroFlightItem[] = [
     subtitle: "Hand-Blown Glass",
     price: "$320",
     badge: "Crafted",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+    image: "https://picsum.photos/id/20/600/750",
   },
   {
     id: "card-4",
     title: "Sculpted Walnut Stand",
     subtitle: "Natural Matte",
     price: "$195",
-    image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&auto=format&fit=crop&q=80",
+    image: "https://picsum.photos/id/119/600/750",
   },
 ];
 
@@ -239,8 +256,10 @@ export function HeroCardFlight({
   heroTitle,
   heroSubtitle = "Explore handcrafted creations that seamlessly travel from our design studio right into your collection.",
   primaryCtaText = "Explore Collection",
+  primaryCtaHref,
   onPrimaryCtaClick,
   secondaryCtaText = "Learn More",
+  secondaryCtaHref,
   onSecondaryCtaClick,
   gridTitle = "Curated Showcase",
   gridEyebrow = "Selected Artifacts",
@@ -510,20 +529,20 @@ export function HeroCardFlight({
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
+              <Cta
+                href={primaryCtaHref}
                 onClick={onPrimaryCtaClick}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-transform duration-200 hover:scale-105 active:scale-95"
               >
                 {primaryCtaText} <ArrowUpRight className="size-4" />
-              </button>
-              <button
-                type="button"
+              </Cta>
+              <Cta
+                href={secondaryCtaHref}
                 onClick={onSecondaryCtaClick}
                 className="rounded-full border border-border bg-background/80 px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted"
               >
                 {secondaryCtaText}
-              </button>
+              </Cta>
             </div>
           </div>
 
@@ -602,5 +621,3 @@ export function HeroCardFlight({
     </div>
   );
 }
-
-export default HeroCardFlight;

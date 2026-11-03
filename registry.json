@@ -2804,7 +2804,7 @@
     },
     {
       "name": "hero-card-flight",
-      "type": "registry:block",
+      "type": "registry:component",
       "title": "Hero Card Flight",
       "description": "Scroll-driven card flight: stacked cards in a hero deck smoothly fan out and fly along parabolic curves into a destination grid.",
       "categories": [
@@ -2819,12 +2819,13 @@
       "files": [
         {
           "path": "registry/quarry/hero-card-flight.tsx",
-          "type": "registry:block"
+          "type": "registry:component"
         }
       ],
-      "docs": "import { HeroCardFlight } from \"@/components/hero-card-flight\"\n\n<HeroCardFlight />",
+      "docs": "import { HeroCardFlight } from \"@/components/hero-card-flight\"\n\n<HeroCardFlight primaryCtaHref=\"/shop\" items={items} />",
       "meta": {
-        "stage": "fill"
+        "stage": "fill",
+        "theme": "noir"
       }
     },
     {
