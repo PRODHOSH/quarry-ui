@@ -20,6 +20,9 @@ const choice = (key: string, label: string, value: string, options: [string, str
 const toggle = (key: string, label: string, value: boolean): Control => ({ key, label, type: "toggle", value });
 
 export const PLAYGROUNDS: Record<string, Control[]> = {
+  "card-cloud-flip": [
+    color("cloudColor", "Cloud tint", "#eed3f5"),
+  ],
   "hero-card-flight": [
     range("cardWidth", "Card width", 250, 200, 300, 10),
   ],
