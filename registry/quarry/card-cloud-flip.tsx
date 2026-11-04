@@ -98,7 +98,7 @@ export function CardCloudFlip({
   const cardRotateY = useTransform(p, [0.1, 0.48, 0.82], [0, 180, 360]);
   const cardRotateX = useTransform(p, [0.1, 0.45, 0.82], [0, 16, 0]);
   const cardRotateZ = useTransform(p, [0.1, 0.45, 0.82], [0, -8, 0]);
-  const cardScale = useTransform(p, [0.1, 0.48, 0.85, 1], [1, 0.86, 0.94, 0.94]);
+  const cardScale = useTransform(p, [0.1, 0.48, 0.85, 1], [1, 0.9, 1, 1]);
 
   // Cloud Bloom Expansion (Radial Organic Scale)
   const cloudScale = useTransform(p, [0.12, 0.45, 0.78, 1], [0, 0.65, 1.8, 3.2]);
@@ -106,10 +106,6 @@ export function CardCloudFlip({
 
   // Overall Background Color Shift
   const bgDarkOpacity = useTransform(p, [0.55, 0.78], [1, 0]);
-
-  // Phone Mockup Materialization around Card
-  const phoneFrameOpacity = useTransform(p, [0.72, 0.86], [0, 1]);
-  const phoneFrameScale = useTransform(p, [0.72, 0.86], [0.94, 1]);
 
   return (
     <section
@@ -192,22 +188,10 @@ export function CardCloudFlip({
         </div>
 
         {/* ──────────────────────────────────────────
-            CENTER 3D FLIPPING CARD & PHONE FRAME
+            CENTER 3D FLIPPING CARD
             ────────────────────────────────────────── */}
         <div className="relative z-10 flex size-full items-center justify-center p-4">
           <div className="relative flex items-center justify-center">
-            {/* Phone Mockup Frame that fades in around the card in Phase 3 */}
-            <motion.div
-              style={{
-                opacity: phoneFrameOpacity,
-                scale: phoneFrameScale,
-              }}
-              className="pointer-events-none absolute -inset-y-9 -inset-x-6 sm:-inset-y-12 sm:-inset-x-8 rounded-[3.2rem] border-[7px] border-white/80 bg-white/20 shadow-[0_24px_60px_-15px_rgba(160,100,190,0.35)] backdrop-blur-md"
-            >
-              {/* Dynamic Island Speaker Pill */}
-              <div className="mx-auto mt-3 h-5 w-24 rounded-full bg-neutral-950/90 shadow-inner" />
-            </motion.div>
-
             {/* 3D Rotating Card Container */}
             <div
               className="relative size-full"
