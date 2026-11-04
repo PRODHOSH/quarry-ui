@@ -134,18 +134,18 @@ export function CardCloudFlip({
         />
 
         {/* ──────────────────────────────────────────
-            EXPANDING LIVING WATERCOLOR LIQUID CLOUD LAYER
+            EXPANDING LIVING FIREFLAME WATERCOLOR BURST
             ────────────────────────────────────────── */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center overflow-hidden">
-          {/* Multi-layered liquid water droplet with fluid undulating borders */}
+          {/* Asymmetrical organic fireflame silhouette with licking tongues */}
           <motion.div
             style={{
               scale: cloudScale,
               opacity: cloudOpacity,
             }}
-            className="relative size-[460px] sm:size-[560px] origin-center"
+            className="relative h-[480px] w-[620px] origin-center sm:h-[600px] sm:w-[780px]"
           >
-            {/* SVG Filter for Fluid Liquid Ink-Bleed & Ripple Waves */}
+            {/* SVG Filter for Fiery Jagged Flame Bleed & Licking Wisps */}
             <svg className="absolute size-0">
               <defs>
                 <filter
@@ -157,29 +157,29 @@ export function CardCloudFlip({
                   filterUnits="objectBoundingBox"
                 >
                   <feTurbulence
-                    type="fractalNoise"
-                    baseFrequency="0.014 0.016"
-                    numOctaves="3"
-                    result="noise"
+                    type="turbulence"
+                    baseFrequency="0.009 0.018"
+                    numOctaves="4"
+                    result="flameNoise"
                   >
                     <animate
                       attributeName="baseFrequency"
-                      dur="12s"
-                      values="0.012 0.015;0.019 0.022;0.015 0.027;0.022 0.016;0.012 0.015"
+                      dur="6s"
+                      values="0.008 0.016;0.012 0.024;0.009 0.020;0.013 0.015;0.008 0.016"
                       repeatCount="indefinite"
                     />
                   </feTurbulence>
                   <feDisplacementMap
                     in="SourceGraphic"
-                    in2="noise"
-                    scale="70"
+                    in2="flameNoise"
+                    scale="95"
                     xChannelSelector="R"
                     yChannelSelector="G"
                   >
                     <animate
                       attributeName="scale"
-                      dur="9s"
-                      values="55;85;65;95;55"
+                      dur="5s"
+                      values="80;115;90;125;80"
                       repeatCount="indefinite"
                     />
                   </feDisplacementMap>
@@ -188,20 +188,23 @@ export function CardCloudFlip({
               </defs>
             </svg>
 
-            {/* Layer 1: Central Liquid Body with undulating morphing edges */}
+            {/* Main Asymmetrical Flame Body */}
             <motion.div
               animate={{
-                rotate: [0, 360],
+                scale: [1, 1.04, 0.98, 1.03, 1],
+                skewX: [-2, 3, -1, 2, -2],
+                skewY: [1, -2, 2, -1, 1],
                 borderRadius: [
-                  "50% 50% 50% 50% / 50% 50% 50% 50%",
-                  "43% 57% 53% 47% / 56% 44% 56% 44%",
-                  "57% 43% 45% 55% / 45% 55% 43% 57%",
-                  "50% 50% 50% 50% / 50% 50% 50% 50%",
+                  "42% 58% 70% 30% / 45% 45% 55% 55%",
+                  "55% 45% 38% 62% / 58% 52% 48% 42%",
+                  "38% 62% 65% 35% / 40% 60% 40% 60%",
+                  "42% 58% 70% 30% / 45% 45% 55% 55%",
                 ],
               }}
               transition={{
-                rotate: { duration: 28, repeat: Infinity, ease: "linear" },
-                borderRadius: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
               }}
               className="absolute inset-0"
               style={{
@@ -210,46 +213,82 @@ export function CardCloudFlip({
               }}
             />
 
-            {/* Layer 2: Counter-rotating secondary fluid water lobe */}
+            {/* Bottom-Left Licking Flame Tongue */}
             <motion.div
               animate={{
-                rotate: [360, 0],
-                scale: [0.96, 1.05, 0.96],
-                borderRadius: [
-                  "47% 53% 58% 42% / 48% 52% 43% 57%",
-                  "54% 46% 42% 58% / 56% 44% 58% 42%",
-                  "47% 53% 58% 42% / 48% 52% 43% 57%",
-                ],
+                scale: [0.95, 1.14, 0.98, 1.08, 0.95],
+                x: [0, -18, 4, -12, 0],
+                y: [0, 16, -6, 10, 0],
+                rotate: [-8, 6, -4, 3, -8],
               }}
               transition={{
-                rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                borderRadius: { duration: 7, repeat: Infinity, ease: "easeInOut" },
+                duration: 4.8,
+                repeat: Infinity,
+                ease: "easeInOut",
               }}
-              className="absolute -inset-4 opacity-90"
+              className="absolute -bottom-12 -left-14 h-[68%] w-[62%] rounded-[30%_70%_60%_40%/50%_30%_70%_50%]"
               style={{
                 backgroundColor: cloudColor,
                 filter: `url(#${filterId})`,
               }}
             />
 
-            {/* Layer 3: Darker Inky Capillary Bleed Rim (pools at water edge like watercolor paint) */}
+            {/* Top-Right Billowing Flame Plume */}
             <motion.div
               animate={{
-                rotate: [0, 360],
-                scale: [1, 1.04, 1],
+                scale: [1.02, 0.95, 1.07, 0.97, 1.02],
+                x: [0, 14, -6, 10, 0],
+                y: [0, -12, 5, -8, 0],
+                rotate: [6, -4, 7, -2, 6],
+              }}
+              transition={{
+                duration: 5.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute -top-12 -right-10 h-[68%] w-[65%] rounded-[60%_40%_45%_55%/40%_60%_40%_60%]"
+              style={{
+                backgroundColor: cloudColor,
+                filter: `url(#${filterId})`,
+              }}
+            />
+
+            {/* Top-Left Secondary Flame Tongue */}
+            <motion.div
+              animate={{
+                scale: [0.97, 1.06, 0.95, 1.03, 0.97],
+                y: [0, -10, 3, -7, 0],
+                rotate: [-4, 5, -2, 4, -4],
+              }}
+              transition={{
+                duration: 4.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute -top-8 left-8 h-[55%] w-[55%] rounded-[50%_50%_35%_65%/60%_40%_60%_40%]"
+              style={{
+                backgroundColor: cloudColor,
+                filter: `url(#${filterId})`,
+              }}
+            />
+
+            {/* Dark Inky/Charred Perimeter Bleed Rim */}
+            <motion.div
+              animate={{
+                scale: [1, 1.03, 0.99, 1.02, 1],
+                skewX: [2, -2, 1, -1, 2],
                 borderRadius: [
-                  "49% 51% 54% 46% / 52% 48% 54% 46%",
-                  "55% 45% 47% 53% / 46% 54% 48% 52%",
-                  "49% 51% 54% 46% / 52% 48% 54% 46%",
+                  "44% 56% 68% 32% / 46% 44% 56% 54%",
+                  "56% 44% 36% 64% / 56% 54% 46% 44%",
+                  "44% 56% 68% 32% / 46% 44% 56% 54%",
                 ],
               }}
               transition={{
-                rotate: { duration: 24, repeat: Infinity, ease: "linear" },
-                scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-                borderRadius: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                duration: 5.8,
+                repeat: Infinity,
+                ease: "easeInOut",
               }}
-              className="absolute -inset-2 border-[12px] border-black/20 opacity-60"
+              className="absolute -inset-3 border-[10px] border-black/35 opacity-70"
               style={{
                 filter: `url(#${filterId})`,
               }}
