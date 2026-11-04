@@ -183,7 +183,7 @@ export function CardCloudFlip({
                       repeatCount="indefinite"
                     />
                   </feDisplacementMap>
-                  <feGaussianBlur stdDeviation="3" />
+                  <feGaussianBlur stdDeviation="1.5" />
                 </filter>
               </defs>
             </svg>
@@ -253,16 +253,6 @@ export function CardCloudFlip({
               style={{
                 filter: `url(#${filterId})`,
               }}
-            />
-
-            {/* Layer 4: Soft ambient atmospheric glow around expanding water */}
-            <div
-              className="absolute -inset-14 rounded-full opacity-50 blur-3xl"
-              style={{ backgroundColor: cloudColor }}
-            />
-            <div
-              className="absolute -inset-24 rounded-full opacity-30 blur-2xl"
-              style={{ backgroundColor: cloudColor }}
             />
           </motion.div>
         </div>
