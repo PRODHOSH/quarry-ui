@@ -2803,6 +2803,33 @@
       }
     },
     {
+      "name": "card-cloud-flip",
+      "type": "registry:block",
+      "title": "Card Cloud Flip",
+      "description": "A scroll-driven story section: a quest card performs a 360° 3D flip as an organic watercolor cloud expands to cover the screen, revealing a running countdown clock and phone frame.",
+      "categories": [
+        "sections"
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/quarry/card-cloud-flip.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "docs": "import { CardCloudFlip } from \"@/components/card-cloud-flip\"\n\n<CardCloudFlip />",
+      "meta": {
+        "stage": "fill",
+        "theme": "porcelain"
+      }
+    },
+    {
       "name": "hero-card-flight",
       "type": "registry:component",
       "title": "Hero Card Flight",
