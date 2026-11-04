@@ -1,16 +1,15 @@
 "use client";
 
-import { useId, useRef, type RefObject, type ReactNode } from "react";
+import { useRef, type RefObject, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * CardCloudFlip — Scroll-Driven 3D Card Flip & Expanding Watercolor Cloud
+ * CardCloudFlip — Scroll-Driven 3D Card Flip & Expanding Round Portal
  *
  * A centered minimalist card begins to flip 360° in 3D perspective as the user
- * scrolls, showing its plain white front and plain black back while a lush
- * pastel watercolor cloud blooms outward from behind it to consume the viewport.
- * The water cloud features undulating, living liquid watercolor edges.
+ * scrolls, showing its plain white front and plain black back while a clean,
+ * round circle portal blooms outward from behind it to consume the viewport.
  * ───────────────────────────────────────────────────────────────────────────── */
 
 export type QuestCardData = {
@@ -29,7 +28,7 @@ export type CardCloudFlipProps = {
   backContent?: ReactNode;
   /** Legacy card prop for backwards compatibility */
   card?: QuestCardData;
-  /** Cloud tint color (default: soft lavender-rose #eed3f5) */
+  /** Round portal tint color (default: soft lavender-rose #eed3f5) */
   cloudColor?: string;
   /** Optional scroll container ref for embedded preview boxes */
   scrollContainer?: RefObject<HTMLElement | null>;
@@ -88,7 +87,6 @@ export function CardCloudFlip({
   className,
 }: CardCloudFlipProps) {
   const root = useRef<HTMLElement>(null);
-  const filterId = useId();
   const { scrollYProgress: p } = useScroll({
     target: root,
     container: scrollContainer,
@@ -101,9 +99,9 @@ export function CardCloudFlip({
   const cardRotateZ = useTransform(p, [0.1, 0.45, 0.82], [0, -8, 0]);
   const cardScale = useTransform(p, [0.1, 0.48, 0.85, 1], [1, 0.9, 1, 1]);
 
-  // Cloud Bloom Expansion (Radial Organic Scale)
-  const cloudScale = useTransform(p, [0.12, 0.45, 0.78, 1], [0, 0.65, 1.8, 3.2]);
-  const cloudOpacity = useTransform(p, [0.1, 0.22, 0.85, 1], [0, 1, 1, 1]);
+  // Round Circle Portal Expansion (Radial Scale)
+  const circleScale = useTransform(p, [0.12, 0.45, 0.78, 1], [0, 0.65, 1.8, 3.6]);
+  const circleOpacity = useTransform(p, [0.1, 0.22, 0.85, 1], [0, 1, 1, 1]);
 
   // Overall Background Color Shift
   const bgDarkOpacity = useTransform(p, [0.55, 0.78], [1, 0]);
@@ -121,103 +119,31 @@ export function CardCloudFlip({
         className="sticky top-0 w-full overflow-hidden"
         style={{ height: stageHeight }}
       >
-        {/* Full Pastel Lilac Canvas (Base Layer underneath Cloud) */}
+        {/* Full Pastel Lilac Canvas (Base Layer underneath Round Portal) */}
         <div
           className="absolute inset-0"
           style={{ backgroundColor: cloudColor }}
         />
 
-        {/* Deep Black Backdrop that recedes as Cloud expands */}
+        {/* Deep Black Backdrop that recedes as Round Portal expands */}
         <motion.div
           style={{ opacity: bgDarkOpacity }}
           className="pointer-events-none absolute inset-0 bg-[#070609]"
         />
 
         {/* ──────────────────────────────────────────
-            EXPANDING LIVING FIREFLAME WATERCOLOR BURST
+            EXPANDING ROUND PORTAL LAYER
             ────────────────────────────────────────── */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center overflow-hidden">
-          {/* Asymmetrical organic fireflame silhouette with licking tongues */}
+          {/* Clean, perfectly round circular portal */}
           <motion.div
             style={{
-              scale: cloudScale,
-              opacity: cloudOpacity,
+              backgroundColor: cloudColor,
+              scale: circleScale,
+              opacity: circleOpacity,
             }}
-            className="relative h-[480px] w-[620px] origin-center sm:h-[600px] sm:w-[780px]"
-          >
-            {/* SVG Filter for Fiery Jagged Flame Bleed & Licking Wisps */}
-            <svg className="absolute size-0">
-              <defs>
-                <filter
-                  id={filterId}
-                  x="-35%"
-                  y="-35%"
-                  width="170%"
-                  height="170%"
-                  filterUnits="objectBoundingBox"
-                >
-                  <feTurbulence
-                    type="turbulence"
-                    baseFrequency="0.009 0.018"
-                    numOctaves="4"
-                    result="flameNoise"
-                  />
-                  <feDisplacementMap
-                    in="SourceGraphic"
-                    in2="flameNoise"
-                    scale="95"
-                    xChannelSelector="R"
-                    yChannelSelector="G"
-                  />
-                  <feGaussianBlur stdDeviation="1.5" />
-                </filter>
-              </defs>
-            </svg>
-
-            {/* Main Asymmetrical Flame Body */}
-            <div
-              className="absolute inset-0 rounded-[42%_58%_70%_30%/45%_45%_55%_55%]"
-              style={{
-                backgroundColor: cloudColor,
-                filter: `url(#${filterId})`,
-              }}
-            />
-
-            {/* Bottom-Left Licking Flame Tongue */}
-            <div
-              className="absolute -bottom-12 -left-14 h-[68%] w-[62%] -rotate-6 rounded-[30%_70%_60%_40%/50%_30%_70%_50%]"
-              style={{
-                backgroundColor: cloudColor,
-                filter: `url(#${filterId})`,
-              }}
-            />
-
-            {/* Top-Right Billowing Flame Plume */}
-            <div
-              className="absolute -top-12 -right-10 h-[68%] w-[65%] rotate-6 rounded-[60%_40%_45%_55%/40%_60%_40%_60%]"
-              style={{
-                backgroundColor: cloudColor,
-                filter: `url(#${filterId})`,
-              }}
-            />
-
-            {/* Top-Left Secondary Flame Tongue */}
-            <div
-              className="absolute -top-8 left-8 h-[55%] w-[55%] -rotate-3 rounded-[50%_50%_35%_65%/60%_40%_60%_40%]"
-              style={{
-                backgroundColor: cloudColor,
-                filter: `url(#${filterId})`,
-              }}
-            />
-
-            {/* Dark Inky/Charred Perimeter Bleed Rim */}
-            <div
-              className="absolute -inset-3 rounded-[44%_56%_68%_32%/46%_44%_56%_54%] border-[10px] border-black/35 opacity-70"
-              style={{
-                filter: `url(#${filterId})`,
-              }}
-            />
-          </motion.div>
+            className="size-[520px] rounded-full origin-center sm:size-[640px]"
+          />
         </div>
 
         {/* ──────────────────────────────────────────
