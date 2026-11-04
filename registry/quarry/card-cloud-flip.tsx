@@ -1,15 +1,16 @@
 "use client";
 
-import { useId, useRef, type RefObject } from "react";
+import { useRef, type RefObject, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /* ─────────────────────────────────────────────────────────────────────────────
  * CardCloudFlip — Scroll-Driven 3D Card Flip & Expanding Watercolor Cloud
  *
- * A centered quest card begins to flip 360° in 3D perspective as the user
- * scrolls, while a lush pastel watercolor cloud blooms outward from behind it
- * to consume the viewport and smoothly reveal a sleek phone frame.
+ * A centered minimalist card begins to flip 360° in 3D perspective as the user
+ * scrolls, showing its plain white front and plain black back while a lush
+ * pastel watercolor cloud blooms outward from behind it to consume the viewport
+ * and reveal a sleek phone frame.
  * ───────────────────────────────────────────────────────────────────────────── */
 
 export type QuestCardData = {
@@ -22,7 +23,11 @@ export type QuestCardData = {
 };
 
 export type CardCloudFlipProps = {
-  /** The quest card details */
+  /** Optional custom front content (defaults to a sleek, plain white card) */
+  frontContent?: ReactNode;
+  /** Optional custom back content (defaults to a sleek, plain black card) */
+  backContent?: ReactNode;
+  /** Legacy card prop for backwards compatibility */
   card?: QuestCardData;
   /** Cloud tint color (default: soft lavender-rose #eed3f5) */
   cloudColor?: string;
@@ -34,218 +39,49 @@ export type CardCloudFlipProps = {
   className?: string;
 };
 
-const DEFAULT_CARD: QuestCardData = {
-  guild: "THE TEMPERERS",
-  title: "Aegis Vanguard",
-  avatars: [
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80",
-  ],
-  avatarCount: "+12",
-};
-
-/** Geometric Coat-of-Arms Crest Shield */
-function CrestShield({ className }: { className?: string }) {
-  const clipId = useId();
+/** Plain White Card Front */
+export function CardFront({
+  children,
+  className,
+}: {
+  children?: ReactNode;
+  className?: string;
+}) {
   return (
-    <svg viewBox="0 0 48 56" className={cn("size-8 drop-shadow-sm", className)} fill="none">
-      <defs>
-        <clipPath id={clipId}>
-          <path d="M4 2 h40 v28 c0 14 -20 24 -20 24 s-20 -10 -20 -24 Z" />
-        </clipPath>
-      </defs>
-      <g clipPath={`url(#${clipId})`}>
-        <rect width="48" height="56" fill="#141216" />
-        {/* Downward vermillion chevron-checker pattern */}
-        <path d="M0 0 L24 22 L48 0 Z" fill="#ff3811" />
-        <path d="M0 14 L24 36 L48 14 Z" fill="#ff3811" opacity="0.9" />
-        <path d="M0 28 L24 50 L48 28 Z" fill="#ff3811" opacity="0.85" />
-        <path d="M24 0 L48 22 L24 44 L0 22 Z" fill="#141216" opacity="0.4" />
-        {/* Fine divider stroke */}
-        <line x1="24" y1="0" x2="24" y2="56" stroke="#000" strokeWidth="1" opacity="0.6" />
-      </g>
-    </svg>
-  );
-}
-
-/** Card Back Heraldic Pattern */
-function CardBackPattern() {
-  return (
-    <div className="relative size-full overflow-hidden rounded-[1.75rem] border border-neutral-900 bg-[#0f0e13] p-5">
-      {/* Intricate Heraldic Orange & Black Tapestry */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#221d28_0%,#0f0e13_100%)]" />
-      <div className="relative flex size-full flex-col items-center justify-between py-6">
-        <CrestShield className="size-10" />
-        {/* Center Geometric Emblem */}
-        <div className="relative size-32">
-          <svg viewBox="0 0 100 120" className="size-full drop-shadow-xl" fill="none">
-            <polygon points="50,10 90,45 50,110 10,45" fill="#ff3811" />
-            <polygon points="50,22 80,48 50,96 20,48" fill="#151218" />
-            <polygon points="50,34 70,52 50,82 30,52" fill="#ff3811" />
-            <line x1="50" y1="10" x2="50" y2="110" stroke="#0e0b11" strokeWidth="2" />
-            <line x1="10" y1="45" x2="90" y2="45" stroke="#0e0b11" strokeWidth="2" />
-          </svg>
-        </div>
-        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#ff3811]/90">
-          The Temperers of Steel
-        </p>
-      </div>
+    <div
+      className={cn(
+        "relative size-full rounded-[1.75rem] border border-neutral-200/80 bg-white shadow-2xl transition-all",
+        className
+      )}
+    >
+      {children}
     </div>
   );
 }
 
-/** Front Face of the Quest Card with rich geometric illustration and zero bulky text */
-function CardFrontContent({ card }: { card: QuestCardData }) {
-  const prismId = useId();
-
+/** Plain Black Card Back */
+export function CardBack({
+  children,
+  className,
+}: {
+  children?: ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="relative flex size-full select-none flex-col justify-between overflow-hidden rounded-[1.75rem] border border-neutral-200/90 bg-[#fefefe] p-5 shadow-2xl transition-all sm:p-6">
-      {/* Micro-dot security matrix background */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#171717_1px,transparent_1px)] [background-size:14px_14px] opacity-[0.035]" />
-
-      {/* Double-bezel inner hairline frame */}
-      <div className="pointer-events-none absolute inset-2.5 rounded-[1.25rem] border border-neutral-200/70" />
-
-      {/* Technical corner crosshair marks */}
-      <div className="pointer-events-none absolute top-3.5 left-3.5 font-mono text-[9px] text-neutral-300 leading-none">＋</div>
-      <div className="pointer-events-none absolute top-3.5 right-3.5 font-mono text-[9px] text-neutral-300 leading-none">＋</div>
-      <div className="pointer-events-none absolute bottom-3.5 left-3.5 font-mono text-[9px] text-neutral-300 leading-none">＋</div>
-      <div className="pointer-events-none absolute bottom-3.5 right-3.5 font-mono text-[9px] text-neutral-300 leading-none">＋</div>
-
-      {/* ──────────────── TOP ROW: Shield + Status Pill ──────────────── */}
-      <div className="relative z-10 flex items-center justify-between">
-        <CrestShield className="size-7" />
-        <div className="flex items-center gap-1.5 rounded-full border border-neutral-200/80 bg-neutral-100/70 px-2.5 py-0.5 backdrop-blur-xs">
-          <span className="size-1.5 rounded-full bg-[#ff3811] animate-pulse" />
-          <span className="font-mono text-[9px] font-semibold tracking-wider text-neutral-700">№ 024</span>
-        </div>
-      </div>
-
-      {/* ──────────────── CENTER HERO GRAPHIC ILLUSTRATION ──────────────── */}
-      <div className="relative z-10 my-auto flex flex-col items-center justify-center py-1">
-        {/* Soft vermillion / amber ambient glow */}
-        <div className="absolute size-36 rounded-full bg-gradient-to-tr from-[#ff3811]/15 via-amber-500/10 to-transparent blur-xl" />
-
-        {/* Intricate Heraldic Geometric Mandala / Compass Sigil */}
-        <svg viewBox="0 0 160 160" className="relative size-36 drop-shadow-sm" fill="none">
-          {/* Concentric calibration rings */}
-          <circle cx="80" cy="80" r="74" stroke="#e5e5e5" strokeWidth="1" strokeDasharray="2 4" />
-          <circle cx="80" cy="80" r="66" stroke="#171717" strokeWidth="0.75" opacity="0.18" />
-          <circle cx="80" cy="80" r="54" stroke="#ff3811" strokeWidth="0.8" opacity="0.3" strokeDasharray="5 3" />
-
-          {/* Cardinal Axis Ticks */}
-          <line x1="80" y1="2" x2="80" y2="10" stroke="#171717" strokeWidth="1.5" />
-          <line x1="80" y1="150" x2="80" y2="158" stroke="#171717" strokeWidth="1.5" />
-          <line x1="2" y1="80" x2="10" y2="80" stroke="#171717" strokeWidth="1.5" />
-          <line x1="150" y1="80" x2="158" y2="80" stroke="#171717" strokeWidth="1.5" />
-
-          {/* Precision dial ring */}
-          <circle cx="80" cy="80" r="74" stroke="#171717" strokeWidth="1" strokeDasharray="1 19.3" opacity="0.25" />
-
-          {/* Fine Diagonal Crosshair Axes */}
-          <line x1="38" y1="38" x2="122" y2="122" stroke="#e5e5e5" strokeWidth="0.75" />
-          <line x1="122" y1="38" x2="38" y2="122" stroke="#e5e5e5" strokeWidth="0.75" />
-
-          {/* Outer Rotating Diamond Frame */}
-          <rect
-            x="42"
-            y="42"
-            width="76"
-            height="76"
-            rx="8"
-            transform="rotate(45 80 80)"
-            stroke="#171717"
-            strokeWidth="1"
-            opacity="0.18"
-          />
-
-          {/* Center Faceted Diamond Star / Prism */}
-          <polygon points="80,30 118,68 80,130 42,68" fill={`url(#${prismId})`} />
-          <polygon points="80,42 108,70 80,116 52,70" fill="#141216" />
-          <polygon points="80,54 98,72 80,102 62,72" fill="#ff3811" opacity="0.92" />
-          <polygon points="80,62 90,72 80,88 70,72" fill="#ff6433" opacity="0.85" />
-
-          {/* Center White Core Accent */}
-          <circle cx="80" cy="73" r="3" fill="#ffffff" />
-
-          {/* Fine Divider Line through diamond */}
-          <line x1="80" y1="30" x2="80" y2="130" stroke="#0e0b11" strokeWidth="1" opacity="0.5" />
-          <line x1="42" y1="68" x2="118" y2="68" stroke="#0e0b11" strokeWidth="1" opacity="0.5" />
-
-          <defs>
-            <linearGradient id={prismId} x1="42" y1="30" x2="118" y2="130" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#ff3811" />
-              <stop offset="0.6" stopColor="#e02600" />
-              <stop offset="1" stopColor="#141216" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Minimalist Typographic Lockup */}
-        <div className="mt-3 flex flex-col items-center text-center">
-          <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.28em] text-[#ff3811]">
-            {card.guild ?? "THE TEMPERERS"}
-          </span>
-          <h4 className="mt-1 text-base font-bold tracking-tight text-neutral-900 sm:text-lg">
-            {card.title ?? "Aegis Vanguard"}
-          </h4>
-          <div className="mt-1 flex items-center gap-1.5 font-mono text-[9px] text-neutral-400">
-            <span>CHRONO KEY</span>
-            <span className="text-neutral-300">•</span>
-            <span>SERIES 02</span>
-          </div>
-        </div>
-      </div>
-
-      {/* ──────────────── BOTTOM ROW: Avatars + Barcode Serial ──────────────── */}
-      <div className="relative z-10 border-t border-neutral-100 pt-3">
-        <div className="flex items-center justify-between">
-          {/* Avatar Cluster */}
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2">
-              {(card.avatars ?? []).map((src, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  className="size-6 rounded-full border-2 border-white object-cover shadow-2xs"
-                />
-              ))}
-            </div>
-            {card.avatarCount && (
-              <span className="rounded-full bg-neutral-100 px-2 py-0.5 font-mono text-[9px] font-medium text-neutral-600">
-                {card.avatarCount}
-              </span>
-            )}
-          </div>
-
-          {/* Micro-Barcode & Serial Stamp */}
-          <div className="flex flex-col items-end">
-            <div className="flex items-center gap-0.5 opacity-75">
-              <div className="h-3 w-0.5 bg-neutral-800" />
-              <div className="h-3 w-1 bg-neutral-800" />
-              <div className="h-3 w-0.5 bg-neutral-300" />
-              <div className="h-3 w-1.5 bg-neutral-800" />
-              <div className="h-3 w-0.5 bg-neutral-800" />
-              <div className="h-3 w-1 bg-neutral-300" />
-              <div className="h-3 w-0.5 bg-neutral-800" />
-              <div className="h-3 w-1.5 bg-neutral-800" />
-              <div className="h-3 w-0.5 bg-neutral-800" />
-            </div>
-            <span className="mt-0.5 font-mono text-[8px] uppercase tracking-wider text-neutral-400">
-              AUT-9921
-            </span>
-          </div>
-        </div>
-      </div>
+    <div
+      className={cn(
+        "relative size-full rounded-[1.75rem] border border-neutral-900 bg-neutral-950 shadow-2xl transition-all",
+        className
+      )}
+    >
+      {children}
     </div>
   );
 }
 
 export function CardCloudFlip({
-  card = DEFAULT_CARD,
+  frontContent,
+  backContent,
   cloudColor = "#eed3f5",
   scrollContainer,
   stageHeight = "100svh",
@@ -387,7 +223,7 @@ export function CardCloudFlip({
                 }}
                 className="relative h-[390px] w-[270px] sm:h-[430px] sm:w-[300px]"
               >
-                {/* FRONT FACE */}
+                {/* FRONT FACE (Plain White Card) */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -395,10 +231,10 @@ export function CardCloudFlip({
                     WebkitBackfaceVisibility: "hidden",
                   }}
                 >
-                  <CardFrontContent card={card} />
+                  <CardFront>{frontContent}</CardFront>
                 </div>
 
-                {/* BACK FACE */}
+                {/* BACK FACE (Plain Black Card) */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -407,7 +243,7 @@ export function CardCloudFlip({
                     transform: "rotateY(180deg)",
                   }}
                 >
-                  <CardBackPattern />
+                  <CardBack>{backContent}</CardBack>
                 </div>
               </motion.div>
             </div>
