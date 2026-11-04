@@ -1,16 +1,15 @@
 "use client";
 
-import { useRef, useState, type RefObject } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useRef, type RefObject } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /* ─────────────────────────────────────────────────────────────────────────────
  * CardCloudFlip — Scroll-Driven 3D Card Flip & Expanding Watercolor Cloud
  *
- * Inspired by Grail. A centered quest card in deep dark space begins to flip
- * 360° in 3D perspective as the user scrolls, while a lush pastel watercolor
- * cloud blooms outward from behind it to consume the viewport and reveal
- * a live countdown timer and phone frame.
+ * A centered quest card begins to flip 360° in 3D perspective as the user
+ * scrolls, while a lush pastel watercolor cloud blooms outward from behind it
+ * to consume the viewport and smoothly reveal a sleek phone frame.
  * ───────────────────────────────────────────────────────────────────────────── */
 
 export type QuestCardData = {
@@ -25,26 +24,6 @@ export type QuestCardData = {
 export type CardCloudFlipProps = {
   /** The quest card details */
   card?: QuestCardData;
-  /** Header top left eyebrow */
-  headerLeft?: string;
-  /** Header top right chapter */
-  headerRight?: string;
-  /** Landing headline top line */
-  titleLine1?: string;
-  /** Landing headline bottom line */
-  titleLine2?: string;
-  /** Giant timer hours:minutes:seconds start */
-  timerStart?: string;
-  /** Giant timer hours:minutes:seconds finish */
-  timerEnd?: string;
-  /** Left column narrative */
-  leftStory?: string;
-  /** Right column narrative */
-  rightStory?: string;
-  /** Waitlist pill label */
-  waitlistLabel?: string;
-  /** Waitlist button click callback */
-  onWaitlistClick?: () => void;
   /** Cloud tint color (default: soft lavender-rose #eed3f5) */
   cloudColor?: string;
   /** Optional scroll container ref for embedded preview boxes */
@@ -167,16 +146,6 @@ function CardFrontContent({ card }: { card: QuestCardData }) {
 
 export function CardCloudFlip({
   card = DEFAULT_CARD,
-  headerLeft = "About Timer",
-  headerRight = "Chapter 02",
-  titleLine1 = "QUEST ACCEPTED.",
-  titleLine2 = "CLOCK'S RUNNING.",
-  timerStart = "47:50:23",
-  timerEnd = "47:48:23",
-  leftStory = "Now there's a clock on it. Forty-eight hours to go do the thing, because 'later' is how every one of these dies.",
-  rightStory = "Not 24, since a day is too easy to lose to work or weather or a bad mood. Two days gives you room to fit it into a real life, and keeps it tight enough that you can't quietly let it slide. The clock is there to turn someday into this week.",
-  waitlistLabel = "Join Waitlist",
-  onWaitlistClick,
   cloudColor = "#eed3f5",
   scrollContainer,
   stageHeight = "100svh",
@@ -187,22 +156,6 @@ export function CardCloudFlip({
     target: root,
     container: scrollContainer,
     offset: ["start start", "end end"],
-  });
-
-  // Track live timer readout
-  const [displayTimer, setDisplayTimer] = useState(timerStart);
-
-  useMotionValueEvent(p, "change", (v) => {
-    // Interpolate seconds between start and end as you scroll
-    if (v < 0.3) {
-      setDisplayTimer(timerStart);
-    } else if (v > 0.8) {
-      setDisplayTimer(timerEnd);
-    } else {
-      const frac = (v - 0.3) / 0.5;
-      const sec = Math.round(23 - frac * 15);
-      setDisplayTimer(`47:${Math.max(48, 50 - Math.floor(frac * 2))}:${String(Math.max(0, sec)).padStart(2, "0")}`);
-    }
   });
 
   // 3D Card Rotation & Pitch
@@ -218,17 +171,9 @@ export function CardCloudFlip({
   // Overall Background Color Shift
   const bgDarkOpacity = useTransform(p, [0.55, 0.78], [1, 0]);
 
-  // Giant Timer Opacity & Parallax
-  const timerOpacity = useTransform(p, [0.22, 0.45, 0.8], [0, 0.7, 0.85]);
-  const timerScale = useTransform(p, [0.22, 0.8], [0.92, 1]);
-
   // Phone Mockup Materialization around Card
   const phoneFrameOpacity = useTransform(p, [0.72, 0.86], [0, 1]);
   const phoneFrameScale = useTransform(p, [0.72, 0.86], [0.94, 1]);
-
-  // Header and Story Text Fades
-  const headerOpacity = useTransform(p, [0.68, 0.84], [0, 1]);
-  const storyOpacity = useTransform(p, [0.38, 0.65], [0, 1]);
 
   return (
     <section
@@ -311,43 +256,6 @@ export function CardCloudFlip({
         </div>
 
         {/* ──────────────────────────────────────────
-            GIANT BACKGROUND COUNTDOWN TIMER
-            ────────────────────────────────────────── */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <motion.p
-            style={{
-              opacity: timerOpacity,
-              scale: timerScale,
-            }}
-            className="select-none font-[family-name:var(--font-instrument)] font-serif text-[clamp(4.8rem,16vw,17rem)] font-light tracking-tight text-[#b282c4]/45 sm:tracking-normal drop-shadow-sm"
-          >
-            {displayTimer}
-          </motion.p>
-        </div>
-
-        {/* ──────────────────────────────────────────
-            TOP HEADER & CHAPTER TITLES
-            ────────────────────────────────────────── */}
-        <motion.div
-          style={{ opacity: headerOpacity }}
-          className="absolute inset-x-0 top-0 z-20 flex flex-col items-center px-6 pt-7 sm:px-10"
-        >
-          <div className="flex w-full items-center justify-between text-xs font-medium tracking-wider text-neutral-800">
-            <span>{headerLeft}</span>
-            <span>{headerRight}</span>
-          </div>
-
-          <div className="mt-2 text-center sm:mt-4">
-            <h2 className="font-[family-name:var(--font-instrument)] font-serif text-3xl font-medium tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl leading-[0.95]">
-              {titleLine1}
-            </h2>
-            <h2 className="font-[family-name:var(--font-instrument)] font-serif text-3xl font-medium tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl leading-[0.95]">
-              {titleLine2}
-            </h2>
-          </div>
-        </motion.div>
-
-        {/* ──────────────────────────────────────────
             CENTER 3D FLIPPING CARD & PHONE FRAME
             ────────────────────────────────────────── */}
         <div className="relative z-10 flex size-full items-center justify-center p-4">
@@ -404,39 +312,6 @@ export function CardCloudFlip({
               </motion.div>
             </div>
           </div>
-        </div>
-
-        {/* ──────────────────────────────────────────
-            EDITORIAL COPY & NARRATIVE (BOTTOM)
-            ────────────────────────────────────────── */}
-        <motion.div
-          style={{ opacity: storyOpacity }}
-          className="absolute inset-x-0 bottom-8 z-20 px-6 sm:bottom-12 sm:px-12 lg:px-16"
-        >
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-16">
-            <p className="max-w-md text-xs font-normal leading-relaxed text-neutral-800 sm:text-sm">
-              {leftStory}
-            </p>
-            <p className="max-w-md text-xs font-normal leading-relaxed text-neutral-800 sm:text-sm">
-              {rightStory}
-            </p>
-          </div>
-        </motion.div>
-
-        {/* ──────────────────────────────────────────
-            JOIN WAITLIST PILL BUTTON (BOTTOM LEFT)
-            ────────────────────────────────────────── */}
-        <div className="absolute bottom-6 left-6 z-30 sm:bottom-8 sm:left-10">
-          <button
-            type="button"
-            onClick={onWaitlistClick}
-            className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-neutral-950/90 px-4 py-2 text-xs font-medium text-white shadow-xl backdrop-blur-md transition-transform duration-200 hover:scale-105 active:scale-95"
-          >
-            <span className="grid size-5 place-items-center rounded-full bg-white/10 text-[11px] font-bold text-amber-300">
-              福
-            </span>
-            <span>{waitlistLabel}</span>
-          </button>
         </div>
       </div>
     </section>
