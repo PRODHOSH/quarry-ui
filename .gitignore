@@ -45,4 +45,7 @@ next-env.d.ts
 
 # local reference checkout, not part of the site
 /awesome-design-md
-config.bat
+
+# env files
+.env*
+!.env.example
