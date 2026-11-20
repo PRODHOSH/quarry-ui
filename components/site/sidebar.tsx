@@ -85,6 +85,7 @@ export const ICONS: Record<string, LucideIcon> = {
   "page-preloader": QLoader,
   "floating-chat": QMessageCircleMore,
   "hero-card-flight": PlaneTakeoff,
+  "card-blur-reveal": Sparkles,
   "hero-split": IPanelRight,
   "hero-centered": IPresentation,
   "feature-rows": IRows3,
