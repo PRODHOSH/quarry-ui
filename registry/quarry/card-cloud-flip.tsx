@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
  * CardCloudFlip — Scroll-Driven 3D Card Flip to Full-Screen Image Reveal
  *
  * In the first frame, an image is displayed at card size. As the user scrolls,
- * the card flips in 3D perspective while an expanding round portal reveals a
- * breathtaking full-screen image that smoothly takes over the entire viewport.
+ * the card flips in 3D perspective to 90° and vanishes into an expanding round
+ * portal that smoothly reveals a full-screen image taking over the entire viewport.
  * ───────────────────────────────────────────────────────────────────────────── */
 
 export type QuestCardData = {
@@ -40,7 +40,7 @@ export type CardCloudFlipProps = {
   fullScreenContent?: ReactNode;
   /** Legacy card prop for backwards compatibility */
   card?: QuestCardData;
-  /** Round portal tint color (default: soft lavender-rose #eed3f5) */
+  /** Optional background tint color */
   cloudColor?: string;
   /** Optional scroll container ref for embedded preview boxes */
   scrollContainer?: RefObject<HTMLElement | null>;
@@ -96,7 +96,7 @@ export function CardCloudFlip({
   frontContent,
   backContent,
   fullScreenContent,
-  cloudColor = "#eed3f5",
+  cloudColor,
   scrollContainer,
   stageHeight = "100svh",
   className,
@@ -108,26 +108,27 @@ export function CardCloudFlip({
     offset: ["start start", "end end"],
   });
 
-  // 3D Card Rotation & Pitch (Flips 180° front-to-back)
-  const cardRotateY = useTransform(p, [0.1, 0.48], [0, 180]);
-  const cardRotateX = useTransform(p, [0.1, 0.28, 0.48], [0, 14, 0]);
-  const cardRotateZ = useTransform(p, [0.1, 0.28, 0.48], [0, -6, 0]);
-  const cardScale = useTransform(p, [0.1, 0.28, 0.48, 0.62], [1, 0.92, 1, 1.08]);
+  // 3D Card Rotation: Rotates from 0° to 90° edge-on and disappears
+  const cardRotateY = useTransform(p, [0.08, 0.32], [0, 90]);
+  const cardRotateX = useTransform(p, [0.08, 0.18, 0.31], [0, 8, 0]);
+  const cardRotateZ = useTransform(p, [0.08, 0.18, 0.31], [0, -4, 0]);
+  const cardScale = useTransform(p, [0.08, 0.18, 0.31], [1, 0.96, 1]);
 
-  // Card fades out after completing its flip so only the full-screen image remains
-  const cardOpacity = useTransform(p, [0.46, 0.62], [1, 0]);
+  // Card disappears right at 90 degrees
+  const cardOpacity = useTransform(p, [0.08, 0.25, 0.31], [1, 1, 0]);
+  const cardPointerEvents = useTransform(p, (v) => (v >= 0.31 ? "none" : "auto"));
 
   // Expanding Round Circle Portal revealing the full-screen image
   const fullScreenClipPath = useTransform(
     p,
-    [0.2, 0.78],
+    [0.12, 0.72],
     ["circle(16% at 50% 50%)", "circle(140% at 50% 50%)"]
   );
-  const fullScreenOpacity = useTransform(p, [0.12, 0.28], [0, 1]);
-  const fullScreenScale = useTransform(p, [0.2, 0.8], [1.08, 1]);
+  const fullScreenOpacity = useTransform(p, [0.06, 0.18], [0, 1]);
+  const fullScreenScale = useTransform(p, [0.12, 0.72], [1.08, 1]);
 
-  // Overall Dark Backdrop that recedes as image expands
-  const bgDarkOpacity = useTransform(p, [0.5, 0.75], [1, 0]);
+  // Overlay text fade-in as full-screen image takes over
+  const fullScreenContentOpacity = useTransform(p, [0.55, 0.75], [0, 1]);
 
   return (
     <section
@@ -139,20 +140,16 @@ export function CardCloudFlip({
           STICKY VIEWPORT STAGE
           ────────────────────────────────────────── */}
       <div
-        className="sticky top-0 w-full overflow-hidden"
+        className="sticky top-0 w-full overflow-hidden bg-[#08070b]"
         style={{ height: stageHeight }}
       >
-        {/* Full Canvas Base Layer underneath */}
-        <div
-          className="absolute inset-0"
-          style={{ backgroundColor: cloudColor }}
-        />
-
-        {/* Deep Black Backdrop */}
-        <motion.div
-          style={{ opacity: bgDarkOpacity }}
-          className="pointer-events-none absolute inset-0 bg-[#070609]"
-        />
+        {/* Optional Custom Background Tint */}
+        {cloudColor && (
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: cloudColor }}
+          />
+        )}
 
         {/* ──────────────────────────────────────────
             FULL-SCREEN IMAGE (EXPANDING ROUND PORTAL)
@@ -179,9 +176,12 @@ export function CardCloudFlip({
 
           {/* Optional Overlay Content */}
           {fullScreenContent && (
-            <div className="pointer-events-auto absolute inset-0 flex items-center justify-center p-6">
+            <motion.div
+              style={{ opacity: fullScreenContentOpacity }}
+              className="pointer-events-auto absolute inset-0 flex items-center justify-center p-6"
+            >
               {fullScreenContent}
-            </div>
+            </motion.div>
           )}
         </motion.div>
 
@@ -202,6 +202,7 @@ export function CardCloudFlip({
                   rotateZ: cardRotateZ,
                   scale: cardScale,
                   opacity: cardOpacity,
+                  pointerEvents: cardPointerEvents,
                   transformStyle: "preserve-3d",
                 }}
                 className="relative h-[390px] w-[270px] sm:h-[430px] sm:w-[300px]"
@@ -230,7 +231,7 @@ export function CardCloudFlip({
                   </CardFront>
                 </div>
 
-                {/* BACK FACE: Aligns with full screen image during flip */}
+                {/* BACK FACE CONTAINER (Preserved for compatibility) */}
                 <div
                   className="absolute inset-0"
                   style={{
