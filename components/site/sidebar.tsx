@@ -56,7 +56,6 @@ import {
   BadgeCheck,
   CircleDot,
   PlaneTakeoff,
-  Hourglass,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -86,7 +85,7 @@ export const ICONS: Record<string, LucideIcon> = {
   "page-preloader": QLoader,
   "floating-chat": QMessageCircleMore,
   "hero-card-flight": PlaneTakeoff,
-  "card-cloud-flip": Hourglass,
+  "card-blur-reveal": Sparkles,
   "hero-split": IPanelRight,
   "hero-centered": IPresentation,
   "feature-rows": IRows3,

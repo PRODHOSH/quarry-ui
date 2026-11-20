@@ -2803,27 +2803,26 @@
       }
     },
     {
-      "name": "card-cloud-flip",
+      "name": "card-blur-reveal",
       "type": "registry:block",
-      "title": "Card Cloud Flip",
-      "description": "A scroll-driven story section: a quest card performs a 360° 3D flip as an organic watercolor cloud expands to cover the screen, revealing a running countdown clock and phone frame.",
+      "title": "Card Blur Reveal",
+      "description": "A scroll-driven story section: a 3D perspective card rotates into edge-on profile and vanishes while an atmospheric blurred background sharpens into a stunning full-screen image reveal.",
       "categories": [
         "sections"
       ],
       "dependencies": [
-        "framer-motion",
-        "lucide-react"
+        "framer-motion"
       ],
       "registryDependencies": [
         "utils"
       ],
       "files": [
         {
-          "path": "registry/quarry/card-cloud-flip.tsx",
+          "path": "registry/quarry/card-blur-reveal.tsx",
           "type": "registry:block"
         }
       ],
-      "docs": "import { CardCloudFlip } from \"@/components/card-cloud-flip\"\n\n<CardCloudFlip />",
+      "docs": "import { CardBlurReveal } from \"@/components/card-blur-reveal\"\n\n<CardBlurReveal />",
       "meta": {
         "stage": "fill",
         "theme": "porcelain"

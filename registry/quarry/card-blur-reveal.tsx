@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * CardCloudFlip — Scroll-Driven 3D Card Flip to Full-Screen Image Blur-Reveal
+ * CardBlurReveal — Scroll-Driven 3D Card Flip to Full-Screen Image Blur-Reveal
  *
  * In the first frame, an image is displayed at card size over an atmospheric,
  * blurred backdrop. As the user scrolls, the card flips in 3D perspective to
@@ -28,7 +28,7 @@ export const DEFAULT_FRONT_IMAGE =
 export const DEFAULT_BACK_IMAGE =
   "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1920&auto=format&fit=crop&q=80";
 
-export type CardCloudFlipProps = {
+export type CardBlurRevealProps = {
   /** Image shown on the card in the first frame (card size) */
   frontImage?: string;
   /** Image shown in full screen after flipping */
@@ -91,7 +91,7 @@ export function CardBack({
   );
 }
 
-export function CardCloudFlip({
+export function CardBlurReveal({
   frontImage = DEFAULT_FRONT_IMAGE,
   backImage = DEFAULT_BACK_IMAGE,
   frontContent,
@@ -101,7 +101,7 @@ export function CardCloudFlip({
   scrollContainer,
   stageHeight = "100svh",
   className,
-}: CardCloudFlipProps) {
+}: CardBlurRevealProps) {
   const root = useRef<HTMLElement>(null);
   const { scrollYProgress: p } = useScroll({
     target: root,
@@ -270,4 +270,6 @@ export function CardCloudFlip({
   );
 }
 
-export default CardCloudFlip;
+// Backward compatibility alias
+export { CardBlurReveal as CardCloudFlip, type CardBlurRevealProps as CardCloudFlipProps };
+export default CardBlurReveal;

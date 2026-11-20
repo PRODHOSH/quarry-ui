@@ -57,7 +57,7 @@ import { PagePreloader } from "./quarry/page-preloader";
 import { FloatingChat } from "./quarry/floating-chat";
 
 import { HeroCardFlight } from "./quarry/hero-card-flight";
-import { CardCloudFlip } from "./quarry/card-cloud-flip";
+import { CardBlurReveal } from "./quarry/card-blur-reveal";
 import { HeroSplit } from "./quarry/hero-split";
 import { HeroCentered } from "./quarry/hero-centered";
 import { FeatureRows } from "./quarry/feature-rows";
@@ -435,7 +435,7 @@ const DragCarouselDemo = () => (
 const StairStatsDemo = () => <ScrollBox>{(ref) => <StairStats scrollContainer={ref} />}</ScrollBox>;
 const MosaicHeroDemo = () => <MosaicHero className="h-[34rem]" />;
 const CloudRiseDemo = () => <ScrollBox start={0.34}>{(ref) => <CloudRise scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
-const CardCloudFlipDemo = () => <ScrollBox>{(ref) => <CardCloudFlip scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
+const CardBlurRevealDemo = () => <ScrollBox>{(ref) => <CardBlurReveal scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
 function CandleFieldDemo(props: Record<string, unknown>) {
   return (
     <CandleField ground="#050505" candle="#9a9a9a" highlight="#ff2a2a" {...props} className="h-[34rem]">
@@ -573,7 +573,7 @@ export const DEMOS: Record<string, ComponentType> = {
   "newsletter-reader": dynamic(() => import("./quarry/newsletter-reader").then((m) => m.NewsletterReader)),
   "sprint-roadmap": dynamic(() => import("./quarry/sprint-roadmap").then((m) => m.SprintRoadmap)),
   "hero-card-flight": HeroCardFlightDemo,
-  "card-cloud-flip": CardCloudFlipDemo,
+  "card-blur-reveal": CardBlurRevealDemo,
   "hero-split": HeroSplitDemo,
   "hero-centered": HeroCenteredDemo,
   "feature-rows": FeatureRowsDemo,
