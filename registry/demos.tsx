@@ -435,7 +435,7 @@ const DragCarouselDemo = () => (
 const StairStatsDemo = () => <ScrollBox>{(ref) => <StairStats scrollContainer={ref} />}</ScrollBox>;
 const MosaicHeroDemo = () => <MosaicHero className="h-[34rem]" />;
 const CloudRiseDemo = () => <ScrollBox start={0.34}>{(ref) => <CloudRise scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
-const CardCloudFlipDemo = () => <ScrollBox start={0.25}>{(ref) => <CardCloudFlip scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
+const CardCloudFlipDemo = () => <ScrollBox>{(ref) => <CardCloudFlip scrollContainer={ref} stageHeight="34rem" />}</ScrollBox>;
 function CandleFieldDemo(props: Record<string, unknown>) {
   return (
     <CandleField ground="#050505" candle="#9a9a9a" highlight="#ff2a2a" {...props} className="h-[34rem]">

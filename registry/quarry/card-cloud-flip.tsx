@@ -5,11 +5,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * CardCloudFlip — Scroll-Driven 3D Card Flip to Full-Screen Image Reveal
+ * CardCloudFlip — Scroll-Driven 3D Card Flip to Full-Screen Image Blur-Reveal
  *
- * In the first frame, an image is displayed at card size. As the user scrolls,
- * the card flips in 3D perspective to 90° and vanishes into an expanding round
- * portal that smoothly reveals a full-screen image taking over the entire viewport.
+ * In the first frame, an image is displayed at card size over an atmospheric,
+ * blurred backdrop. As the user scrolls, the card flips in 3D perspective to
+ * 90° and vanishes, while the background smoothly unblurs into a razor-sharp,
+ * breathtaking full-screen image reveal across the entire viewport.
  * ───────────────────────────────────────────────────────────────────────────── */
 
 export type QuestCardData = {
@@ -108,27 +109,26 @@ export function CardCloudFlip({
     offset: ["start start", "end end"],
   });
 
-  // 3D Card Rotation: Rotates from 0° to 90° edge-on and disappears
-  const cardRotateY = useTransform(p, [0.08, 0.32], [0, 90]);
-  const cardRotateX = useTransform(p, [0.08, 0.18, 0.31], [0, 8, 0]);
-  const cardRotateZ = useTransform(p, [0.08, 0.18, 0.31], [0, -4, 0]);
-  const cardScale = useTransform(p, [0.08, 0.18, 0.31], [1, 0.96, 1]);
+  // 3D Card Rotation: Rotates from 0° to 90° edge-on and vanishes
+  const cardRotateY = useTransform(p, [0.06, 0.28], [0, 90]);
+  const cardRotateX = useTransform(p, [0.06, 0.17, 0.28], [0, 8, 0]);
+  const cardRotateZ = useTransform(p, [0.06, 0.17, 0.28], [0, -4, 0]);
+  const cardScale = useTransform(p, [0.06, 0.17, 0.28], [1, 0.96, 1]);
 
   // Card disappears right at 90 degrees
-  const cardOpacity = useTransform(p, [0.08, 0.25, 0.31], [1, 1, 0]);
-  const cardPointerEvents = useTransform(p, (v) => (v >= 0.31 ? "none" : "auto"));
+  const cardOpacity = useTransform(p, [0.06, 0.23, 0.28], [1, 1, 0]);
+  const cardPointerEvents = useTransform(p, (v) => (v >= 0.28 ? "none" : "auto"));
 
-  // Expanding Round Circle Portal revealing the full-screen image
-  const fullScreenClipPath = useTransform(
-    p,
-    [0.12, 0.72],
-    ["circle(16% at 50% 50%)", "circle(140% at 50% 50%)"]
+  // Blur-to-reveal full-screen background animation
+  const bgBlur = useTransform(p, [0.06, 0.42], [28, 0]);
+  const bgFilter = useTransform(bgBlur, (b) =>
+    b <= 0.1 ? "none" : `blur(${b.toFixed(1)}px)`
   );
-  const fullScreenOpacity = useTransform(p, [0.06, 0.18], [0, 1]);
-  const fullScreenScale = useTransform(p, [0.12, 0.72], [1.08, 1]);
+  const bgScale = useTransform(p, [0.06, 0.42], [1.1, 1]);
+  const bgDimOpacity = useTransform(p, [0.06, 0.42], [0.4, 0.12]);
 
-  // Overlay text fade-in as full-screen image takes over
-  const fullScreenContentOpacity = useTransform(p, [0.55, 0.75], [0, 1]);
+  // Overlay text fade-in as full-screen image clarifies
+  const fullScreenContentOpacity = useTransform(p, [0.38, 0.58], [0, 1]);
 
   return (
     <section
@@ -152,16 +152,16 @@ export function CardCloudFlip({
         )}
 
         {/* ──────────────────────────────────────────
-            FULL-SCREEN IMAGE (EXPANDING ROUND PORTAL)
+            FULL-SCREEN IMAGE (BLUR-TO-REVEAL)
             ────────────────────────────────────────── */}
-        <motion.div
-          style={{
-            clipPath: fullScreenClipPath,
-            opacity: fullScreenOpacity,
-          }}
-          className="pointer-events-none absolute inset-0 size-full overflow-hidden"
-        >
-          <motion.div style={{ scale: fullScreenScale }} className="size-full">
+        <div className="pointer-events-none absolute inset-0 size-full overflow-hidden">
+          <motion.div
+            style={{
+              filter: bgFilter,
+              scale: bgScale,
+            }}
+            className="size-full"
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={backImage}
@@ -171,8 +171,14 @@ export function CardCloudFlip({
             />
           </motion.div>
 
-          {/* Subtle cinematic gradient vignette */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 opacity-40" />
+          {/* Cinematic overlay that clears as background sharpens */}
+          <motion.div
+            style={{ opacity: bgDimOpacity }}
+            className="absolute inset-0 bg-black"
+          />
+
+          {/* Subtle vignette gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 opacity-30" />
 
           {/* Optional Overlay Content */}
           {fullScreenContent && (
@@ -183,7 +189,7 @@ export function CardCloudFlip({
               {fullScreenContent}
             </motion.div>
           )}
-        </motion.div>
+        </div>
 
         {/* ──────────────────────────────────────────
             CENTER 3D FLIPPING CARD (CARD SIZE IN FIRST FRAME)
